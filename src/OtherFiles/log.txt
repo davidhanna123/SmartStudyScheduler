@@ -1,0 +1,13 @@
+log 1 - 2/4/24
+  Meeting from 6:30PM - 7:30PM
+  Discussed what the base of the project would be like. 
+  Decided on what class dependencies would look like.
+log 2 - 2/4/24
+  Meeting from 7:35PM - 9:55PM
+  Designed UML Diagram for project implementation.
+  Setup repo Wiki
+  Set date to finalize UML Diagram.
+log 3 - 2/10/24
+  Meeting from 5:00PM - 9:00PM
+  Started working on base of the app.
+  Set up libraries needed for GUI.
