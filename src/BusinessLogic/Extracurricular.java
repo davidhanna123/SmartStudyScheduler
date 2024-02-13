@@ -1,5 +1,5 @@
 package BusinessLogic;
-//School related extracurricular
+//School related extracurricular*
 public class Extracurricular extends Event{
 	private String location;
 	private String organizer;
