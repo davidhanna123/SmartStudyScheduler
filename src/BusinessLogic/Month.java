@@ -8,6 +8,7 @@ import java.util.*;
 
 public class Month implements Comparable<Month> {
     private String monthName;
+    private int monthNumber; // months position number in the year
     private int numOfDays;
     private TreeSet<Day> days;
 
@@ -22,6 +23,14 @@ public class Month implements Comparable<Month> {
 
     public void setMonthName(String monthName) {
         this.monthName = monthName;
+    }
+    
+    public int getMonthNumber() {
+    	return monthNumber;
+    }
+    
+    public void setMonthNumber(int monthNumber) {
+    	this.monthNumber = monthNumber;
     }
 
     public int getNumOfDays() {
@@ -39,9 +48,14 @@ public class Month implements Comparable<Month> {
     public void setDays(TreeSet<Day> days) {
         this.days = days;
     }
+    
+    public void addDay(Day day) {
+    	this.days.add(day);
+    }
 
     @Override
     public int compareTo(Month other) {
-        return Integer.compare(this.numOfDays, other.getNumOfDays());
+    	// Compare based on the month's position in the year
+        return Integer.compare(this.monthNumber, other.getMonthNumber());
     }
 }

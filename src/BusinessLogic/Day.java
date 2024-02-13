@@ -3,7 +3,6 @@
 //218715508
 package BusinessLogic;
 
-
 import java.util.*;
 
 public class Day implements Comparable<Day>{
