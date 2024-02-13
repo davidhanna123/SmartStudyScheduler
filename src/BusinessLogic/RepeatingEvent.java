@@ -1,5 +1,5 @@
 package BusinessLogic;
-
+//Repeating event(like reoccuring labs, homeworks, assignments etc)
 public class RepeatingEvent extends Event{
 	private String repeatRate;
 	private int repeatGapDay;
