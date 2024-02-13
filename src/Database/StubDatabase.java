@@ -1,5 +1,5 @@
 package Database;
 
-public class test2 {
+public class StubDatabase {
 //delete this class later
 }
