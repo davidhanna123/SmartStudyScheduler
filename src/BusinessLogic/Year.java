@@ -9,8 +9,8 @@ public class Year implements Comparable<Year> {
     private int currentYear;
     private TreeSet<Month> months;
 
-    public Year() {
-        // Initialize months TreeSet or any other initialization needed
+    public Year(int currentYear) {
+        this.currentYear = currentYear;
         this.months = new TreeSet<>();
     }
 
@@ -25,6 +25,11 @@ public class Year implements Comparable<Year> {
     public TreeSet<Month> getMonths() {
         return months;
     }
+    
+    // adding month to the year
+    public void addMonth(Month month) {
+    	this.months.add(month);
+    }
 
     public void setMonths(TreeSet<Month> months) {
         this.months = months;
@@ -33,5 +38,15 @@ public class Year implements Comparable<Year> {
     @Override
     public int compareTo(Year other) {
         return Integer.compare(this.currentYear, other.getCurrentYear());
+    }
+    
+    // finding the month by number
+    public Month findMonthByNumber(int monthNumber) throws MonthNotFoundException {
+    	for (Month month : months) {
+    		if (month.getMonthNumber() == monthNumber) {
+    			return month;
+    		}
+    	}
+    	throw new MonthNotFoundException("Month: " + monthNumber + " not found in year " + currentYear);
     }
 }
