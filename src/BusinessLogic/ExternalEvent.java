@@ -90,5 +90,10 @@ public class ExternalEvent extends Event{
 		this.organizer = organizer;
 	}
 
+	@Override
+	public int compareTo(Event o) {
+		// TODO Auto-generated method stub
+		return this.startingTime.compareTo(o.startingTime);
+	}
 	
 }

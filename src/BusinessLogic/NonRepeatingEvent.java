@@ -1,6 +1,6 @@
 package BusinessLogic;
 //Normal event*
-public class NonRepeatingEvent extends Event{
+public class NonRepeatingEvent extends Event {
 
 	public NonRepeatingEvent() {
 		// TODO Auto-generated constructor stub
@@ -55,6 +55,12 @@ public class NonRepeatingEvent extends Event{
 		// TODO Auto-generated method stub
 		this.duration = duration;
 		
+	}
+	
+	@Override
+	public int compareTo(Event o) {
+		// TODO Auto-generated method stub
+		return this.startingTime.compareTo(o.startingTime);
 	}
 	
 	

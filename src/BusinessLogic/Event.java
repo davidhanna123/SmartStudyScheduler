@@ -1,6 +1,6 @@
 package BusinessLogic;
 //Abstract class that other different kinds of event will extend*
-public abstract class Event {
+public abstract class Event implements Comparable<Event>{
 	protected String title;
 	protected String description;
 	protected Hour startingTime;
@@ -26,5 +26,12 @@ public abstract class Event {
 	protected abstract void setStartingTime(Hour startingTime);
 
 	protected abstract void setDuration(int duration);
+
+	@Override
+	public int compareTo(Event o) {
+		return 0;
+	}
+	
+	
 
 }

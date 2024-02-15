@@ -63,6 +63,14 @@ public class RepeatingEvent extends Event{
 		this.duration = duration;
 		
 	}
+
+	@Override
+	public int compareTo(Event o) {
+		// TODO Auto-generated method stub
+		return this.startingTime.compareTo(o.startingTime);
+	}
+	
+	
 	
 	
 
