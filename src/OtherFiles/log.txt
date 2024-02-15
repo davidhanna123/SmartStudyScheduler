@@ -11,3 +11,11 @@ log 3 - 2/10/24
   Meeting from 5:00PM - 9:00PM
   Started working on base of the app.
   Set up libraries needed for GUI.
+log 4 - 2/13/24
+  Kamil designs and Implements Base classes
+  Yadon designs and Implements Event class and subclasses
+  Jonah Redesigns Assignment and Homework classes
+log 5 - 2/14/24
+  Kamil changes main implementation of project and makes the event adding main methods of the program in the Day class
+  Yadon adds methods to base classes and overloads constructors for testing. Prepares Event and Day(one of the base classes) integration testing files.
+  
