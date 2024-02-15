@@ -15,7 +15,7 @@ public class RepeatingEvent extends Event{
 
 	public void AddRepeatingEvent(int repeat) {
 		for (int i =0; i < repeat; i++) {
-			
+		
 		}
 	}
 	@Override
