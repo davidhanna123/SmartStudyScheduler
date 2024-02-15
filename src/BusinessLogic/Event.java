@@ -1,14 +1,34 @@
 package BusinessLogic;
-//Abstract class that other different kinds of event will extend*
-public abstract class Event {
+//Abstract class that other different kinds of event will extend
+public abstract class Event implements Comparable<Event>{
 	protected String title;
 	protected String description;
 	protected Hour startingTime;
 	protected int duration;
+	
+	
+	protected Homework homework;
+	protected Assignment assignment; 
 
-	protected Event() {
+	protected Event(String title, String description, Hour startingTime, int duration) {
 		// TODO Auto-generated constructor stub
 		super();
+		this.title = title;
+		this.description = description;
+		this.startingTime = startingTime;
+		this.duration = duration;
+	}
+	
+	public void setHomework(Homework homework) {
+		this.homework = homework;
+		// logic to set up the duration time based on hw's completion time
+		// here ...............
+	}
+	
+	public void setAssignment(Assignment assignment) {
+		this.assignment = assignment;
+		// logic to set up the duration time based on assignment's completion time
+		// here ...............
 	}
 
 	protected abstract String getTitle();
@@ -26,5 +46,20 @@ public abstract class Event {
 	protected abstract void setStartingTime(Hour startingTime);
 
 	protected abstract void setDuration(int duration);
+
+	@Override
+	public int compareTo(Event o) {
+		// comparing startingTime 
+		int compared = this.startingTime.compareTo(o.startingTime);
+		if (compared != 0) {
+			return compared;
+		}
+		
+		// if startingTimes are the same, then we compare by title
+		// it would prevent them from both being added to the set 
+		return this.title.compareTo(o.title);
+	}
+	
+	
 
 }

@@ -12,8 +12,13 @@ public class Day implements Comparable<Day>{
 	private TreeSet<Hour> hours;
 	private TreeSet<Event> events;
 	
+	// default constructor
+	public Day() {}
 	
-	public Day() {
+	
+	public Day(LocalDate date) {
+		super();
+		this.date = LocalDate.now();
 		this.hours = new TreeSet<>();
 		this.events = new TreeSet<>();
 	}
@@ -53,7 +58,7 @@ public class Day implements Comparable<Day>{
 	}
 	
 	// finding an event by title
-	public Event findEvenByTitle(String title) {
+	public Event findEventByTitle(String title) {
 		for(Event event : events) {
 			if (event.getTitle().equals(title)) {
 				return event;
@@ -65,5 +70,27 @@ public class Day implements Comparable<Day>{
 	@Override
 	public int compareTo(Day other) {
 		return this.date.compareTo(other.getDate());
+	}
+	
+	//Yadon added this. Kamil can remove it but we might need it.
+	public void addHour(Hour hour) {
+		this.hours.add(hour);
+	}
+	
+	// list all of the events for the day
+	public List<Event> listEvents(){
+		return new ArrayList<>(events);
+	}
+	
+	// checking the availability (time slot availability)
+	public boolean isTimeSlotAvailable(Hour startingHour, int duration) {
+		// TODO
+		return false;
+	}
+	
+	// Update an event
+	public boolean updateAnEvent(String title, Event updateEvent) {
+		// TODO
+		return false;
 	}
 }

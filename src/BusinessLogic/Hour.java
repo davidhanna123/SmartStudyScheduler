@@ -12,6 +12,16 @@ public class Hour implements Comparable<Hour> {
 	
 	public Hour() {}
 	
+	
+	
+	public Hour(int time, double minuteModifier) {
+		super();
+		this.time = time;
+		this.minuteModifier = minuteModifier;
+	}
+
+
+
 	public int getTime() {
         return time;
     }

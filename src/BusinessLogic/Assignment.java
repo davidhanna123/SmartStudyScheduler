@@ -1,5 +1,6 @@
 package BusinessLogic;
 
+import java.time.LocalDate;
 import java.util.*;
 
 //Assingment subclass for SmartStudyScheduler
@@ -25,13 +26,13 @@ public class Assignment extends Homework {
 	}
 	
 	//Constructor with min and Day parameters
-	public Assignment(String work, String course, int hour, int min, Date day, String dayOfWeek) {
+	public Assignment(String work, String course, int hour, int min, LocalDate day, String dayOfWeek) {
 		super(work, course, hour, min);
 		this.setDue(day, dayOfWeek);
 	}
 
 	//Constructor with Day parameters
-	public Assignment(String work, String course, int hour, Date day, String dayOfWeek) {
+	public Assignment(String work, String course, int hour, LocalDate day, String dayOfWeek) {
 		super(work, course, hour);
 		this.setDue(day, dayOfWeek);
 	}
@@ -46,7 +47,7 @@ public class Assignment extends Homework {
 	}
 
 	//Set due date manually 
-	public void setDue(Date day, String dayOfWeek) {
+	public void setDue(LocalDate day, String dayOfWeek) {
 		due.setDate(day);
 		due.setDayOfWeek(dayOfWeek);
 	}
