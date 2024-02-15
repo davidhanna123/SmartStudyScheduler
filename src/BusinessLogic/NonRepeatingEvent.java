@@ -1,5 +1,5 @@
 package BusinessLogic;
-//Normal event*
+//Normal event
 public class NonRepeatingEvent extends Event {
 
 	public NonRepeatingEvent() {

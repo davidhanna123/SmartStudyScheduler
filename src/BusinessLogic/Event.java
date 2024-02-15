@@ -1,5 +1,5 @@
 package BusinessLogic;
-//Abstract class that other different kinds of event will extend*
+//Abstract class that other different kinds of event will extend
 public abstract class Event implements Comparable<Event>{
 	protected String title;
 	protected String description;
