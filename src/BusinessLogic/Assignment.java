@@ -54,7 +54,7 @@ public class Assignment extends Homework {
 
 	@Override
 	public String toString() {
-		return "Homework [work=" + work + ", course=" + course + ", completionTime=" + completionTime + "due" + due + "]";
+		return "Homework [Task:" + work + ", Course Code:" + course + ", Time to complete:" + completionTime + ", due:" + due + "]";
 	} 
 	
 }

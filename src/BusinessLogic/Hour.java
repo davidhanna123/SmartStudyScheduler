@@ -60,4 +60,13 @@ public class Hour implements Comparable<Hour> {
         }
         return Double.compare(this.minuteModifier, other.getMinuteModifier());
     }
+
+
+
+	@Override
+	public String toString() {
+		return time + ":" + minuteModifier;
+	}
+    
+    
 }

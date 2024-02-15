@@ -93,4 +93,12 @@ public class Day implements Comparable<Day>{
 		// TODO
 		return false;
 	}
+
+
+	@Override
+	public String toString() {
+		return dayOfWeek + ", " + date; 
+	}
+	
+	
 }
