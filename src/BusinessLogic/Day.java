@@ -14,6 +14,13 @@ public class Day implements Comparable<Day>{
 		this.hours = new TreeSet<>();
 	}
 	
+	
+	
+	public Day(Date date) {
+		super();
+		this.date = date;
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -37,5 +44,10 @@ public class Day implements Comparable<Day>{
 	@Override
 	public int compareTo(Day other) {
 		return this.date.compareTo(other.getDate());
+	}
+	
+	//Yadon added this. Kamil can remove it but we might need it.
+	public void addHour(Hour hour) {
+		this.hours.add(hour);
 	}
 }

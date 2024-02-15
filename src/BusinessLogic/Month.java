@@ -16,8 +16,18 @@ public class Month implements Comparable<Month> {
         // Initialize days TreeSet or any other initialization needed
         this.days = new TreeSet<>();
     }
+    
+    
 
-    public String getMonthName() {
+    public Month(int monthNumber, int numOfDays) {
+		super();
+		this.monthNumber = monthNumber;
+		this.numOfDays = numOfDays;
+	}
+
+
+
+	public String getMonthName() {
         return monthName;
     }
 
@@ -58,4 +68,6 @@ public class Month implements Comparable<Month> {
     	// Compare based on the month's position in the year
         return Integer.compare(this.monthNumber, other.getMonthNumber());
     }
+    
+    //public Day findDayByNumber() I think this should also be implemented after day gets an integer value...but if Date works then thats fine too.
 }
