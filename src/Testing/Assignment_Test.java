@@ -7,6 +7,8 @@ import BusinessLogic.Day;
 import BusinessLogic.Homework;
 
 import java.util.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 class Assignment_Test {
 
@@ -15,7 +17,9 @@ class Assignment_Test {
 		Calendar dueDate = Calendar.getInstance();
 		dueDate.set(2024, 01, 16);
 		Date date = dueDate.getTime();
-		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, date, "Friday"); 
+		// converting Date to LocalDate
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, localDate, "Friday"); 
 		assertEquals((work.getDue()).getDayOfWeek(), "Friday" );
 	}
 	
@@ -24,7 +28,8 @@ class Assignment_Test {
 		Calendar dueDate = Calendar.getInstance();
 		dueDate.set(2024, 01, 16);
 		Date date = dueDate.getTime();
-		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, date, "Friday"); 
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, localDate, "Friday"); 
 		assertEquals((work.getDue()).getDate(), dueDate.getTime() );
 	}
 
