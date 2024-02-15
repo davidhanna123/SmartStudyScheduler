@@ -13,6 +13,11 @@ public class RepeatingEvent extends Event{
 		super();
 	}
 
+	public void AddRepeatingEvent(int repeat) {
+		for (int i =0; i < repeat; i++) {
+			
+		}
+	}
 	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
