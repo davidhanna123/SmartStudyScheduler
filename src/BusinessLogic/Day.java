@@ -3,22 +3,36 @@
 //218715508
 package BusinessLogic;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class Day implements Comparable<Day>{
-	private Date date;
+	private LocalDate date; // using localDate as it has richer API for date operations
 	private String dayOfWeek;
 	private TreeSet<Hour> hours;
+	private TreeSet<Event> events;
+	
 	
 	public Day() {
 		this.hours = new TreeSet<>();
+		this.events = new TreeSet<>();
 	}
 	
-	public Date getDate() {
+	// adding an event
+	public void addEvent(Event event) {
+		events.add(event);
+	}
+	
+	// removing an event
+	public boolean removeEvent(Event event) {
+		return events.remove(event);
+	}
+	
+	public LocalDate getDate() {
 		return date;
 	}
 	
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	
@@ -32,6 +46,20 @@ public class Day implements Comparable<Day>{
 	
 	public TreeSet<Hour> getHours(){
 		return hours;
+	}
+	
+	public TreeSet<Event> getEvent(){
+		return events;
+	}
+	
+	// finding an event by title
+	public Event findEvenByTitle(String title) {
+		for(Event event : events) {
+			if (event.getTitle().equals(title)) {
+				return event;
+			}
+		}
+		return null;
 	}
 	
 	@Override
