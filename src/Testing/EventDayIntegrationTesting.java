@@ -52,6 +52,8 @@ public class EventDayIntegrationTesting {
 	void clearing() {
 		calendar.clear();
 	}
+	
+	// tests
 
 	@Test
 	void YearMonthDayExistenceTest() throws MonthNotFoundException, CalendarException {
