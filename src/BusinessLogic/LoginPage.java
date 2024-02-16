@@ -1,4 +1,8 @@
-package com.example.login;
+//Login class for the Smart Study Scheduler
+//Dursen Tulema 
+//219460476
+package BusinessLogic;
+
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
