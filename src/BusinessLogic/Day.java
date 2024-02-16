@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Day implements Comparable<Day>{
-	private LocalDate date; // using localDate as it has richer API for date operations
+	private int date; // using localDate as it has richer API for date operations
 	private String dayOfWeek;
 	private TreeSet<Hour> hours;
 	private TreeSet<Event> events;
@@ -16,15 +16,20 @@ public class Day implements Comparable<Day>{
 	public Day() {}
 	
 	
-	public Day(LocalDate date) {
+	public Day(int date) {
 		super();
-		this.date = LocalDate.now();
+		this.date = date;
 		this.hours = new TreeSet<>();
 		this.events = new TreeSet<>();
 	}
 	
 	// adding an event
-	public void addEvent(Event event) {
+	public void addEvent(Event event) throws EventOverlapException{
+		for(Event e: events) {
+			if(event.startingTime.getTime() >= e.startingTime.getTime() && event.startingTime.getTime() < (e.startingTime.getTime() + e.duration)) {
+				throw new EventOverlapException("Event overlaps with another");
+			}
+		}
 		events.add(event);
 	}
 	
@@ -33,11 +38,11 @@ public class Day implements Comparable<Day>{
 		return events.remove(event);
 	}
 	
-	public LocalDate getDate() {
+	public int getDate() {
 		return date;
 	}
 	
-	public void setDate(LocalDate date) {
+	public void setDate(int date) {
 		this.date = date;
 	}
 	
@@ -69,7 +74,13 @@ public class Day implements Comparable<Day>{
 	
 	@Override
 	public int compareTo(Day other) {
-		return this.date.compareTo(other.getDate());
+		if(this.date > other.getDate()) {
+			return 1;
+		}else if(this.date < other.getDate()) {
+			return -1;
+		}else {
+			return 0;
+		}
 	}
 	
 	//Yadon added this. Kamil can remove it but we might need it.
