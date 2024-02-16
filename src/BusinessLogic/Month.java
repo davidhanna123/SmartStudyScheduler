@@ -10,15 +10,15 @@ public class Month implements Comparable<Month> {
     private String monthName;
     private int monthNumber; // months position number in the year
     private int numOfDays;
-    private TreeSet<Day> days;
+    private LimitedTreeSet<Day> days;
 
-    public Month() {
+    public Month(int maxDays) {
         // Initialize days TreeSet or any other initialization needed
-        this.days = new TreeSet<>();
+        this.days = new LimitedTreeSet<Day>(maxDays);//set to max 30 by default, but can be changed
     }
     
     public Month(int monthNumber, int numOfDays) {
-		super();
+		this(numOfDays);
 		this.monthNumber = monthNumber;
 		this.numOfDays = numOfDays;
 	}
@@ -47,11 +47,11 @@ public class Month implements Comparable<Month> {
         this.numOfDays = numOfDays;
     }
 
-    public TreeSet<Day> getDays() {
+    public LimitedTreeSet<Day> getDays() {
         return days;
     }
 
-    public void setDays(TreeSet<Day> days) {
+    public void setDays(LimitedTreeSet<Day> days) {
         this.days = days;
     }
     

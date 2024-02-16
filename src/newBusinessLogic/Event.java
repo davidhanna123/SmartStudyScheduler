@@ -1,22 +1,24 @@
 package newBusinessLogic;
+import java.util.*;
 //Abstract class that other different kinds of event will extend
 public abstract class Event implements Comparable<Event>{
 	protected String title;
 	protected String description;
-	protected Hour startingTime;
 	protected int duration;
+	protected Calendar startingTime;
+	protected Calendar endingTime;
 	
-	
-	protected Homework homework;
-	protected Assignment assignment; 
 
-	protected Event(String title, String description, Hour startingTime, int duration) {
+	protected Event(String title, String description, Calendar startingTime, Calendar endingTime, int duration) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.title = title;
 		this.description = description;
-		this.startingTime = startingTime;
-		this.duration = duration;
+		this.startingTime = Calendar.getInstance();
+		this.startingTime.set(Calendar.MONTH, Calendar.HOUR, Calendar.MINUTE);
+		this.endingTime = Calendar.getInstance();
+		this.endingTime.set(Calendar.MONTH, Calendar.HOUR, Calendar.MINUTE);
+		this.duration = this.startingTime;
 	}
 	
 	public void setHomework(Homework homework) {

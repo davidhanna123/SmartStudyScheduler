@@ -8,6 +8,7 @@ public class ExternalEvent extends Event{
 
 	public ExternalEvent() {
 		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	@Override

@@ -19,6 +19,11 @@ public abstract class Event implements Comparable<Event>{
 		this.duration = duration;
 	}
 	
+
+	public Event() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void setHomework(Homework homework) {
 		this.homework = homework;
 		// logic to set up the duration time based on hw's completion time
