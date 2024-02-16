@@ -26,13 +26,13 @@ public class Assignment extends Homework {
 	}
 	
 	//Constructor with min and Day parameters
-	public Assignment(String work, String course, int hour, int min, LocalDate day, String dayOfWeek) {
+	public Assignment(String work, String course, int hour, int min, int day, String dayOfWeek) {
 		super(work, course, hour, min);
 		this.setDue(day, dayOfWeek);
 	}
 
 	//Constructor with Day parameters
-	public Assignment(String work, String course, int hour, LocalDate day, String dayOfWeek) {
+	public Assignment(String work, String course, int hour, int day, String dayOfWeek) {
 		super(work, course, hour);
 		this.setDue(day, dayOfWeek);
 	}
@@ -47,7 +47,7 @@ public class Assignment extends Homework {
 	}
 
 	//Set due date manually 
-	public void setDue(LocalDate day, String dayOfWeek) {
+	public void setDue(int day, String dayOfWeek) {
 		due.setDate(day);
 		due.setDayOfWeek(dayOfWeek);
 	}
