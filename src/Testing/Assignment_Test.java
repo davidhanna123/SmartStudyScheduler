@@ -14,23 +14,15 @@ class Assignment_Test {
 
 	@Test
 	void test() {
-		Calendar dueDate = Calendar.getInstance();
-		dueDate.set(2024, 01, 16);
-		Date date = dueDate.getTime();
-		// converting Date to LocalDate
-		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, localDate, "Friday"); 
+		int date = 16;
+		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, date, "Friday"); 
 		assertEquals((work.getDue()).getDayOfWeek(), "Friday" );
 	}
 	
 	@Test
 	void test2() {
-		Calendar dueDate = Calendar.getInstance();
-		dueDate.set(2024, 01, 16);
-		Date date = dueDate.getTime();
-		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, localDate, "Friday"); 
-		assertEquals((work.getDue()).getDate(), dueDate.getTime() );
+		int date = 16;
+		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, date, "Friday"); 
+		assertEquals((work.getDue()).getDate(), date);
 	}
-
 }

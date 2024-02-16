@@ -18,12 +18,11 @@ class Homework_Test {
 	
 	@Test
 	void test2() {
-		Homework task = new Homework("Math Problems", "MATH2000", 1); 
 		Hour time = new Hour(); 
 		time.setTime(1);
+		Homework task = new Homework("Math Problems", "MATH2000", time); 
+		assertEquals((task.getCompletionTime()).getTime(), 1);
 		
-		//Hour.compareTo returns int instead of boolean
-//		assertTrue((time.compareTo(task.getCompletionTime())));
 	
 	}
 	

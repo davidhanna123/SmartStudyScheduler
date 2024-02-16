@@ -33,18 +33,12 @@ public class Add_Homework {
 			
 			//Gets due date from user
 			System.out.println("When is the due date?");
-			System.out.print("Year: ");
-			int year = sc.nextInt(); 
-			System.out.print("Month(int): ");
-			int month = sc.nextInt(); 
-			System.out.print("Day of Month: ");
-			int dayOfMonth = sc.nextInt();
+			int date = sc.nextInt(); 
 			System.out.print("Day of Week: ");
 			sc.nextLine();
 			String dayOfWeek = sc.nextLine();
 			
 			//Creates new Assignment object
-			LocalDate date = LocalDate.of(year, month, dayOfMonth);
 			hw = new Assignment(task, course, hour, min, date, dayOfWeek);
 		}
 		
