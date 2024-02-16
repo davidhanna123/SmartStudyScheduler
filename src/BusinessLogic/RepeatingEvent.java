@@ -1,4 +1,7 @@
 package BusinessLogic;
+
+import java.sql.Date;
+
 //Repeating event(like reoccuring labs, homeworks, assignments etc)*
 public class RepeatingEvent extends Event{
 	private String repeatRate;
@@ -13,9 +16,9 @@ public class RepeatingEvent extends Event{
 		super();
 	}
 	
-	public void AddRepeatingEvent(Event event, int repeat) {
+	public void AddRepeatingEvent(Event event, int repeat, Date startDate, int hour, int min) {
 		for (int i =0; i < repeat; i++) {
-			
+			Day.addEvent(event);
 		}
 	}
 }
