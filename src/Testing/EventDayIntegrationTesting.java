@@ -69,10 +69,10 @@ public class EventDayIntegrationTesting {
 	}
 	
 	@Test
-	void AddEventTest() {
+	void AddEventTest() throws EventOverlapException {
 		Day testDay = new Day();
 		
-		Assignment event = new Assignment("Study", "calc-midterm study session", 3, testDay);
+		NonRepeatingEvent event = new NonRepeatingEvent();
 		// adding event to the day
 		testDay.addEvent(event);
 		
@@ -87,8 +87,8 @@ public class EventDayIntegrationTesting {
 	void addingOverlappingEventTest() {
 		Day testDay = new Day();
 		
-		Assignment event1 = new Assignment("Study Session", "Java", 12, testDay);
-		Assignment event2 = new Assignment("Extra Session", "Java", 12, testDay); // same start time as event1
+		NonRepeatingEvent event1 = new NonRepeatingEvent();
+		NonRepeatingEvent event2 = new NonRepeatingEvent(); 
 		
 		assertThrows(EventOverlapException.class, () -> {
 			testDay.addEvent(event1);
