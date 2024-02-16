@@ -1,12 +1,17 @@
 package Testing;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 
-
-import BusinessLogic.Assignment;
 import BusinessLogic.*;
 
 public class EventDayIntegrationTesting {
@@ -19,6 +24,8 @@ public class EventDayIntegrationTesting {
 	
 	@BeforeEach
 	void initialize() {
+		
+		
 		Year year = new Year(2024);
 		calendar.addYear(year);
 		Month[] months = new Month[12];
@@ -38,15 +45,54 @@ public class EventDayIntegrationTesting {
 			year.addMonth(months[i]);
 		}
 		
+		
 	}
 	
 	@AfterEach
 	void clearing() {
 		calendar.clear();
 	}
+	
+	// tests
 
 	@Test
-	void test() {
+	void YearMonthDayExistenceTest() throws MonthNotFoundException, CalendarException {
 		//calendar.findYear(2024).findMonthByNumber(2).getDays().first().
+		Year year2024 = calendar.findYear(2024);
+		assertNotNull(year2024, "Year 2024 should exist in the calendar");
+		
+		Month february = year2024.findMonthByNumber(2);
+		assertNotNull(february, "February should exist in 2024");
+		
+		Day firstDayOfFebruary = february.getDays().first();
+		assertNotNull(firstDayOfFebruary, "The first day of February should be retrievable.");
+	}
+	
+	@Test
+	void AddEventTest() {
+		Day testDay = new Day();
+		
+		Assignment event = new Assignment("Study", "calc-midterm study session", 3, testDay);
+		// adding event to the day
+		testDay.addEvent(event);
+		
+		// getting all events for the day
+		TreeSet<Event> events = testDay.getEvent();
+		assertTrue(events.contains(event), "The test event should be added to the day's events.");
+		
+		
+	}
+	
+	@Test
+	void addingOverlappingEventTest() {
+		Day testDay = new Day();
+		
+		Assignment event1 = new Assignment("Study Session", "Java", 12, testDay);
+		Assignment event2 = new Assignment("Extra Session", "Java", 12, testDay); // same start time as event1
+		
+		assertThrows(EventOverlapException.class, () -> {
+			testDay.addEvent(event1);
+			testDay.addEvent(event2);
+		},"adding overlapping event should throw overlap exception");
 	}
 }
