@@ -18,8 +18,4 @@ public class RepeatingEvent extends Event{
 			
 		}
 	}
-	
-	
-	
-
 }

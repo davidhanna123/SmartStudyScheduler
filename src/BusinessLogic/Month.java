@@ -16,6 +16,12 @@ public class Month implements Comparable<Month> {
         // Initialize days TreeSet or any other initialization needed
         this.days = new TreeSet<>();
     }
+    
+    public Month(int monthNumber, int numOfDays) {
+		super();
+		this.monthNumber = monthNumber;
+		this.numOfDays = numOfDays;
+	}
 
     public String getMonthName() {
         return monthName;
