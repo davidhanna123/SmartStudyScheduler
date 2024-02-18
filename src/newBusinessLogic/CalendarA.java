@@ -27,7 +27,7 @@ package newBusinessLogic;
 import java.time.Year;
 import java.util.*;
 
-public class CalendarA {
+public class CalendarA extends Calendar{
 	
 }
 //>>>>>>> refs/remotes/origin/master

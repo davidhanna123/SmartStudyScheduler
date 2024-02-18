@@ -1,7 +1,7 @@
 //Login class for the Smart Study Scheduler
 //Dursen Tulema 
 //219460476
-package BusinessLogic;
+package Gui;
 
 
 import javafx.application.Application;
