@@ -12,10 +12,19 @@ public class Day implements Comparable<Day>{
 	private TreeSet<Hour> hours;
 	private TreeSet<Event> events;
 	
-	// default constructor
-	public Day() {}
+	/**
+	 * Default constructor
+	 */
+	public Day() {
+		super();
+		this.hours = new TreeSet<>();
+		this.events = new TreeSet<>();
+	}
 	
-	
+	/**
+	 * Constructor
+	 * @param day of month integer
+	 */
 	public Day(int date) {
 		super();
 		this.date = date;
@@ -23,46 +32,84 @@ public class Day implements Comparable<Day>{
 		this.events = new TreeSet<>();
 	}
 	
-	// adding an event
+	/**
+	 * Adds an event to the event TreeSet of a Day Object
+	 * @param event
+	 * @throws EventOverlapException
+	 */
 	public void addEvent(Event event) throws EventOverlapException{
-		for(Event e: events) {
-			if(event.startingTime.getTime() >= e.startingTime.getTime() && event.startingTime.getTime() < (e.startingTime.getTime() + e.duration)) {
-				throw new EventOverlapException("Event overlaps with another");
+		if(!(this.events.isEmpty())) {
+			for(Event e: events) {
+				if(event.startingTime.getTime() >= e.startingTime.getTime() && event.startingTime.getTime() < (e.startingTime.getTime() + e.duration)) {
+					throw new EventOverlapException("Event overlaps with another");
+				}
 			}
 		}
 		events.add(event);
 	}
 	
-	// removing an event
+	/**
+	 * Removes event from the Day object's events TreeSet
+	 * @param event
+	 * @return removed event
+	 */
 	public boolean removeEvent(Event event) {
 		return events.remove(event);
 	}
 	
+	/**
+	 * 
+	 * @return day of month integer
+	 */
 	public int getDate() {
 		return date;
 	}
 	
+	/**
+	 * sets day of month integer
+	 * @param date
+	 */
 	public void setDate(int date) {
 		this.date = date;
 	}
 	
+	/**
+	 * 
+	 * @return String name of the day(Monday, Tuesday...)
+	 */
 	public String getDayOfWeek() {
 		return dayOfWeek;
 	}
 	
+	/**
+	 * sets String name of the day(Monday, Tuesday...)
+	 * @param dayOfWeek
+	 */
 	public void setDayOfWeek(String dayOfWeek) {
 		this.dayOfWeek = dayOfWeek;
 	}
 	
+	/**
+	 * 
+	 * @return hours of day
+	 */
 	public TreeSet<Hour> getHours(){
 		return hours;
 	}
 	
+	/**
+	 * 
+	 * @return events of day 
+	 */
 	public TreeSet<Event> getEvent(){
 		return events;
 	}
 	
-	// finding an event by title
+	/**
+	 * 
+	 * @param title
+	 * @return event with matching title
+	 */
 	public Event findEventByTitle(String title) {
 		for(Event event : events) {
 			if (event.getTitle().equals(title)) {
@@ -72,6 +119,9 @@ public class Day implements Comparable<Day>{
 		return null;
 	}
 	
+	/**
+	 * Compares two days based on their day of the month integer(between 0 and 32)
+	 */
 	@Override
 	public int compareTo(Day other) {
 		if(this.date > other.getDate()) {
@@ -83,29 +133,27 @@ public class Day implements Comparable<Day>{
 		}
 	}
 	
-	//Yadon added this. Kamil can remove it but we might need it.
+	/**
+	 * 
+	 * @param hour
+	 */
 	public void addHour(Hour hour) {
 		this.hours.add(hour);
 	}
 	
-	// list all of the events for the day
+	/**
+	 * Gives an arrayList representation of the events of the day
+	 * @return List<Event>
+	 */
 	public List<Event> listEvents(){
 		return new ArrayList<>(events);
 	}
 	
-	// checking the availability (time slot availability)
-	public boolean isTimeSlotAvailable(Hour startingHour, int duration) {
-		// TODO
-		return false;
-	}
-	
-	// Update an event
-	public boolean updateAnEvent(String title, Event updateEvent) {
-		// TODO
-		return false;
-	}
 
 
+	/**
+	 * To string method: format is dayOfWeek + ", " + date
+	 */
 	@Override
 	public String toString() {
 		return dayOfWeek + ", " + date; 

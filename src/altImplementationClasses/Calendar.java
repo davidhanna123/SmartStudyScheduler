@@ -22,9 +22,12 @@
 //Kamil Ginyatov 
 //218715508
 
-package BusinessLogic;
+package altImplementationClasses;
 
 import java.util.*;
+
+import BusinessLogic.CalendarException;
+import BusinessLogic.Year;
 
 public class Calendar {
 	private TreeSet<Year> years;

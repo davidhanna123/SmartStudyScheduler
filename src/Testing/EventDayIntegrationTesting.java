@@ -25,7 +25,6 @@ public class EventDayIntegrationTesting {
 	@BeforeEach
 	void initialize() {
 		
-		
 		Year year = new Year(2024);
 		calendar.addYear(year);
 		Month[] months = new Month[12];
@@ -33,18 +32,17 @@ public class EventDayIntegrationTesting {
  		Hour[] hours = new Hour[24];
 		
 		for(int i = 1; i<=12; i++) {
-			months[i] = new Month(i, 30);
+			months[i-1] = new Month(i, 30);
 			for(int j = 1; j<=30; j++) {
-				days[j] = new Day();//we should make day have an integer between 0 and 32 and make a constructor for that. Up to Kamil though.
+				days[j-1] = new Day(j);//we should make day have an integer between 0 and 32 and make a constructor for that. Up to Kamil though.
 				for(int k = 1; k <=24; k++) {
-					hours[k] = new Hour(k, 0.0);
-					days[j].addHour(hours[k]);
+					hours[k-1] = new Hour(k, 0.0);
+					days[j-1].addHour(hours[k-1]);
 				}
-				months[i].addDay(days[j]);
+				months[i-1].addDay(days[j-1]);
 			}
-			year.addMonth(months[i]);
+			year.addMonth(months[i-1]);
 		}
-		
 		
 	}
 	

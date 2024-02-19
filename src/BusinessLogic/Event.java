@@ -6,7 +6,6 @@ public abstract class Event implements Comparable<Event>{
 	protected Hour startingTime;
 	protected int duration;
 	
-	
 	protected Homework homework;
 	protected Assignment assignment; 
 

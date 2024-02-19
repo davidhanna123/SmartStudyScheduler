@@ -31,20 +31,36 @@ public class CalendarApp {
 	private TreeSet<Year> years;
 	int lastYear;
 	
+	/**
+	 * No argument Constructor
+	 */
 	public CalendarApp() {
 		years = new TreeSet<>();
 	}
 	
+	/**
+	 * 
+	 * @return years TreeSet
+	 */
 	public TreeSet<Year> getYears(){
 		return years;
 	}
 	
+	/**
+	 * 
+	 * @param Year
+	 */
 	public void addYear(Year year) {
 		years.add(year);
 		this.lastYear = this.years.last().getCurrentYear();
 	}
 	
-	// find year
+	/**
+	 * 
+	 * @param yearNumber
+	 * @return Year
+	 * @throws CalendarException
+	 */
 	public Year findYear(int yearNumber) throws CalendarException {
 		for (Year year : years) {
 			if (year.getCurrentYear() == yearNumber) {
@@ -54,7 +70,12 @@ public class CalendarApp {
 		throw new CalendarException("Year " + yearNumber + " not found in the calendar.");
 	}
 	
-	// remove year
+	/**
+	 * 
+	 * @param yearNumber
+	 * @return Year
+	 * @throws CalendarException
+	 */
 	public Year removeYear(int yearNumber) throws CalendarException {
 		Year yearToRemove = null;
 		for (Year  year : years) {
@@ -73,13 +94,14 @@ public class CalendarApp {
 		return yearToRemove;
 	}
 	
+	/**
+	 * Clears the years TreeSet of the Calendar object
+	 */
 	public void clear() {
 		this.years.clear();
 		this.lastYear = 0;
 	}
 	
-	public static void main(String[] args) {
-		// code here
-	}
+	
 }
-//>>>>>>> refs/remotes/origin/master
+

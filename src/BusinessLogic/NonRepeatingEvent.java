@@ -56,6 +56,20 @@ public class NonRepeatingEvent extends Event{
 		this.duration = duration;
 		
 	}
+
+	@Override
+	public void setHomework(Homework homework) {
+		// TODO Auto-generated method stub
+		super.setHomework(homework);
+	}
+
+	@Override
+	public void setAssignment(Assignment assignment) {
+		// TODO Auto-generated method stub
+		super.setAssignment(assignment);
+	}
+	
+	
 	
 	
 
