@@ -1,5 +1,7 @@
 package BusinessLogic;
-//External event not related to school
+/**
+ * ExternalEvent is a subclass of the abstract Event class. It represents events that are not related to school;
+ */
 public class ExternalEvent extends Event{
 	private String eventName;
 	private String eventLink;

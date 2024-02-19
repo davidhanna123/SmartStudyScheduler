@@ -1,5 +1,7 @@
 package BusinessLogic;
-
+/**
+ * This cass is an exception used by the CalendarApp class when adding Year objects
+ */
 public class CalendarException extends Exception {
 	/**
 	 * Exception to be used if Calendar does not contain a specific year

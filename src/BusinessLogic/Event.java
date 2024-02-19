@@ -1,6 +1,6 @@
 package BusinessLogic;
 /**
- * Abstract class that other different kinds of event will extend. Parent abstract class of ExternalEvent, NonRepeatingEvent, Extracurricular, and NonRepeatingEvent
+ * 1Abstract class that other different kinds of event will extend. Parent abstract class of ExternalEvent, NonRepeatingEvent, Extracurricular, and NonRepeatingEvent
  */
 public abstract class Event implements Comparable<Event>{
 	protected String title;
@@ -26,15 +26,12 @@ public abstract class Event implements Comparable<Event>{
 		this.startingTime = startingTime;
 		this.duration = duration;
 	}
-	
-
 	/**
 	 * No argument constructor for testing
 	 */
 	public Event() {
 		// TODO Auto-generated constructor stub
 	}
-
 	/**
 	 * 
 	 * @param homework
@@ -44,7 +41,6 @@ public abstract class Event implements Comparable<Event>{
 		// logic to set up the duration time based on hw's completion time
 		// here ...............
 	}
-	
 	/**
 	 * 
 	 * @param assignment
@@ -54,31 +50,26 @@ public abstract class Event implements Comparable<Event>{
 		// logic to set up the duration time based on assignment's completion time
 		// here ...............
 	}
-
 	/**
 	 * 
 	 * @return Event title
 	 */
 	protected abstract String getTitle();
-	
 	/**
 	 * 
 	 * @return Event Description
 	 */
 	protected abstract String getDescription();
-
 	/**
 	 * 
 	 * @return event starting Hour object
 	 */
 	protected abstract Hour getStartingTime();
-
 	/**
 	 * 
 	 * @return event Duration(integer)
 	 */
 	protected abstract int getDuration();
-
 	/**
 	 * Sets event title
 	 * @param title
@@ -115,7 +106,4 @@ public abstract class Event implements Comparable<Event>{
 		// it would prevent them from both being added to the set 
 		return this.title.compareTo(o.title);
 	}
-	
-	
-
 }

@@ -5,7 +5,9 @@ package BusinessLogic;
 
 import java.time.LocalDate;
 import java.util.*;
-
+/**
+ * Day class that represents a day of the month. Events are contained by this class.
+ */
 public class Day implements Comparable<Day>{
 	private int date; // using localDate as it has richer API for date operations
 	private String dayOfWeek;

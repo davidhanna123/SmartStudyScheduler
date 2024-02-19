@@ -1,6 +1,6 @@
 package BusinessLogic;
 /**
- * A subclass of the Events abstract class. It is for events that are school related, but not related to course work.
+ * *A subclass of the Events abstract class. It is for events that are school related, but not related to course work.
  */
 public class Extracurricular extends Event{
 	private String location;
