@@ -2,7 +2,7 @@ log 1 - 2/4/24
   Meeting from 6:30PM - 7:30PM
   Discussed what the base of the project would be like. 
   Decided on what class dependencies would look like.
-log 2 - 2/4/24
+log 2 - 2/4/24 Yadon and Kamil
   Meeting from 7:35PM - 9:55PM
   Designed UML Diagram for project implementation.
   Setup repo Wiki
@@ -11,3 +11,16 @@ log 3 - 2/10/24
   Meeting from 5:00PM - 9:00PM
   Started working on base of the app.
   Set up libraries needed for GUI.
+log 4 - 2/15/24 - Yadon
+  Finalizing the class architecture and implementing all classes fully 9:30PM-1:30AM 
+  Setting up objects for testing classes. Preparing for integration testing between events and Day class.
+log 5 - 2/15/24 - Kamil
+  Finalizing test cases and integration testing for main classes of our business logic 9:00PM-2:00AM
+log 6 - 2/16/24 - David
+  Implements repeating event adding methods for the RepeatingEvents class.
+log 7 - 2/13/24 - 2/16/24 - Dursan
+  Implements GUI for the main login page of the app and the very first page of the calendar.
+  Use case: Displaying motivational messages, was left for other iterations as it was simply an optional feature. Instead the first two pages needed for this app were designed.
+log 8 - 2/12/24 - 2/16/24 - Jonah
+  Designs the Homework and Assignment classes.
+  Integrates these classes with all the subclasses of the Event class.
