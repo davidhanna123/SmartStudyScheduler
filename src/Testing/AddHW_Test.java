@@ -1,7 +1,7 @@
 package Testing;
 
-import BusinessLogic.Add_Homework;
 import BusinessLogic.Homework;
+import Gui.Add_Homework;
 
 public class AddHW_Test {
 

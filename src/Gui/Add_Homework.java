@@ -1,7 +1,10 @@
-package BusinessLogic;
+package Gui;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import BusinessLogic.Assignment;
+import BusinessLogic.Homework;
 
 public class Add_Homework {
 	
