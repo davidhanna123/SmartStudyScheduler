@@ -1,8 +1,5 @@
 package Testing;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -70,27 +67,41 @@ public class EventDayIntegrationTesting {
 	void AddEventTest() throws EventOverlapException {
 		Day testDay = new Day();
 		
-		NonRepeatingEvent event = new NonRepeatingEvent();
+		NonRepeatingEvent event1 = new NonRepeatingEvent();
 		// adding event to the day
-		testDay.addEvent(event);
+		//testDay.addEvent(event);
+		event1.setStartingTime(new Hour(8,0));
+		testDay.addEvent(event1);
+		
+		
+		NonRepeatingEvent event2 = new NonRepeatingEvent();
+		event2.setStartingTime(new Hour(12,0));
+		testDay.addEvent(event2);
 		
 		// getting all events for the day
 		TreeSet<Event> events = testDay.getEvent();
-		assertTrue(events.contains(event), "The test event should be added to the day's events.");
-		
-		
+		assertTrue(events.contains(event1), "The first test event should be added to the day's events.");
+		assertTrue(events.contains(event2), "The second test event should be added to the day's events.");
 	}
 	
 	@Test
-	void addingOverlappingEventTest() {
+	void addingOverlappingEventTest() throws EventOverlapException {
 		Day testDay = new Day();
 		
 		NonRepeatingEvent event1 = new NonRepeatingEvent();
-		NonRepeatingEvent event2 = new NonRepeatingEvent(); 
+		event1.setStartingTime(new Hour(9,0));
+		event1.setTitle("Event1");
+		testDay.addEvent(event1);
 		
-		assertThrows(EventOverlapException.class, () -> {
-			testDay.addEvent(event1);
-			testDay.addEvent(event2);
-		},"adding overlapping event should throw overlap exception");
+		NonRepeatingEvent event2 = new NonRepeatingEvent(); 
+		event2.setStartingTime(new Hour(9,30));
+		event2.setDuration(60); // one hour
+		event2.setTitle("Event2");
+		
+		
+		// trying to add the second event that overlaps with the first event
+		assertThrows(EventOverlapException.class, () -> testDay.addEvent(event2),
+		        "adding overlapping event should throw overlap exception");
+		
 	}
 }
