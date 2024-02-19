@@ -1,4 +1,7 @@
 package BusinessLogic;
+
+import java.util.Objects;
+
 /**
  * 1Abstract class that other different kinds of event will extend. Parent abstract class of ExternalEvent, NonRepeatingEvent, Extracurricular, and NonRepeatingEvent
  */
@@ -96,14 +99,38 @@ public abstract class Event implements Comparable<Event>{
 	 */
 	@Override
 	public int compareTo(Event o) {
-		// comparing startingTime 
-		int compared = this.startingTime.compareTo(o.startingTime);
-		if (compared != 0) {
-			return compared;
-		}
-		
-		// if startingTimes are the same, then we compare by title
-		// it would prevent them from both being added to the set 
-		return this.title.compareTo(o.title);
+	    if (this.startingTime == null || o.startingTime == null) {
+	        if (this.startingTime == null && o.startingTime == null) {
+	            // Both starting times are null then comparing titles 
+	        } else if (this.startingTime == null) {
+	            return -1; 
+	        } else {
+	            return 1; 
+	        }
+	    } else {
+	        // Compare non null starting times
+	        int compared = this.startingTime.compareTo(o.startingTime);
+	        if (compared != 0) {
+	            return compared;
+	        }
+	    }
+
+	    // If starting times are the same or both are null then compare by title
+	    if (this.title == null || o.title == null) {
+	        if (this.title == null && o.title == null) {
+	            return 0; // Both titles are null, consider equal
+	        } else if (this.title == null) {
+	            return -1; 
+	        } else {
+	            return 1; 
+	        }
+	    }
+	    // Compare non null titles
+	    return this.title.compareTo(o.title);
+	}
+	
+	@Override 
+	public int hashCode() {
+		return Objects.hash(title, startingTime);
 	}
 }
