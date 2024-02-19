@@ -24,3 +24,4 @@ log 7 - 2/13/24 - 2/16/24 - Dursan
 log 8 - 2/12/24 - 2/16/24 - Jonah
   Designs the Homework and Assignment classes.
   Integrates these classes with all the subclasses of the Event class.
+  Created separate testing files for new implementation.
