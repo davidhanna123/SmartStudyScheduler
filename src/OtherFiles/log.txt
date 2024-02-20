@@ -25,3 +25,17 @@ log 8 - 2/12/24 - 2/16/24 - Jonah
   Designs the Homework and Assignment classes.
   Integrates these classes with all the subclasses of the Event class.
   Created separate testing files for new implementation.
+log 9 - 2/19/24 - Kamil
+	3:40PM - 10:00PM
+  Added more test classes to check the following functionalities: 
+  	1. Ordering of Year, Month, Day, and Event objects in their respective has-a relationships.
+  	2. More Event and Day class integration testing.
+  	3. Re-factoring in the NonRepeatingEventTesting class.
+  Fully implemented the Reminder class and added the ReminderTest class to test it.
+log 10 - 2/19/24 - Yadon
+  3:40PM - 9:50PM
+  Added Javadoc documentation comments for classes CalendarApp, CalendarException, Day, Event, EventOverlapException, ExternalEvent, Extracurricular, Hour, InvalidEventTimeException, InvalidReminderTimeException, LimitedTreeSet, Month, MonthNotFoundException, negativeReminderOffsetException  and their respective methods
+  Fixed methods in the Hour and Day classes.
+  Finalized UML class diagram of the project's business logic.
+  Created CRC cards for all classes except  Assignment, Homework, Year, and RepeatingEvent
+  	
