@@ -30,7 +30,8 @@ class DateOrderingIntegrationTest {
 	
 	@Test
 	void testMonthOrdering() {
-		Month month = new Month(4, 30); // April with 30 days
+		Year year = new Year(2024);
+		Month month = new Month(4, year); // April with 30 days
 		// adding days out of order
 		month.addDay(new Day(20));
 		month.addDay(new Day(5));
@@ -43,7 +44,8 @@ class DateOrderingIntegrationTest {
 	@Test
 	void testMonthDayLimit() {
 		final int MAX_DAYS = 30;
-		Month month = new Month (4, MAX_DAYS); // April with 30 days
+		Year year = new Year(2024);
+		Month month = new Month (4, year); // April with 30 days
 		
 		// trying to add more than max days
 		for (int i = 1; i <= MAX_DAYS; i++) {

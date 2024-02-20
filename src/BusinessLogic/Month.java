@@ -31,6 +31,7 @@ public class Month implements Comparable<Month> {
     	case 1:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 2:
     		if((year.getCurrentYear()%4 == 0 && year.getCurrentYear()%100 != 0) || year.getCurrentYear()%400 == 0) {
     			this.numOfDays = 29;
@@ -38,36 +39,47 @@ public class Month implements Comparable<Month> {
     			this.numOfDays = 31;
     		}
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 3:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 4:
     		this.numOfDays = 30;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 5:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 6:
     		this.numOfDays = 30;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 7:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 8:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 9:
     		this.numOfDays = 30;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 10:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 11:
     		this.numOfDays = 30;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	case 12:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		break;
     	}
     	this.year = year;
 		this.monthNumber = monthNumber;
