@@ -1,5 +1,6 @@
 package BusinessLogic;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -10,6 +11,7 @@ public abstract class Event implements Comparable<Event>{
 	protected String description;
 	protected Hour startingTime;
 	protected int duration;
+	public LocalDate date;
 	
 	protected Homework homework;
 	protected Assignment assignment; 
@@ -21,13 +23,15 @@ public abstract class Event implements Comparable<Event>{
 	 * @param startingTime
 	 * @param duration
 	 */
-	protected Event(String title, String description, Hour startingTime, int duration) {
+	protected Event(String title, String description, Hour startingTime, int duration, LocalDate date) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.title = title;
 		this.description = description;
 		this.startingTime = startingTime;
 		this.duration = duration;
+		this.date = date;
+		
 	}
 	/**
 	 * No argument constructor for testing
@@ -93,7 +97,14 @@ public abstract class Event implements Comparable<Event>{
 	 * @param duration
 	 */
 	protected abstract void setDuration(int duration);
-
+	
+	public void SetDate(LocalDate date) {
+		this.date =date;
+	}
+	//@Override
+	public LocalDate getDate() {
+		return date;
+	}
 	/**
 	 * Compares events based on their starting time. See the compareTo method of the Hour class for more details.
 	 */

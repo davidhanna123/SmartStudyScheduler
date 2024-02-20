@@ -53,6 +53,16 @@ public class Day implements Comparable<Day>{
 		events.add(event);
 		
 	}
+	//
+	public void AddRepeatingEvent(Event event, int repeat) throws EventOverlapException {
+		
+		for (int i =1; i < repeat; i++) {
+			LocalDate incrementedDate = event.getDate().plusDays(7*i);
+			event.SetDate(incrementedDate);
+			addEvent(event);
+			
+		}
+	}
 	
 	/**
 	 * Removes event from the Day object's events TreeSet
