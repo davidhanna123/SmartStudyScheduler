@@ -10,6 +10,7 @@ public class Reminders {
 	private String message;
 	private int eventTime;
 	private Duration offset;
+	private LocalTime currentTime; // storing the current time
 	
 	public Reminders(String message, int eventTime, Duration offset) throws InvalidEventTimeException, negativeReminderOffsetException {
 		if (eventTime < 0 || eventTime > 23) {
@@ -29,6 +30,10 @@ public class Reminders {
 		this.message = message;
 		this.eventTime = reminder_time;
 	}
+	
+	public void setCurrentTime(LocalTime currentTime) {
+		this.currentTime = currentTime;
+	}
 
 	public String getMessage() {
 		return message;
@@ -38,12 +43,12 @@ public class Reminders {
 		this.message = message;
 	} 
 
-	public int getEvenTime() {
+	public int getEventTime() {
 		return eventTime;
 	}
 
-	public void setEvenTime(int evenTime) {
-		this.eventTime = evenTime;
+	public void setEventTime(int eventTime) {
+		this.eventTime = eventTime;
 	}
 
 	public Duration getOffset() {
@@ -68,16 +73,18 @@ public class Reminders {
 	
 	// method to check if reminder should trigger by comparing the current time with the calculated reminder time
 	public boolean isTimeForReminder() {
-		LocalTime currentTime = LocalTime.now();
+		//LocalTime currentTime = LocalTime.now();
 		LocalTime eventTime = LocalTime.of(this.eventTime, 0); // eventTime is in hours, set minutes to 0
 		LocalTime reminderTime = eventTime.minus(this.offset); // subtracting the offset, gives us time when reminder should trigger
 		
-		if (currentTime.equals(reminderTime)) {
+		if (this.currentTime.equals(reminderTime)) {
 			return true; // time for the reminder
 		}else {
 			return false; // not the time for the reminder yet
 		}
+		//return this.currentTime.equals(reminderTime) || this.currentTime.isAfter(reminderTime) && this.currentTime.isBefore(eventTime);
 	}
+		
 
 	@Override
     public String toString() {
