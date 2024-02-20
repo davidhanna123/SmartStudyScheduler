@@ -51,6 +51,7 @@ public class Day implements Comparable<Day>{
 			}
 		}
 		events.add(event);
+		
 	}
 	
 	/**

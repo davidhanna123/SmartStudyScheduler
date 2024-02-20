@@ -1,6 +1,15 @@
 package newBusinessLogic;
+
+import java.util.Calendar;
+
+import BusinessLogic.Day;
+import BusinessLogic.Month;
+import BusinessLogic.Year;
+
 //Repeating event(like reoccuring labs, homeworks, assignments etc)*
 public class RepeatingEvent extends Event{
+	
+
 	private String repeatRate;
 	private int repeatGapDay;
 	private int repeatGapYear;
@@ -8,14 +17,14 @@ public class RepeatingEvent extends Event{
 	private Month endRepeatMonth;
 	private Year endRepeatYear;
 
-	public RepeatingEvent() {
+	//public RepeatingEvent() {
 		// TODO Auto-generated constructor stub
-		super();
-	}
+		//super();
+	//}
 	
 	public void AddRepeatingEvent(Event event, int repeat) {
 		for (int i =0; i < repeat; i++) {
-			
+			events.add(event);
 		}
 	}
 }
