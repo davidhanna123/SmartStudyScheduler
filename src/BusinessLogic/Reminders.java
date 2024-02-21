@@ -106,7 +106,6 @@ public class Reminders {
 		this.offset = offset;
 	}
 	
-	
 	/**
 	 * Calculating reminder time when it should trigger
 	 * @return the time when the reminder should trigger (in hours)
