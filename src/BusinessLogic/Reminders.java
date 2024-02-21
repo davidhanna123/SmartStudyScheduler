@@ -98,6 +98,7 @@ public class Reminders {
 		return offset;
 	}
 
+	
 	/**
 	 * Sets the offset duration of the reminder
 	 * @param offset the offset duration to set
