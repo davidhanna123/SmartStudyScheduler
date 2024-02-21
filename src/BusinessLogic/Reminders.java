@@ -104,7 +104,7 @@ public class Reminders {
 	 */
 	public void setOffset(Duration offset) {
 		this.offset = offset;
-	}
+	} 
 	
 	/**
 	 * Calculating reminder time when it should trigger
@@ -119,6 +119,7 @@ public class Reminders {
 		int reminderTimeInHours = remindersTimeInMinutes / 60;
 		return reminderTimeInHours;
 	}
+	
 	
 	/**
 	 * Checks if its time for the reminder to trigger
