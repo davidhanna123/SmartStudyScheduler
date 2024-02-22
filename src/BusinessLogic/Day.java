@@ -73,6 +73,22 @@ public class Day implements Comparable<Day>{
 		return events.remove(event);
 	}
 	
+//	/**
+//	 * Removes all occurences of a certain event in 
+//	 * @param event
+//	 * @return amount of events removed
+//	 */
+//	public int removeAll(Event event) {
+//		int amountRemoved = 0;
+//		for(Event e : this.events) {
+//			if (e.equals(event)){
+//				removeEvent(e);
+//				amountRemoved ++;
+//			}
+//		}
+//		return amountRemoved;
+//	}
+	
 	/**
 	 * 
 	 * @return day of month integer
