@@ -58,9 +58,9 @@ public class Day implements Comparable<Day>{
 		
 		for (int i =1; i < repeat; i++) {
 			LocalDate incrementedDate = event.getDate().plusDays(7*i);
-			//need to create an instance of each event
+			
 			Event event1 = new NonRepeatingEvent();
-			//Event event1 = new Event(event.getTitle(), event.getDescription(),event.getStartingTime(), event.getDuration(),incrementedDate);
+			
 			event1.title = event.getTitle();
 			event1.description = event.getDescription();
 			event1.startingTime =event.getStartingTime();
