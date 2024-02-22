@@ -61,7 +61,7 @@ public class Day implements Comparable<Day>{
 			//need to create an instance of each event
 			//Event event1 = new Event(event.getTitle(), event.getDescription(),event.getStartingTime(), event.getDuration(),incrementedDate);
 			//Event event2 = new Event();
-			//event1.SetDate(incrementedDate);
+			//event1.SetDate(incrementedDate); 
 			addEvent(event);
 			
 		}
