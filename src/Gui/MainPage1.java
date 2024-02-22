@@ -5,7 +5,7 @@ import javafx.application.*;
 import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.stage.*;
-
+//first page after login
 public class MainPage1 extends Application{
 
 	public static void main(String[] args) {
