@@ -18,6 +18,10 @@ import BusinessLogic.Assignment;
 //Jonah Ottini 
 //218945030 
 
+//Add line to VM arguments under run configuration:
+// --module-path "\path\to\javafx-sdk-17\lib" --add-modules javafx.controls,javafx.fxml 
+//and replace inside quotes with path to javafx sdk lib folder on your PC
+
 /**
  * 
  * Creates a Homework or Assignment object using user input, and adds it to the Calendar
