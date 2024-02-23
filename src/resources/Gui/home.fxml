@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.HomeController">
+    <top>
+        <HBox alignment="CENTER">
+            <Button text="Previous Month"/>
+            <Text text="February 2024" />
+            <Button text="Next Month"/>
+        </HBox>
+    </top>
+    <center>
+        <GridPane hgap="5" vgap="5">
+            <!-- Calendar Grid -->
+            <Button text="29"/>
+            <Button text="30"/>
+            <Button text="31"/>
+            <Button text="1"/>
+            <Button text="2"/>
+            <Button text="3"/>
+            <Button text="4"/>
+            <Button text="5"/>
+            <Button text="6"/>
+            <Button text="7"/>
+            <Button text="8"/>
+            <Button text="9"/>
+            <Button text="10"/>
+            <Button text="11"/>
+            <Button text="12"/>
+            <Button text="13"/>
+            <Button text="14"/>
+            <Button text="15"/>
+            <Button text="16"/>
+            <Button text="17"/>
+            <Button text="18"/>
+            <Button text="19"/>
+            <Button text="20"/>
+            <Button text="21"/>
+            <Button text="22"/>
+            <Button text="23"/>
+            <Button text="24"/>
+            <Button text="25"/>
+            <Button text="26"/>
+            <Button text="27"/>
+            <Button text="28"/>
+            <!-- End of Calendar Grid -->
+        </GridPane>
+    </center>
+    <right>
+        <VBox spacing="10">
+            <Button text="Add Event" onAction="#addEventAction"/>
+            <Button text="Remove Event" onAction="#removeEventAction"/>
+            <Button text="Save" onAction="#saveAction"/>
+            <Button text="Sign Out" onAction="#signOutAction"/>
+        </VBox>
+    </right>
+</BorderPane>
