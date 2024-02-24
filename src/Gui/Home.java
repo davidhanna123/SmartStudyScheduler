@@ -33,4 +33,4 @@ public class Home extends Application{
 	}
 
 }
-//C:\Users\yadon\git\SmartStudyScheduler\src\resources\Gui
+
