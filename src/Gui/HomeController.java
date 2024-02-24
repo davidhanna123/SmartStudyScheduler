@@ -1,5 +1,6 @@
 package Gui;
 
+import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -33,5 +34,9 @@ public class HomeController {
     @FXML
     private void signOutAction() {
         // Add logic for signing out
+    }
+    
+    public void nextMonth(ActionEvent e) {
+    	//view next month
     }
 }

@@ -33,7 +33,7 @@ public class LoginController {
     public void signupAction(ActionEvent event) {
         Login LoginPage2 = new Login();
         try {
-            LoginPage2.changeScene("signup.fxml");
+            LoginPage2.changeScene("/Gui/resources/signup.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
