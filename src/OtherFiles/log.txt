@@ -18,7 +18,7 @@ log 5 - 2/15/24 - Kamil
   Finalizing test cases and integration testing for main classes of our business logic 9:00PM-2:00AM
 log 6 - 2/16/24 - David
   Implements repeating event adding methods for the RepeatingEvents class.
-log 7 - 2/13/24 - 2/16/24 - Dursan
+log 7 - 2/13/24 - 2/16/24 - Dursen
   Implements GUI for the main login page of the app and the very first page of the calendar.
   Use case: Displaying motivational messages, was left for other iterations as it was simply an optional feature. Instead the first two pages needed for this app were designed.
 log 8 - 2/12/24 - 2/16/24 - Jonah
@@ -38,4 +38,7 @@ log 10 - 2/19/24 - Yadon
   Fixed methods in the Hour and Day classes.
   Finalized UML class diagram of the project's business logic.
   Created CRC cards for all classes except  Assignment, Homework, Year, and RepeatingEvent
-  	
+log 11 - 2/23/24 - Dursen
+2:00PM - 6P:00M 
+Implemented and added a fully functioning signup and login page (both logic controllers and fxml ). 
+Added a an intial homepage for the application.
