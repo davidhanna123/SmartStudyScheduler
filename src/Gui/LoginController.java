@@ -12,8 +12,6 @@ import java.util.Map;
 
 public class LoginController {
 
-    // This is a simple in-memory store for usernames and passwords.
-    // In a real application, you would use a secure database.
     private static Map<String, String> users = new HashMap<>();
 
     @FXML
