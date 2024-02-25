@@ -102,6 +102,16 @@ public class CalendarApp {
 		this.lastYear = 0;
 	}
 	
+	public Year getYear(int yearNumber) throws IllegalArgumentException{
+		for(Year y: this.years) {
+			if (y.getCurrentYear() == yearNumber) {
+				return y;
+			}
+		}
+		
+		throw new IllegalArgumentException("Year not found");
+	}
+	
 	
 }
 
