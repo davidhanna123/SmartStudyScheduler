@@ -17,7 +17,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="843.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.HomeController">
    <children>
@@ -33,8 +32,8 @@
       <Label layoutX="459.0" layoutY="31.0" text="Wednsday" />
       <MenuButton fx:id="optionsMenu" accessibleRole="DATE_PICKER" layoutX="29.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Options">
         <items>
-          <MenuItem fx:id="action1" mnemonicParsing="false" onAction="#handleAction1" text="Action 1" />
-          <MenuItem fx:id="action2" mnemonicParsing="false" onAction="#handleAction2" text="Action 2" />
+          <MenuItem fx:id="action1" mnemonicParsing="false" onAction="#handleAction1" text="Add Event" />
+          <MenuItem fx:id="action2" mnemonicParsing="false" onAction="#handleAction2" text="See Reminders" />
         </items>
       </MenuButton>
       <GridPane layoutX="173.0" layoutY="50.0" prefHeight="550.0" prefWidth="671.0">
@@ -51,6 +50,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -78,7 +78,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day2" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -108,7 +108,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day6" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -138,7 +138,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day35" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -168,7 +168,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day8" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -198,7 +198,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day12" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -228,7 +228,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day5" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -258,7 +258,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day11" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -288,7 +288,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day4" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -318,7 +318,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day10" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -348,7 +348,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day3" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -378,7 +378,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day9" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -408,7 +408,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day18" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -438,7 +438,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day17" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -468,7 +468,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day16" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -498,7 +498,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day15" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -528,7 +528,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day14" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -558,7 +558,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day13" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -588,7 +588,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day7" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -618,7 +618,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day1" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -648,7 +648,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day34" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -678,7 +678,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day33" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -708,7 +708,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day32" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -738,7 +738,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day31" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -768,7 +768,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day30" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -798,7 +798,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day29" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -828,7 +828,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day28" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -858,7 +858,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day27" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -888,7 +888,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day26" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -918,7 +918,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day25" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -948,7 +948,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day24" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -978,7 +978,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day21" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -1008,7 +1008,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day20" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -1038,7 +1038,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day23" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -1068,7 +1068,7 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day22" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -1098,7 +1098,217 @@
                   </MenuBar>
                </bottom>
                <center>
-                  <Label prefHeight="62.0" prefWidth="28.0" text="1" BorderPane.alignment="CENTER">
+                  <Label fx:id="day19" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="377.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
+               <bottom>
+                  <MenuBar BorderPane.alignment="CENTER">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Close" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Delete" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+               </bottom>
+               <center>
+                  <Label fx:id="day36" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="468.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
+               <bottom>
+                  <MenuBar BorderPane.alignment="CENTER">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Close" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Delete" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+               </bottom>
+               <center>
+                  <Label fx:id="day42" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+               <bottom>
+                  <MenuBar BorderPane.alignment="CENTER">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Close" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Delete" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+               </bottom>
+               <center>
+                  <Label fx:id="day41" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+               <bottom>
+                  <MenuBar BorderPane.alignment="CENTER">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Close" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Delete" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+               </bottom>
+               <center>
+                  <Label fx:id="day40" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+               <bottom>
+                  <MenuBar BorderPane.alignment="CENTER">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Close" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Delete" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+               </bottom>
+               <center>
+                  <Label fx:id="day39" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <bottom>
+                  <MenuBar BorderPane.alignment="CENTER">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Close" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Delete" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+               </bottom>
+               <center>
+                  <Label fx:id="day38" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <bottom>
+                  <MenuBar BorderPane.alignment="CENTER">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Close" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Delete" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+               </bottom>
+               <center>
+                  <Label fx:id="day37" prefHeight="62.0" prefWidth="28.0" text="-" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -1107,12 +1317,16 @@
             </BorderPane>
          </children>
       </GridPane>
-      <Button layoutX="178.0" layoutY="2.0" mnemonicParsing="false" text="Last Month" />
-      <Button layoutX="756.0" layoutY="2.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Next Month" />
+      <Button id="lastMonth" layoutX="178.0" layoutY="2.0" mnemonicParsing="false" onAction="#updateDayLabelsMonthDecrease" text="Last Month" />
+      <Button id="nextMonth" layoutX="756.0" layoutY="2.0" mnemonicParsing="false" onAction="#updateDayLabelsMonthIncrease" prefHeight="26.0" prefWidth="82.0" text="Next Month" />
       <Spinner layoutX="11.0" layoutY="560.0" />
       <Separator layoutY="543.0" prefHeight="1.0" prefWidth="176.0" />
-      <TextFlow layoutX="396.0" layoutY="-2.0" prefHeight="33.0" prefWidth="126.0" />
-      <VBox fx:id="remindersVBox" layoutX="13.0" layoutY="53.0" prefHeight="488.0" prefWidth="159.0" visible="false" />
+      <Label fx:id="monthName" alignment="TOP_CENTER" layoutX="397.0" layoutY="-2.0" prefHeight="26.0" prefWidth="162.0" text="Label" textAlignment="CENTER">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <VBox fx:id="remindersVBox" layoutX="12.0" layoutY="50.0" prefHeight="494.0" prefWidth="162.0" visible="false" />
    </children>
    <effect>
       <DropShadow />

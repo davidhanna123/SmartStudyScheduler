@@ -15,13 +15,18 @@ public class StubDatabase {
 	static CalendarApp calendar = new CalendarApp();
 	static final List<Reminders> remindersList = new ArrayList<>();
 	
-	static void initialize() {
+	public static void initialize() {
 		
 		Year year = new Year(2024);
 		calendar.addYear(year);
+		
+		calendar.setCurrentYear(2024);
+		calendar.setCurrentMonth(1);
+		
 		Month[] months = new Month[12];
-		Day[] days = new Day[30];
+		Day[] days = new Day[31];
  		Hour[] hours = new Hour[24];
+		
 		
 		for(int i = 1; i<=12; i++) {
 			months[i-1] = new Month(i, year);
@@ -49,5 +54,10 @@ public class StubDatabase {
 	// getting all the reminders
 	public static List<Reminders> getReminders(){
 		return new ArrayList<>(remindersList);
+	}
+	
+	//calendar getter
+	public static CalendarApp getCalendar() {
+		return calendar;
 	}
 }
