@@ -3,6 +3,7 @@ package Gui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 
@@ -18,7 +19,9 @@ public class Login extends Application {
         stg = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Login.class.getResource("/Gui/resources/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        stage.setTitle("SSS");
+        Image icon = new Image("logo5.jpg");
+		stage.getIcons().add(icon);
+		stage.setTitle("Smart Study Scheduler");
         stage.setScene(scene);
         stage.show();
     }
