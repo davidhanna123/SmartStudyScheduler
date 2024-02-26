@@ -44,7 +44,7 @@ public class LoginController {
 
         if(checkCredentials(username.getText(), password.getText())) {
             errorLabel.setText("Success!");
-            LoginPage.changeScene("home.fxml");
+            LoginPage.changeScene("homePage.fxml");
         } else if(username.getText().isEmpty() && password.getText().isEmpty()) {
             errorLabel.setText("Please enter your data.");
         } else {
