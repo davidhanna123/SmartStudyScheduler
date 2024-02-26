@@ -1,5 +1,6 @@
 log 1 - 2/4/24
   Meeting from 6:30PM - 7:30PM
+  Dursen - Conducted 2 Customer Interviews
   Discussed what the base of the project would be like. 
   Decided on what class dependencies would look like.
 log 2 - 2/4/24 Yadon and Kamil
