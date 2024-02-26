@@ -1,14 +1,19 @@
 package Database;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import BusinessLogic.CalendarApp;
 import BusinessLogic.Day;
 import BusinessLogic.Hour;
 import BusinessLogic.Month;
 import BusinessLogic.Year;
+import BusinessLogic.Reminders;
 
 public class StubDatabase {
 
 	static CalendarApp calendar = new CalendarApp();
+	static final List<Reminders> remindersList = new ArrayList<>();
 	
 	static void initialize() {
 		
@@ -35,4 +40,14 @@ public class StubDatabase {
 		}
 	}
 	
+	
+	// calling this when a reminder is added to an event
+	public static void addReminder(Reminders reminder) {
+		remindersList.add(reminder);
+	}
+	
+	// getting all the reminders
+	public static List<Reminders> getReminders(){
+		return new ArrayList<>(remindersList);
+	}
 }

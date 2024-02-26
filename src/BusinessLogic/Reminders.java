@@ -15,6 +15,7 @@ public class Reminders {
 	private int eventTime;
 	private Duration offset;
 	private LocalTime currentTime; // storing the current time
+	private Day reminderDay;
 	
 	
 	/**
@@ -38,6 +39,39 @@ public class Reminders {
 		this.offset = offset;
 		//this.currentTime = LocalTime.now();
 	}
+	
+	/**
+	 * 
+	 * @param message
+	 * @param eventTime
+	 * @param offset
+	 * @param reminderDay
+	 * @throws InvalidEventTimeException
+	 * @throws negativeReminderOffsetException
+	 */
+	public Reminders(String message, int eventTime, Duration offset, Day reminderDay) throws InvalidEventTimeException, negativeReminderOffsetException {
+        this.message = message;
+        this.eventTime = eventTime;
+        this.offset = offset;
+        this.reminderDay = reminderDay;
+    }
+	
+	
+	/**
+	 * 
+	 * @return reminderDay
+	 */
+	public Day getReminderDay() {
+        return reminderDay;
+    }
+	
+	/**
+	 * 
+	 * @param reminderDay
+	 */
+	public void setReminderDay(Day reminderDay) {
+        this.reminderDay = reminderDay;
+    }
 	
 	/**
 	 * Sets the reminder with the specified message and event time.

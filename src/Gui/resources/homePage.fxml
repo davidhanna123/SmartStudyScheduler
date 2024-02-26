@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
@@ -30,10 +31,10 @@
       <Label layoutX="658.0" layoutY="31.0" text="Friday" />
       <Label layoutX="556.0" layoutY="31.0" text="Thursday" />
       <Label layoutX="459.0" layoutY="31.0" text="Wednsday" />
-      <MenuButton accessibleRole="DATE_PICKER" layoutX="29.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Options">
+      <MenuButton fx:id="optionsMenu" accessibleRole="DATE_PICKER" layoutX="29.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Options">
         <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
+          <MenuItem fx:id="action1" mnemonicParsing="false" onAction="#handleAction1" text="Action 1" />
+          <MenuItem fx:id="action2" mnemonicParsing="false" onAction="#handleAction2" text="Action 2" />
         </items>
       </MenuButton>
       <GridPane layoutX="173.0" layoutY="50.0" prefHeight="550.0" prefWidth="671.0">
@@ -1111,6 +1112,7 @@
       <Spinner layoutX="11.0" layoutY="560.0" />
       <Separator layoutY="543.0" prefHeight="1.0" prefWidth="176.0" />
       <TextFlow layoutX="396.0" layoutY="-2.0" prefHeight="33.0" prefWidth="126.0" />
+      <VBox fx:id="remindersVBox" layoutX="13.0" layoutY="53.0" prefHeight="488.0" prefWidth="159.0" visible="false" />
    </children>
    <effect>
       <DropShadow />
