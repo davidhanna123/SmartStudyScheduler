@@ -31,54 +31,66 @@ public class Month implements Comparable<Month> {
     	case 1:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "January";
     		break;
     	case 2:
     		if((year.getCurrentYear()%4 == 0 && year.getCurrentYear()%100 != 0) || year.getCurrentYear()%400 == 0) {
     			this.numOfDays = 29;
     		}else {
-    			this.numOfDays = 31;
+    			this.numOfDays = 28;
     		}
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "February";
     		break;
     	case 3:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "March";
     		break;
     	case 4:
     		this.numOfDays = 30;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "April";
     		break;
     	case 5:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "May";
     		break;
     	case 6:
     		this.numOfDays = 30;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "June";
     		break;
     	case 7:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "July";
     		break;
     	case 8:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "August";
     		break;
     	case 9:
     		this.numOfDays = 30;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "September";
     		break;
     	case 10:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "October";
     		break;
     	case 11:
     		this.numOfDays = 30;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "November";
     		break;
     	case 12:
     		this.numOfDays = 31;
     		this.days = new LimitedTreeSet<>(this.numOfDays);
+    		this.monthName = "December";
     		break;
     	}
     	this.year = year;

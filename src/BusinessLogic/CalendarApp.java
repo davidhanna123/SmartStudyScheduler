@@ -29,7 +29,9 @@ import java.util.*;
 
 public class CalendarApp {
 	private TreeSet<Year> years;
-	int lastYear;
+	private int lastYear;
+	private int currentYear;
+	private int currentMonth;
 	
 	/**
 	 * No argument Constructor
@@ -108,9 +110,37 @@ public class CalendarApp {
 				return y;
 			}
 		}
-		
 		throw new IllegalArgumentException("Year not found");
 	}
+	
+	public void setCurrentMonth(int month) {
+		this.currentMonth = month;
+	}
+	public void setCurrentYear(int year) {
+		this.currentYear = year;
+	}
+	
+	public void incCurrentMonth() {
+		this.currentMonth++;
+	}
+	public void decCurrentMonth() {
+		this.currentMonth--;
+	}
+	public void incCurrentYear() {
+		this.currentYear++;
+	}
+	public void decCurrentYear() {
+		this.currentYear--;
+	}
+
+	public int getCurrentYear() {
+		return currentYear;
+	}
+
+	public int getCurrentMonth() {
+		return currentMonth;
+	}
+	
 	
 	
 }
