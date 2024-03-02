@@ -162,6 +162,9 @@ public class HomeController {
     @FXML
     private Label monthName;
     
+    @FXML
+    private Label yearLabel;
+    
     //StubDatabase stub;
     public HomeController() {
     	super();
@@ -544,17 +547,41 @@ public class HomeController {
 			x.setText("-");
 		}
 		
+		int yearNow;
+		int monthNow;
+		Month month;
     	
     	CalendarApp calendar = StubDatabase.getCalendar();
     	
-    	int yearNow = calendar.getCurrentYear();
+    	if(calendar.getCurrentMonth() == 12) {
+    		calendar.incCurrentYear();
+    		yearNow = calendar.getCurrentYear();
+    		calendar.addYear(yearNow);
+        	
+        	//current month and month label configurations
+        	calendar.setCurrentMonth(1);
+        	monthNow = calendar.getCurrentMonth();
+        	
+        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+        	monthName.setText(month.getMonthName());
+        	
+        	//setting the year label
+        	yearLabel.setText(String.valueOf(yearNow));
+    	}else {
+    		yearNow = calendar.getCurrentYear();
+        	
+        	//current month and month label configurations
+        	calendar.setCurrentMonth(calendar.getCurrentMonth()+1);
+        	monthNow = calendar.getCurrentMonth();
+        	
+        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+        	monthName.setText(month.getMonthName());
+        	
+        	//setting the year label
+        	yearLabel.setText(String.valueOf(yearNow));
+    	}
     	
-    	//current month and month label configurations
-    	calendar.setCurrentMonth(calendar.getCurrentMonth()+1);
-    	int monthNow = calendar.getCurrentMonth();
     	
-    	Month month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
-    	monthName.setText(month.getMonthName());
     	
     	// Create a LocalDate object
         LocalDate date = LocalDate.of(yearNow, monthNow, 1); 
@@ -632,17 +659,41 @@ public class HomeController {
 			x.setText("-");
 		}
 		
+		int yearNow;
+		int monthNow;
+		Month month;
     	
     	CalendarApp calendar = StubDatabase.getCalendar();
     	
-    	int yearNow = calendar.getCurrentYear();
+    	if(calendar.getCurrentMonth() == 1) {
+    		calendar.decCurrentYear();
+    		yearNow = calendar.getCurrentYear();
+    		calendar.addYear(yearNow);
+        	
+        	//current month and month label configurations
+        	calendar.setCurrentMonth(12);
+        	monthNow = calendar.getCurrentMonth();
+        	
+        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+        	monthName.setText(month.getMonthName());
+        	
+        	//setting the year label
+        	yearLabel.setText(String.valueOf(yearNow));
+    	}else {
+    		yearNow = calendar.getCurrentYear();
+        	
+        	//current month and month label configurations
+        	calendar.setCurrentMonth(calendar.getCurrentMonth()-1);
+        	monthNow = calendar.getCurrentMonth();
+        	
+        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+        	monthName.setText(month.getMonthName());
+        	
+        	//setting the year label
+        	yearLabel.setText(String.valueOf(yearNow));
+    	}
     	
-    	//current month and month label configurations
-    	calendar.setCurrentMonth(calendar.getCurrentMonth()-1);
-    	int monthNow = calendar.getCurrentMonth();
     	
-    	Month month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
-    	monthName.setText(month.getMonthName());
     	
     	// Create a LocalDate object
         LocalDate date = LocalDate.of(yearNow, monthNow, 1); 
@@ -712,5 +763,195 @@ public class HomeController {
     		}
     	}
     }
+    
+    //updating the calendar and the year label when the next year is selected
+    @FXML
+    public void updateYearLabelNext() throws IllegalArgumentException, MonthNotFoundException {
+    	List<Label> XdayList = initializeSun();
+		for(Label x: XdayList) {//clearing before resetting text
+			x.setText("-");
+		}
+		
+    	CalendarApp calendar = StubDatabase.getCalendar();
+    	
+    	int yearNow;
+		int monthNow;
+		Month month;
+		
+    	if(calendar.contains(calendar.getCurrentYear() + 1)) {
+    		calendar.setCurrentYear(calendar.getCurrentYear() + 1);
+    		yearNow = calendar.getCurrentYear();
+    		monthNow = calendar.getCurrentMonth();
+    		month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+    		
+    		// Create a LocalDate object
+            LocalDate date = LocalDate.of(yearNow, monthNow, 1); 
+            // Get the day of the week as a DayOfWeek enum
+            DayOfWeek dayOfWeekEnum = date.getDayOfWeek();
+            // Convert the DayOfWeek enum to a string
+            String dayOfWeek = dayOfWeekEnum.toString();
+        	
+            //setting the year label
+        	yearLabel.setText(String.valueOf(yearNow));
+            
+            int dayNow = 0;
+            
+        	if(dayOfWeek.equals("MONDAY")) {
+        		List<Label> dayList = initializeMon();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("TUESDAY")) {
+        		List<Label> dayList = initializeTue();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("WEDNESDAY")) {
+        		List<Label> dayList = initializeWed();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("THURSDAY")) {
+        		List<Label> dayList = initializeThur();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("FRIDAY")) {
+        		List<Label> dayList = initializeFri();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("SATURDAY")) {
+        		List<Label> dayList = initializeSat();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("SUNDAY")) {
+        		List<Label> dayList = initializeSun();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+    	}else {
+    		calendar.addYear(calendar.getCurrentYear()+1);
+    		updateYearLabelNext();
+    	}
+    }
+    
+    //updating the calendar and the year label when the last year is selected
+    @FXML
+    public void updateYearLabelPrev() throws IllegalArgumentException, MonthNotFoundException {
+    	List<Label> XdayList = initializeSun();
+		for(Label x: XdayList) {//clearing before resetting text
+			x.setText("-");
+		}
+		
+    	CalendarApp calendar = StubDatabase.getCalendar();
+    	
+    	int yearNow;
+		int monthNow;
+		Month month;
+		
+    	if(calendar.contains(calendar.getCurrentYear() - 1)) {
+    		calendar.setCurrentYear(calendar.getCurrentYear() - 1);
+    		yearNow = calendar.getCurrentYear();
+    		monthNow = calendar.getCurrentMonth();
+    		month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+    		
+    		// Create a LocalDate object
+            LocalDate date = LocalDate.of(yearNow, monthNow, 1); 
+            // Get the day of the week as a DayOfWeek enum
+            DayOfWeek dayOfWeekEnum = date.getDayOfWeek();
+            // Convert the DayOfWeek enum to a string
+            String dayOfWeek = dayOfWeekEnum.toString();
+        	
+            //setting the year label
+        	yearLabel.setText(String.valueOf(yearNow));
+            
+            int dayNow = 0;
+            
+        	if(dayOfWeek.equals("MONDAY")) {
+        		List<Label> dayList = initializeMon();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("TUESDAY")) {
+        		List<Label> dayList = initializeTue();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("WEDNESDAY")) {
+        		List<Label> dayList = initializeWed();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("THURSDAY")) {
+        		List<Label> dayList = initializeThur();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("FRIDAY")) {
+        		List<Label> dayList = initializeFri();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("SATURDAY")) {
+        		List<Label> dayList = initializeSat();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+        	if(dayOfWeek.equals("SUNDAY")) {
+        		List<Label> dayList = initializeSun();
+        		System.out.println(initializeMon().toString());
+        		for(Day d : month.getDays()) {
+        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+        			dayNow++;
+        		}
+        	}
+    	}else {
+    		calendar.addYear(calendar.getCurrentYear()-1);
+    		updateYearLabelNext();
+    	}
+    }
+    
+    
     
 }

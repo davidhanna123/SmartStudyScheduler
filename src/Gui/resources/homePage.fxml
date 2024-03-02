@@ -8,7 +8,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -1319,14 +1318,20 @@
       </GridPane>
       <Button id="lastMonth" layoutX="178.0" layoutY="2.0" mnemonicParsing="false" onAction="#updateDayLabelsMonthDecrease" text="Last Month" />
       <Button id="nextMonth" layoutX="756.0" layoutY="2.0" mnemonicParsing="false" onAction="#updateDayLabelsMonthIncrease" prefHeight="26.0" prefWidth="82.0" text="Next Month" />
-      <Spinner layoutX="11.0" layoutY="560.0" />
       <Separator layoutY="543.0" prefHeight="1.0" prefWidth="176.0" />
-      <Label fx:id="monthName" alignment="TOP_CENTER" layoutX="397.0" layoutY="-2.0" prefHeight="26.0" prefWidth="162.0" text="Label" textAlignment="CENTER">
+      <Label fx:id="monthName" alignment="TOP_CENTER" layoutX="397.0" layoutY="-2.0" prefHeight="26.0" prefWidth="162.0" text="Month" textAlignment="CENTER">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
       <VBox fx:id="remindersVBox" layoutX="12.0" layoutY="50.0" prefHeight="494.0" prefWidth="162.0" visible="false" />
+      <Button fx:id="prevYear" layoutX="9.0" layoutY="565.0" mnemonicParsing="false" onAction="#updateYearLabelPrev" prefHeight="26.0" prefWidth="39.0" text="&lt;&lt;" />
+      <Button fx:id="nextYear" layoutX="131.0" layoutY="565.0" mnemonicParsing="false" onAction="#updateYearLabelNext" prefHeight="26.0" prefWidth="39.0" text="&gt;&gt;" />
+      <Label fx:id="yearLabel" alignment="TOP_CENTER" layoutX="56.0" layoutY="564.0" prefHeight="28.0" prefWidth="64.0" text="Year" textAlignment="CENTER">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
    </children>
    <effect>
       <DropShadow />

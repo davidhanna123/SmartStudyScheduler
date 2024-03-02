@@ -55,6 +55,35 @@ public class CalendarApp {
 	public void addYear(Year year) {
 		years.add(year);
 		this.lastYear = this.years.last().getCurrentYear();
+		
+	}
+	
+	
+	public void addYear(int yearNum) {
+		Year year = new Year(yearNum);
+		this.addYear(year);
+		
+		Month[] months = new Month[12];
+		Day[] days = new Day[31];
+ 		Hour[] hours = new Hour[24];
+		
+		
+		for(int i = 1; i<=12; i++) {
+			months[i-1] = new Month(i, year);
+			for(int j = 1; j<=31; j++) {
+				days[j-1] = new Day(j);//we should make day have an integer between 0 and 32 and make a constructor for that. Up to Kamil though.
+				for(int k = 1; k <=24; k++) {
+					hours[k-1] = new Hour(k, 0.0);
+					days[j-1].addHour(hours[k-1]);
+				}
+				try {
+					months[i-1].addDay(days[j-1]);
+				}catch(Exception e) {	
+					//purposefully unhandled because we want it to just not add an extra day
+			}
+		}
+			year.addMonth(months[i-1]);
+		}
 	}
 	
 	/**
@@ -141,6 +170,14 @@ public class CalendarApp {
 		return currentMonth;
 	}
 	
+	public boolean contains(int year) {
+		for(Year y : this.years) {
+			if(y.getCurrentYear() == year) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 }
