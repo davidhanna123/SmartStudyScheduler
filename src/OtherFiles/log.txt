@@ -44,8 +44,11 @@ log 11 - 2/23/24 - Dursen
 	2:00PM - 6P:00M 
 	Implemented and added a fully functioning signup and login page (both logic controllers and fxml ). 
 	Added a an intial homepage for the application.
-log 12 - 2/25/24 - 2/26/24
+log 12 - 2/25/24 - 2/26/24 - Yadon
 	3:00PM - 3:00AM
 	Implemented the month scrolling feature of the user interface
 	Added the buttons and the Menu bar for each day 
+log 13 - 3/2/24 - Yadon
+	10:00PM - 11:45PM
+	Fully implemented calendar scrolling. Any day of any year is accessible now.
 
