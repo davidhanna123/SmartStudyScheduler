@@ -18,7 +18,7 @@ public class Login extends Application {
     public void start(Stage stage) throws IOException {
         stg = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Login.class.getResource("/Gui/resources/login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load());
         Image icon = new Image("logo5.jpg");
 		stage.getIcons().add(icon);
 		stage.setTitle("Smart Study Scheduler");
