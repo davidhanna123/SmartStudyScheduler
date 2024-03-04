@@ -41,9 +41,9 @@ log 10 - 2/19/24 - Yadon
   Finalized UML class diagram of the project's business logic.
   Created CRC cards for all classes except  Assignment, Homework, Year, and RepeatingEvent
 log 11 - 2/23/24 - Dursen
-	2:00PM - 6P:00M 
+	2:00PM - 6:00PM
 	Implemented and added a fully functioning signup and login page (both logic controllers and fxml ). 
-	Added a an intial homepage for the application.
+	Added an initial homepage for the application.
 log 12 - 2/25/24 - 2/26/24 - Yadon
 	3:00PM - 3:00AM
 	Implemented the month scrolling feature of the user interface
