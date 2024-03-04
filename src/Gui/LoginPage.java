@@ -59,10 +59,7 @@ public class LoginPage extends Application {
         gridPane.add(Button2, 1, 2);
         gridPane.add(Button3, 2, 2);
 
-        // Styling the nodes
-       // Button1.setStyle("-fx-background-color: blue; -fx-text-fill:white;");
-       // Button2.setStyle("-fx-background-color: blue; -fx-text-fill:white;");
-       // Button3.setStyle("-fx-background-color: blue; -fx-text-fill:white;");
+
 
         Label1.setStyle("-fx-font: normal bold 20px 'serif");
         Label2.setStyle("-fx-font: normal bold 20px 'serif");
@@ -82,7 +79,7 @@ public class LoginPage extends Application {
             String password = Field2.getText();
             if (username.equals("user") && password.equals("pass")) {
                 // If login is successful, switch to MainPage
-                MainPage mainPage = new MainPage();
+                Home mainPage = new Home();
                 try {
                     mainPage.start(new Stage());
                     stage.close(); // Close the login page

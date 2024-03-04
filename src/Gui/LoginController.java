@@ -33,7 +33,7 @@ public class LoginController {
     public void signupAction(ActionEvent event) {
         Login LoginPage2 = new Login();
         try {
-            LoginPage2.changeScene("/Gui/resources/signup.fxml");
+            LoginPage2.changeScene("signup.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -41,7 +41,6 @@ public class LoginController {
 
     private void checkLogin() throws IOException {
         Login LoginPage = new Login();
-
         if(checkCredentials(username.getText(), password.getText())) {
             errorLabel.setText("Success!");
             LoginPage.changeScene("homePage.fxml");
@@ -50,6 +49,7 @@ public class LoginController {
         } else {
             errorLabel.setText("Wrong username or password!");
         }
+
     }
 
     private boolean checkCredentials(String username, String password) {

@@ -22,6 +22,11 @@ public class SignupController {
 
         // After signing up, redirect the user back to the login page
         Login loginPage = new Login();
-        loginPage.changeScene("/Gui/resources/login.fxml");
+        try {
+            loginPage.changeScene("login.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
+

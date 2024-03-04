@@ -27,9 +27,13 @@ public class Login extends Application {
     }
 
     public void changeScene(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Gui/" + fxml));
-        Parent pane = loader.load();
-        stg.getScene().setRoot(pane);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Gui/resources/" + fxml));
+            Parent pane = loader.load();
+            stg.getScene().setRoot(pane);
+            SignupController controller = loader.getController();
+            LoginController controller1 = loader.getController();
+
     }
 
 
