@@ -542,10 +542,7 @@ public class HomeController {
     
     @FXML
     public void updateDayLabelsMonthIncrease() throws IllegalArgumentException, MonthNotFoundException {
-		List<Label> XdayList = initializeSun();
-		for(Label x: XdayList) {//clearing before resetting text
-			x.setText("-");
-		}
+    	clearDayLabels();
 		
 		int yearNow;
 		int monthNow;
@@ -590,74 +587,12 @@ public class HomeController {
         // Convert the DayOfWeek enum to a string
         String dayOfWeek = dayOfWeekEnum.toString();
     	
-    	
-        
-        int dayNow = 0;
-        
-    	if(dayOfWeek.equals("MONDAY")) {
-    		List<Label> dayList = initializeMon();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("TUESDAY")) {
-    		List<Label> dayList = initializeTue();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("WEDNESDAY")) {
-    		List<Label> dayList = initializeWed();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("THURSDAY")) {
-    		List<Label> dayList = initializeThur();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("FRIDAY")) {
-    		List<Label> dayList = initializeFri();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("SATURDAY")) {
-    		List<Label> dayList = initializeSat();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("SUNDAY")) {
-    		List<Label> dayList = initializeSun();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
+    	updateDayLabels(dayOfWeek, month);
     }
     
     @FXML
     public void updateDayLabelsMonthDecrease() throws IllegalArgumentException, MonthNotFoundException {
-		List<Label> XdayList = initializeSun();
-		for(Label x: XdayList) {//clearing before resetting text
-			x.setText("-");
-		}
+    	clearDayLabels();
 		
 		int yearNow;
 		int monthNow;
@@ -704,73 +639,13 @@ public class HomeController {
     	
     	//
         
-        int dayNow = 0;
-        
-    	if(dayOfWeek.equals("MONDAY")) {
-    		List<Label> dayList = initializeMon();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("TUESDAY")) {
-    		List<Label> dayList = initializeTue();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("WEDNESDAY")) {
-    		List<Label> dayList = initializeWed();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("THURSDAY")) {
-    		List<Label> dayList = initializeThur();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("FRIDAY")) {
-    		List<Label> dayList = initializeFri();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("SATURDAY")) {
-    		List<Label> dayList = initializeSat();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
-    	if(dayOfWeek.equals("SUNDAY")) {
-    		List<Label> dayList = initializeSun();
-    		System.out.println(initializeMon().toString());
-    		for(Day d : month.getDays()) {
-    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-    			dayNow++;
-    		}
-    	}
+        updateDayLabels(dayOfWeek, month);
     }
     
     //updating the calendar and the year label when the next year is selected
     @FXML
     public void updateYearLabelNext() throws IllegalArgumentException, MonthNotFoundException {
-    	List<Label> XdayList = initializeSun();
-		for(Label x: XdayList) {//clearing before resetting text
-			x.setText("-");
-		}
+    	clearDayLabels();
 		
     	CalendarApp calendar = StubDatabase.getCalendar();
     	
@@ -796,62 +671,7 @@ public class HomeController {
             
             int dayNow = 0;
             
-        	if(dayOfWeek.equals("MONDAY")) {
-        		List<Label> dayList = initializeMon();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("TUESDAY")) {
-        		List<Label> dayList = initializeTue();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("WEDNESDAY")) {
-        		List<Label> dayList = initializeWed();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("THURSDAY")) {
-        		List<Label> dayList = initializeThur();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("FRIDAY")) {
-        		List<Label> dayList = initializeFri();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("SATURDAY")) {
-        		List<Label> dayList = initializeSat();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("SUNDAY")) {
-        		List<Label> dayList = initializeSun();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
+            updateDayLabels(dayOfWeek, month);
     	}else {
     		calendar.addYear(calendar.getCurrentYear()+1);
     		updateYearLabelNext();
@@ -861,10 +681,7 @@ public class HomeController {
     //updating the calendar and the year label when the last year is selected
     @FXML
     public void updateYearLabelPrev() throws IllegalArgumentException, MonthNotFoundException {
-    	List<Label> XdayList = initializeSun();
-		for(Label x: XdayList) {//clearing before resetting text
-			x.setText("-");
-		}
+    	clearDayLabels();
 		
     	CalendarApp calendar = StubDatabase.getCalendar();
     	
@@ -888,70 +705,81 @@ public class HomeController {
             //setting the year label
         	yearLabel.setText(String.valueOf(yearNow));
             
-            int dayNow = 0;
-            
-        	if(dayOfWeek.equals("MONDAY")) {
-        		List<Label> dayList = initializeMon();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("TUESDAY")) {
-        		List<Label> dayList = initializeTue();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("WEDNESDAY")) {
-        		List<Label> dayList = initializeWed();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("THURSDAY")) {
-        		List<Label> dayList = initializeThur();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("FRIDAY")) {
-        		List<Label> dayList = initializeFri();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("SATURDAY")) {
-        		List<Label> dayList = initializeSat();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
-        	if(dayOfWeek.equals("SUNDAY")) {
-        		List<Label> dayList = initializeSun();
-        		System.out.println(initializeMon().toString());
-        		for(Day d : month.getDays()) {
-        			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
-        			dayNow++;
-        		}
-        	}
+        	updateDayLabels(dayOfWeek, month);
     	}else {
     		calendar.addYear(calendar.getCurrentYear()-1);
-    		updateYearLabelNext();
+    		updateYearLabelPrev();
     	}
     }
     
+    /**
+     * Updates all the day labels when a current year or month is changed on the calendar. 
+     * @param dayOfWeek
+     * @param month
+     */
+    public void updateDayLabels(String dayOfWeek, Month month) {
+    	int dayNow = 0;
+        
+    	if(dayOfWeek.equals("MONDAY")) {
+    		List<Label> dayList = initializeMon();
+    		for(Day d : month.getDays()) {
+    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+    			dayNow++;
+    		}
+    	}
+    	if(dayOfWeek.equals("TUESDAY")) {
+    		List<Label> dayList = initializeTue();
+    		for(Day d : month.getDays()) {
+    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+    			dayNow++;
+    		}
+    	}
+    	if(dayOfWeek.equals("WEDNESDAY")) {
+    		List<Label> dayList = initializeWed();
+    		for(Day d : month.getDays()) {
+    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+    			dayNow++;
+    		}
+    	}
+    	if(dayOfWeek.equals("THURSDAY")) {
+    		List<Label> dayList = initializeThur();
+    		for(Day d : month.getDays()) {
+    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+    			dayNow++;
+    		}
+    	}
+    	if(dayOfWeek.equals("FRIDAY")) {
+    		List<Label> dayList = initializeFri();
+    		for(Day d : month.getDays()) {
+    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+    			dayNow++;
+    		}
+    	}
+    	if(dayOfWeek.equals("SATURDAY")) {
+    		List<Label> dayList = initializeSat();
+    		for(Day d : month.getDays()) {
+    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+    			dayNow++;
+    		}
+    	}
+    	if(dayOfWeek.equals("SUNDAY")) {
+    		List<Label> dayList = initializeSun();
+    		for(Day d : month.getDays()) {
+    			dayList.get(dayNow).setText(String.valueOf(dayNow+1));//setting day label to a certain integer
+    			dayNow++;
+    		}
+    	}
+    }
+    
+    /**
+     * clearing before resetting text on all day labels
+     */
+    public void clearDayLabels() {
+    	List<Label> XdayList = initializeSun();
+		for(Label x: XdayList) {
+			x.setText("-");
+		}
+    }
     
     
 }
