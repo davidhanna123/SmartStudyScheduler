@@ -30,6 +30,7 @@ import java.util.*;
 public class CalendarApp {
 	private TreeSet<Year> years;
 	private int lastYear;
+	private int currentDay;
 	private int currentYear;
 	private int currentMonth;
 	
@@ -148,7 +149,9 @@ public class CalendarApp {
 	public void setCurrentYear(int year) {
 		this.currentYear = year;
 	}
-	
+	public void setCurrentDay(int currentDay) {
+		this.currentDay = currentDay;
+	}
 	public void incCurrentMonth() {
 		this.currentMonth++;
 	}
@@ -169,6 +172,11 @@ public class CalendarApp {
 	public int getCurrentMonth() {
 		return currentMonth;
 	}
+	
+	public int getCurrentDay() {
+		return currentDay;
+	}
+
 	
 	public boolean contains(int year) {
 		for(Year y : this.years) {
