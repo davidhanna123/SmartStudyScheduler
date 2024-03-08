@@ -868,7 +868,7 @@ public class HomeController {
     	
     	
     	
-    	// Kamils reminders implementation
+    	// Kamil's reminders implementation
     	Button addReminderButton = new Button("Add Reminder");
     	addReminderButton.setLayoutX(5);
     	addReminderButton.setLayoutY(300);
