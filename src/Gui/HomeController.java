@@ -866,6 +866,9 @@ public class HomeController {
     	detailPane.getChildren().add(endTimeLabel);
     	detailPane.getChildren().add(datePick);
     	
+    	
+    	
+    	// Kamils reminders implementation
     	Button addReminderButton = new Button("Add Reminder");
     	addReminderButton.setLayoutX(5);
     	addReminderButton.setLayoutY(300);
@@ -961,7 +964,7 @@ public class HomeController {
         
         
         ScrollPane scrollPane =  new ScrollPane(layout);
-        //scrollPane.setFitToWidth(true);
+   
         scrollPane.setPrefWidth(150);
         scrollPane.setPrefHeight(494);
 
