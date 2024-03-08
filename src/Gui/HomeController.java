@@ -873,7 +873,7 @@ public class HomeController {
     	
     	
     	
-    	// Kamil's reminders functionality implementation 
+    	// Kamil's Reminders functionality implementation 
     	Button addReminderButton = new Button("Add Reminder");
     	addReminderButton.setLayoutX(5);
     	addReminderButton.setLayoutY(300);
