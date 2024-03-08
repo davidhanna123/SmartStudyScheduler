@@ -11,15 +11,18 @@ import Database.StubDatabase;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
 public class HomeController {
 
-    @FXML
-    private Button addEventButton;
     @FXML
     private Button removeEventButton;
     @FXML
@@ -164,6 +167,12 @@ public class HomeController {
     
     @FXML
     private Label yearLabel;
+    
+    @FXML
+    private Pane detailPane;
+
+    @FXML
+    private Button addEventButton;
     
     //StubDatabase stub;
     public HomeController() {
@@ -779,6 +788,67 @@ public class HomeController {
 		for(Label x: XdayList) {
 			x.setText("-");
 		}
+    }
+    
+    @FXML
+    public void addEvent() {
+    	detailPane.getChildren().clear();
+    	
+    	TextField title = new TextField();
+    	TextField description = new TextField();
+    	Spinner<Integer> startTime = new Spinner<>();
+    	Spinner<Integer> endTime = new Spinner<>();
+    	DatePicker eventDate = new DatePicker();
+    	
+        //initializing event title input box
+        title.setPromptText("Enter Event Title");
+        title.setPrefWidth(150);
+        title.setLayoutX(5);
+        title.setLayoutY(20);
+        title.setId("titleBox");
+        //initializing event description input box
+        description.setPromptText("Enter Event Description");
+        description.setPrefWidth(150);
+        description.setLayoutX(5);
+        description.setLayoutY(60);
+        description.setId("eventBox");
+        //initializing start time select spinner and label
+        Label startTimeLabel = new Label("Event's starting time:");
+        startTimeLabel.setLayoutX(5);
+        startTimeLabel.setLayoutY(100);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 0);
+        startTime.setValueFactory(valueFactory);
+        startTime.setPromptText("Select Event Starting Time");
+        startTime.setLayoutX(5);
+        startTime.setLayoutY(120);
+       //initializing start time select spinner and label
+        Label endTimeLabel = new Label("Event's ending time:");
+        endTimeLabel.setLayoutX(5);
+        endTimeLabel.setLayoutY(150);
+        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 0);
+        endTime.setValueFactory(valueFactory2);
+        endTime.setPromptText("Select Event Starting Time");
+        endTime.setLayoutX(5);
+        endTime.setLayoutY(170);
+        
+        //event duration will be end time - start time
+        
+        //setting up date picker for the event and date picker label
+        Label datePick = new Label("Choose Event Date");
+        datePick.setLayoutX(5);
+        datePick.setLayoutY(240);
+        eventDate.setMaxWidth(150);
+        eventDate.setLayoutX(5);
+        eventDate.setLayoutY(260);
+        
+    	detailPane.getChildren().add(title);
+    	detailPane.getChildren().add(description);
+    	detailPane.getChildren().add(startTime);
+    	detailPane.getChildren().add(endTime);
+    	detailPane.getChildren().add(eventDate);
+    	detailPane.getChildren().add(startTimeLabel);
+    	detailPane.getChildren().add(endTimeLabel);
+    	detailPane.getChildren().add(datePick);
     }
     
     

@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.Separator?>
@@ -13,6 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -29,12 +29,6 @@
       <Label layoutX="658.0" layoutY="31.0" text="Friday" />
       <Label layoutX="556.0" layoutY="31.0" text="Thursday" />
       <Label layoutX="459.0" layoutY="31.0" text="Wednsday" />
-      <MenuButton fx:id="optionsMenu" accessibleRole="DATE_PICKER" layoutX="29.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="113.0" text="Options">
-        <items>
-          <MenuItem fx:id="action1" mnemonicParsing="false" onAction="#handleAction1" text="Add Event" />
-          <MenuItem fx:id="action2" mnemonicParsing="false" onAction="#handleAction2" text="See Reminders" />
-        </items>
-      </MenuButton>
       <GridPane layoutX="173.0" layoutY="50.0" prefHeight="550.0" prefWidth="671.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -1332,6 +1326,9 @@
             <Font size="19.0" />
          </font>
       </Label>
+      <Button fx:id="seeReminders" layoutX="12.0" layoutY="13.0" mnemonicParsing="false" text="Reminders" />
+      <Button fx:id="addEventGeneral" layoutX="96.0" layoutY="13.0" mnemonicParsing="false" onAction="#addEvent" text="Add Event" />
+      <Pane fx:id="detailPane" layoutX="15.0" layoutY="50.0" prefHeight="494.0" prefWidth="162.0" />
    </children>
    <effect>
       <DropShadow />
