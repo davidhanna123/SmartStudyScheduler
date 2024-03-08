@@ -40,22 +40,39 @@ public abstract class Event implements Comparable<Event>{
 		// TODO Auto-generated constructor stub
 	}
 	/**
-	 * 
+	 * Sets up event using fields of Homework object
 	 * @param homework
 	 */
 	public void setHomework(Homework homework) {
 		this.homework = homework;
-		// logic to set up the duration time based on hw's completion time
-		// here ...............
+		this.title = this.homework.getWork();
+		this.description = this.homework.getCourse();
+		this.duration = this.homework.getCompletionTime();
+		
 	}
 	/**
-	 * 
+	 * Sets up event using fields of Assignment object
 	 * @param assignment
 	 */
 	public void setAssignment(Assignment assignment) {
 		this.assignment = assignment;
 		// logic to set up the duration time based on assignment's completion time
-		// here ...............
+		this.setHomework(assignment);
+		this.date = this.assignment.getDue();
+	}
+	
+	/**
+	 * Creates Homework object using Event fields
+	 */
+	public void createHomework() { 
+		this.homework = new Homework(this.title, this.description, this.duration);
+	}
+	
+	/**
+	 * Creates Assignment object using Event fields
+	 */
+	public void createAssignment() { 
+		this.assignment = new Assignment(this.title, this.description, this.duration, this.date);
 	}
 	/**
 	 * 
