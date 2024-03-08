@@ -973,7 +973,5 @@ public class HomeController {
     
     public void initialize() {
         seeReminders.setOnAction(event -> displayReminders());
-       
     }
-    
 }
