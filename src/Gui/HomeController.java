@@ -11,9 +11,7 @@ import BusinessLogic.*;
 import Database.StubDatabase;
 import javafx.event.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -23,12 +21,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 
 
 public class HomeController {
@@ -815,6 +812,7 @@ public class HomeController {
     	Spinner<Integer> startTime = new Spinner<>();
     	Spinner<Integer> endTime = new Spinner<>();
     	DatePicker eventDate = new DatePicker();
+    	Button finish = new Button();
     	
         //initializing event title input box
         title.setPromptText("Enter Event Title");
@@ -857,6 +855,12 @@ public class HomeController {
         eventDate.setLayoutX(5);
         eventDate.setLayoutY(260);
         
+        //setting up finish button
+        finish.setText("Finish");
+        finish.setLayoutX(105);
+        finish.setLayoutY(460);
+        finish.setId("finishButton");
+        
     	detailPane.getChildren().add(title);
     	detailPane.getChildren().add(description);
     	detailPane.getChildren().add(startTime);
@@ -865,10 +869,11 @@ public class HomeController {
     	detailPane.getChildren().add(startTimeLabel);
     	detailPane.getChildren().add(endTimeLabel);
     	detailPane.getChildren().add(datePick);
+
     	
     	
     	
-    	// Kamil's reminders function implementation
+    	// Kamil's Reminders functionality implementation 
     	Button addReminderButton = new Button("Add Reminder");
     	addReminderButton.setLayoutX(5);
     	addReminderButton.setLayoutY(300);
@@ -879,6 +884,8 @@ public class HomeController {
     	});
     	
     	detailPane.getChildren().add(addReminderButton);
+
+    	detailPane.getChildren().add(finish);
     }
     
     public void showAddReminderPopup() {
@@ -947,6 +954,7 @@ public class HomeController {
         window.showAndWait(); 
     }
     
+
     private void displayReminders() {
     	detailPane.getChildren().clear(); 
     	
