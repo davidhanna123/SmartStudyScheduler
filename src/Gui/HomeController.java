@@ -799,6 +799,7 @@ public class HomeController {
     	Spinner<Integer> startTime = new Spinner<>();
     	Spinner<Integer> endTime = new Spinner<>();
     	DatePicker eventDate = new DatePicker();
+    	Button finish = new Button();
     	
         //initializing event title input box
         title.setPromptText("Enter Event Title");
@@ -841,6 +842,12 @@ public class HomeController {
         eventDate.setLayoutX(5);
         eventDate.setLayoutY(260);
         
+        //setting up finish button
+        finish.setText("Finish");
+        finish.setLayoutX(105);
+        finish.setLayoutY(460);
+        finish.setId("finishButton");
+        
     	detailPane.getChildren().add(title);
     	detailPane.getChildren().add(description);
     	detailPane.getChildren().add(startTime);
@@ -849,6 +856,7 @@ public class HomeController {
     	detailPane.getChildren().add(startTimeLabel);
     	detailPane.getChildren().add(endTimeLabel);
     	detailPane.getChildren().add(datePick);
+    	detailPane.getChildren().add(finish);
     }
     
     
