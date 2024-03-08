@@ -2,6 +2,7 @@ package Gui;
 
 
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +11,24 @@ import BusinessLogic.*;
 import Database.StubDatabase;
 import javafx.event.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
 public class HomeController {
@@ -173,6 +183,12 @@ public class HomeController {
 
     @FXML
     private Button addEventButton;
+    
+    @FXML
+    private Button seeReminders;
+    
+    
+    List<Reminders> remindersList = new ArrayList<>();
     
     //StubDatabase stub;
     public HomeController() {
@@ -849,7 +865,112 @@ public class HomeController {
     	detailPane.getChildren().add(startTimeLabel);
     	detailPane.getChildren().add(endTimeLabel);
     	detailPane.getChildren().add(datePick);
+    	
+    	Button addReminderButton = new Button("Add Reminder");
+    	addReminderButton.setLayoutX(5);
+    	addReminderButton.setLayoutY(300);
+    	
+    	// action handler to open the new dialog 
+    	addReminderButton.setOnAction(e -> {
+    		showAddReminderPopup();
+    	});
+    	
+    	detailPane.getChildren().add(addReminderButton);
     }
     
+    public void showAddReminderPopup() {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setMinWidth(400);
+        window.setMinHeight(470);
+        
+
+        window.setTitle("Add Reminder");
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(20));
+
+        TextField titleField = new TextField();
+        titleField.setPromptText("Enter reminder title");
+
+        DatePicker datePicker = new DatePicker();
+        datePicker.setPromptText("Select date");
+
+        Spinner<Integer> timeSpinner = new Spinner<>(0, 23, 12, 1);
+        timeSpinner.setEditable(true);
+
+        TextField offsetField = new TextField();
+        offsetField.setPromptText("Offset in minutes");
+
+        Button saveButton = new Button("Save Reminder");
+        
+        
+        
+        saveButton.setOnAction(e -> {
+            //  after clicking on save button probably database implementation will be here
+        	//  by  creating a new reminders objects 
+        	try {
+				Reminders newReminder = new Reminders(
+				titleField.getText(),
+				Integer.parseInt(timeSpinner.getValue().toString()),
+				Duration.ofMinutes(Long.parseLong(offsetField.getText()))
+				);
+				remindersList.add(newReminder);
+				displayReminders();
+				
+	            window.close(); 
+	            
+			} catch (NumberFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InvalidEventTimeException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (negativeReminderOffsetException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+        });
+
+        layout.getChildren().addAll(
+            new Label("Title"), titleField,
+            new Label("Date"), datePicker,
+            new Label("Time"), timeSpinner,
+            new Label("Notify Me..."), offsetField, saveButton
+        );
+
+        Scene scene = new Scene(layout, 470, 400);
+        window.setScene(scene);
+        window.showAndWait(); 
+    }
+    
+    private void displayReminders() {
+    	detailPane.getChildren().clear(); 
+    	
+        VBox layout = new VBox(10); 
+        layout.setPadding(new Insets(10));
+
+        for (Reminders reminder : remindersList) {
+            String reminderText = String.format("Message: %s\nTime: %d\nOffset: %s minutes",
+                    reminder.getMessage(),
+                    reminder.getEventTime(),
+                    reminder.getOffset().toMinutes());
+            Label reminderLabel = new Label(reminderText);
+            layout.getChildren().add(reminderLabel);
+        }
+        
+        
+        ScrollPane scrollPane =  new ScrollPane(layout);
+        //scrollPane.setFitToWidth(true);
+        scrollPane.setPrefWidth(150);
+        scrollPane.setPrefHeight(494);
+
+        detailPane.getChildren().add(scrollPane); // Add the VBox to the detail pane
+    }
+    
+    public void initialize() {
+        seeReminders.setOnAction(event -> displayReminders());
+       
+    }
     
 }
