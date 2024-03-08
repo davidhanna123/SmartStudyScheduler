@@ -12,7 +12,7 @@ package BusinessLogic;
 public class Homework {
 	protected String work; 
 	protected String course; 
-	protected Hour completionTime = new Hour();
+	protected int completionTime;
 	
 	/**
 	 * Empty Constructor
@@ -20,44 +20,17 @@ public class Homework {
 	public Homework() {}
 	
 	/**
-	 * Base Constructor
-	 * @param work
-	 * @param course
-	 * @param hour
-	 */
-	public Homework(String work, String course, Hour hour) {
-		super();
-		this.work = work;
-		this.course = course;
-		this.completionTime = hour; 
-	}
-	
-	/**
 	 * Constructor using Hour class parameters
 	 * @param work
 	 * @param course
-	 * @param hour
+	 * @param duration
 	 */
-	public Homework(String work, String course, int hour) {
+	public Homework(String work, String course, int duration) {
 		super();
 		this.work = work;
 		this.course = course;
-		this.setCompletionTime(hour);
+		this.completionTime = duration;
 	}
-	
-	/**
-	 * Constructor using Hour class parameters
-	 * @param work
-	 * @param course
-	 * @param hour
-	 * @param min
-	 */
-	public Homework(String work, String course, int hour, int min) {
-		super();
-		this.work = work;
-		this.course = course;
-		this.setCompletionTime(hour, min);
-	} 
 	
 	/**
 	 * 
@@ -92,35 +65,17 @@ public class Homework {
 	 * 
 	 * @return time to complete 
 	 */
-	public Hour getCompletionTime() {
+	public int getCompletionTime() {
 		return completionTime;
 	}
 	
 	/**
-	 * Base completion time setter
-	 * @param hour
-	 */
-	public void setCompletionTime(Hour hour) {
-		this.completionTime = hour; 
-	} 
-	
-	/**
 	 * Set completion time using Hour parameters
-	 * @param hour
+	 * @param duration
 	 */
-	public void setCompletionTime(int hour) {
-		completionTime.setTime(hour);
+	public void setCompletionTime(int duration) {
+		this.completionTime = duration;
 	} 
-	
-	/**
-	 * Set completion time using Hour parameters
-	 * @param hour
-	 * @param min
-	 */
-	public void setCompletionTime(int hour, int min) {
-		completionTime.setTime(hour);
-		completionTime.setMinuteModifier(min);
-	}
 
 	/**
 	 * toString function that prints all parameters of Homework object
