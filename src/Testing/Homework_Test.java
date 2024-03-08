@@ -11,25 +11,25 @@ class Homework_Test {
 
 	@Test
 	void test() {
-		Homework task = new Homework("Math Problems", "MATH2000", 1, 30); 
+		Homework task = new Homework("Math Problems", "MATH2000", 1); 
 		assertEquals(task.getCourse(), "MATH2000");
 		
 	}
 	
 	@Test
 	void test2() {
-		Hour time = new Hour(); 
-		time.setTime(1);
+		int time = 1;
 		Homework task = new Homework("Math Problems", "MATH2000", time); 
-		assertEquals((task.getCompletionTime()).getTime(), 1);
+		assertEquals(task.getCompletionTime(), 1);
 		
 	
 	}
 	
 	@Test
 	void test3() {
-		Homework task = new Homework("Math Problems", "MATH2000", 1, 30); 
-		assertEquals((task.getCompletionTime()).getMinuteModifier(), 30);
+		String taskName = "Math Problems";
+		Homework task = new Homework(taskName, "MATH2000", 1); 
+		assertEquals(task.getWork(),taskName);
 		
 	}
 

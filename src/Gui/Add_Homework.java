@@ -44,13 +44,14 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 
 	TextField taskInput = new TextField();
 	TextField ccInput = new TextField();
-	TextField hrInput = new TextField();
-	TextField minInput = new TextField(); 
+	TextField timeInput = new TextField(); 
 	
-	Label dueDate = new Label(); 
-	Label dueDay = new Label(); 
+	Label yearLabel;
+	Label monthLabel;
+	Label dueDate;  
+	TextField yearInput = new TextField(); 
+	TextField monthInput = new TextField();
 	TextField dateInput = new TextField(); 
-	TextField dayInput = new TextField();
 	Boolean assignCheck = false;
 	
 	Button enter = new Button();
@@ -62,10 +63,10 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 	//Data Variables
 	String task;
 	String course; 
-	int hour; 
-	int min; 
+	int duration; 
+	int year;
+	int month;
 	int date; 
-	String dayOfWeek; 
 	Homework hw;
 	
 	/**
@@ -91,7 +92,7 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 		grid.setHgap(10);
 		
 		grid.getColumnConstraints().add(0, new ColumnConstraints(100));
-		grid.getColumnConstraints().add(1, new ColumnConstraints(30));
+		grid.getColumnConstraints().add(1, new ColumnConstraints(35));
 		grid.getColumnConstraints().add(2, new ColumnConstraints(1));
 		
 		
@@ -113,15 +114,8 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 		Label timeLabel = new Label("Time to complete: ");
 		GridPane.setConstraints(timeLabel, 0, 2);
 		
-		hrInput.setPromptText("hrs");
-		GridPane.setConstraints(hrInput, 1, 2); 
-		
-		Label colin = new Label(":");
-		GridPane.setConstraints(colin, 2, 2); 
-		
-		minInput.setMaxWidth(40);
-		minInput.setPromptText("mins");
-		GridPane.setConstraints(minInput, 3, 2); 
+		timeInput.setPromptText("hrs");
+		GridPane.setConstraints(timeInput, 1, 2); 
 		
 		//Ask if homework has due date 
 		Label askLabel = new Label("Due date?"); 
@@ -149,7 +143,7 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 		errorMsg = new Label();
 		GridPane.setConstraints(errorMsg, 0, 9, 5, 1);
 		
-		grid.getChildren().addAll(taskLabel, taskInput, ccLabel, ccInput, timeLabel, hrInput, minInput, colin, askLabel, yes, yesLabel, no, noLabel, enter, errorMsg);
+		grid.getChildren().addAll(taskLabel, taskInput, ccLabel, ccInput, timeLabel, timeInput, askLabel, yes, yesLabel, no, noLabel, enter, errorMsg);
 		
 		scene = new Scene(grid,500, 500); 
 		window.setScene(scene); 
@@ -168,44 +162,46 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 		//Get due date if user selects yes
 		if(event.getSource() == yes) { 
 			assignCheck = true;
+			
+			yearLabel = new Label("Year due: ");
+			GridPane.setConstraints(yearLabel, 0, 6, 2, 1);
+			yearInput.setPromptText("ex. 2024");
+			yearInput.setMaxWidth(75);
+			GridPane.setConstraints(yearInput, 1, 6, 3, 1);
+			
+			monthLabel = new Label("Month due: ");
+			GridPane.setConstraints(monthLabel, 0, 7, 2, 1);
+			GridPane.setConstraints(monthInput, 1, 7);
+			
 			dueDate = new Label("Day of Month due: "); 
-			GridPane.setConstraints(dueDate, 0, 6, 2, 1);
+			GridPane.setConstraints(dueDate, 0, 8, 2, 1);
+			GridPane.setConstraints(dateInput, 1, 8);
 			
-			dateInput = new TextField();
-			GridPane.setConstraints(dateInput, 1, 6);
-			
-			dueDay = new Label("Day of Week due: "); 
-			GridPane.setConstraints(dueDay, 0, 7, 2, 1);
-			
-			dayInput = new TextField();
-			dayInput.setPromptText("ex. Friday");
-			GridPane.setConstraints(dayInput, 1, 7, 3, 1);
-			
-			grid.getChildren().addAll(dueDate, dateInput, dueDay, dayInput);
+			grid.getChildren().addAll(yearLabel, yearInput, monthLabel, monthInput, dueDate, dateInput);
 	
 		}
 		
 		//Removes extra fields if user selects no
 		else if(event.getSource() == no) {
 			assignCheck = false;
-			grid.getChildren().removeAll(dueDate, dateInput, dueDay, dayInput);
+			grid.getChildren().removeAll(yearLabel, yearInput, monthLabel, monthInput, dueDate, dateInput);
 		}
 		
 		//Checks to make sure all data is entered correctly when Enter is pressed
 		if(event.getSource() == enter) { 
 			
-			if(checkEmpty(taskInput) == false && checkEmpty(ccInput) == false && checkEmpty(hrInput) == false && checkEmpty(minInput) == false ) {
+			if(checkEmpty(taskInput) == false && checkEmpty(ccInput) == false && checkEmpty(timeInput) == false) {
 				if (assignCheck.booleanValue() == true) {
-					if(checkEmpty(dayInput) == false && checkEmpty(dateInput) == false)  {
+					if(checkEmpty(yearInput) == false && checkEmpty(monthInput) == false && checkEmpty(dateInput) == false)  {
 						
 						//Creates Assignment if all data is entered correctly
-						if (isInt(hrInput) == true && isInt(minInput) == true && isInt(dateInput) == true) { 
+						if (isInt(timeInput) == true && isInt(yearInput) == true && isInt(monthInput) == true && isInt(dateInput) == true) { 
 							System.out.println(createHw());
 						}
 					}
 				}
 				//Creates Homework if all data is entered correctly
-				else if (isInt(hrInput) == true && (isInt(minInput)) == true) {
+				else if (isInt(timeInput) == true) {
 					System.out.println(createHw());
 				}	
 			}	
@@ -220,18 +216,18 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 		
 		task = taskInput.getText();
 		course = ccInput.getText();
-		hour = Integer.valueOf(hrInput.getText());
-		min = Integer.valueOf(minInput.getText());
+		duration = Integer.valueOf(timeInput.getText());
 		
 		//Creates and Assignment object if due date is given
 		if(assignCheck.booleanValue() == true) { 
+			year = Integer.valueOf(yearInput.getText());
+			month = Integer.valueOf(monthInput.getText());
 			date = Integer.valueOf(dateInput.getText());
-			dayOfWeek = dayInput.getText();
-			hw = new Assignment(task, course, hour, min, date, dayOfWeek);
+			hw = new Assignment(task, course, duration, year, month, date);
 		}
 		
 		else { 
-			hw = new Homework(task, course, hour, min);
+			hw = new Homework(task, course, duration);
 		}
 		
 		window.close();

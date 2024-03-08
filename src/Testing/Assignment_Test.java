@@ -7,6 +7,7 @@ import BusinessLogic.Day;
 import BusinessLogic.Homework;
 
 import java.util.*;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
@@ -14,15 +15,23 @@ class Assignment_Test {
 
 	@Test
 	void test() {
-		int date = 16;
-		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, date, "Friday"); 
-		assertEquals((work.getDue()).getDayOfWeek(), "Friday" );
+		LocalDate date = LocalDate.of(2024, 2, 16);
+		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, date); 
+		assertEquals((work.getDue()).getDayOfMonth(), 16 );
 	}
 	
 	@Test
 	void test2() {
-		int date = 16;
-		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, date, "Friday"); 
-		assertEquals((work.getDue()).getDate(), date);
+		LocalDate date = LocalDate.of(2024, 2, 16);
+		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, date); 
+		assertEquals((work.getDue()), date);
+	}
+	
+	@Test
+	void test3() {
+		LocalDate date = LocalDate.of(2024, 2, 16);
+		DayOfWeek dayOfWeek = date.getDayOfWeek();
+		Assignment work = new Assignment("Assignment 1", "EECS2101", 1, date); 
+		assertEquals((work.getDue()).getDayOfWeek(), dayOfWeek );
 	}
 }
