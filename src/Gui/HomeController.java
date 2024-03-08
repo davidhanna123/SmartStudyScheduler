@@ -961,8 +961,7 @@ public class HomeController {
             Label reminderLabel = new Label(reminderText);
             layout.getChildren().add(reminderLabel);
         }
-        
-        
+
         ScrollPane scrollPane =  new ScrollPane(layout);
    
         scrollPane.setPrefWidth(150);
