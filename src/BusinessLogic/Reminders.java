@@ -3,7 +3,6 @@
 package BusinessLogic;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.LocalDate;
 
@@ -25,6 +24,7 @@ public class Reminders {
 	 * @param message
 	 * @param eventTime
 	 * @param offset
+	 * @param reminderDate
 	 * @throws InvalidEventTimeException
 	 * @throws negativeReminderOffsetException
 	 */

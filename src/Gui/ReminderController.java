@@ -42,7 +42,7 @@ public class ReminderController {
             Duration offset = Duration.ofMinutes(offsetMinutes);
             int eventTime = time.getHour();
 
-            // creating a reminder
+            // creating a reminder with the localDate
             Reminders newReminder = new Reminders(title, eventTime, offset, date);
             
             // adding a new reminder to a stub database

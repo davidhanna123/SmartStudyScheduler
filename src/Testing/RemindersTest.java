@@ -17,6 +17,7 @@ class RemindersTest {
 
 	@Test
 	void testInvalidEventTime() throws InvalidEventTimeException, negativeReminderOffsetException{
+		// added localdate 
 		LocalDate date = LocalDate.of(2023, Month.AUGUST, 12);
 		Reminders reminder = new Reminders("Test", 12, Duration.ofMinutes(30), date);
 	}

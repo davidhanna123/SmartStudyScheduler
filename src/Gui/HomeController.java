@@ -956,7 +956,7 @@ public class HomeController {
         window.showAndWait(); 
     }
     
-
+    
     private void displayReminders() {
     	detailPane.getChildren().clear(); 
     	
@@ -966,6 +966,7 @@ public class HomeController {
         for (Reminders reminder : remindersList) {
             String reminderText = String.format("Message: %s\nDate %s\nTime: %d\nOffset: %s minutes",
                     reminder.getMessage(),
+                    // displaying date
                     reminder.getReminderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),                 
                     reminder.getEventTime(),
                     reminder.getOffset().toMinutes());
