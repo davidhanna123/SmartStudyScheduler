@@ -13,7 +13,7 @@ public class Month implements Comparable<Month> {
     private int monthNumber; // months position number in the year
     private int numOfDays;
     private LimitedTreeSet<Day> days;
-    private Year year;
+    private int year;
     
     /**
      * Constructs a Month object with the specified month number and year.
@@ -25,7 +25,7 @@ public class Month implements Comparable<Month> {
      * @param monthNumber The number representing the month (1 for January, 2 for February, etc.).
      * @param year The Year object representing the year associated with this month.
      */
-    public Month(int monthNumber, Year year) {
+    public Month(int monthNumber, int year) {
     	
     	switch(monthNumber) {
     	case 1:
@@ -34,7 +34,7 @@ public class Month implements Comparable<Month> {
     		this.monthName = "January";
     		break;
     	case 2:
-    		if((year.getCurrentYear()%4 == 0 && year.getCurrentYear()%100 != 0) || year.getCurrentYear()%400 == 0) {
+    		if((year%4 == 0 && year%100 != 0) || year%400 == 0) {
     			this.numOfDays = 29;
     		}else {
     			this.numOfDays = 28;

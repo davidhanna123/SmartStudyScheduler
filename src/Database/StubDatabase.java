@@ -29,7 +29,7 @@ public class StubDatabase {
 		
 		
 		for(int i = 1; i<=12; i++) {
-			months[i-1] = new Month(i, year);
+			months[i-1] = new Month(i, year.getCurrentYear());
 			for(int j = 1; j<=31; j++) {
 				days[j-1] = new Day(j);//we should make day have an integer between 0 and 32 and make a constructor for that. Up to Kamil though.
 				for(int k = 1; k <=24; k++) {

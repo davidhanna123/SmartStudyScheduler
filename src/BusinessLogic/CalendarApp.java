@@ -26,8 +26,9 @@ package BusinessLogic;
 
 
 import java.util.*;
+import Database.DBops;
 
-public class CalendarApp {
+public class CalendarApp implements DBops{
 	private TreeSet<Year> years;
 	private int lastYear;
 	private int currentDay;
@@ -70,7 +71,7 @@ public class CalendarApp {
 		
 		
 		for(int i = 1; i<=12; i++) {
-			months[i-1] = new Month(i, year);
+			months[i-1] = new Month(i, yearNum);
 			for(int j = 1; j<=31; j++) {
 				days[j-1] = new Day(j);//we should make day have an integer between 0 and 32 and make a constructor for that. Up to Kamil though.
 				for(int k = 1; k <=24; k++) {
@@ -81,8 +82,8 @@ public class CalendarApp {
 					months[i-1].addDay(days[j-1]);
 				}catch(Exception e) {	
 					//purposefully unhandled because we want it to just not add an extra day
+				}	
 			}
-		}
 			year.addMonth(months[i-1]);
 		}
 	}

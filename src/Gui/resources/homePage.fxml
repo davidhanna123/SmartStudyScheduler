@@ -48,7 +48,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+            <BorderPane fx:id="box2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                     <menus>
@@ -78,7 +78,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="106.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
+            <BorderPane fx:id="box6" layoutX="106.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -108,7 +108,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="106.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+            <BorderPane fx:id="box35" layoutX="106.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -138,7 +138,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="586.0" layoutY="452.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <BorderPane fx:id="box8" layoutX="586.0" layoutY="452.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -168,7 +168,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <BorderPane fx:id="box12" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -198,7 +198,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
+            <BorderPane fx:id="box5" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -228,7 +228,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <BorderPane fx:id="box11" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -258,7 +258,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
+            <BorderPane fx:id="box4" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -288,7 +288,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <BorderPane fx:id="box10" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -318,7 +318,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+            <BorderPane fx:id="box3" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -348,7 +348,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <BorderPane fx:id="box9" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -378,7 +378,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <BorderPane fx:id="box18" layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -408,7 +408,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <BorderPane fx:id="box17" layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -438,7 +438,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <BorderPane fx:id="box16" layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -468,7 +468,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <BorderPane fx:id="box15" layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -498,7 +498,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <BorderPane fx:id="box14" layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -528,7 +528,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <BorderPane fx:id="box13" layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -558,7 +558,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
+            <BorderPane fx:id="box7" layoutX="394.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -588,7 +588,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="298.0" layoutY="231.0" prefHeight="200.0" prefWidth="200.0">
+            <BorderPane fx:id="box1" layoutX="298.0" layoutY="231.0" prefHeight="200.0" prefWidth="200.0">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -618,7 +618,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+            <BorderPane fx:id="box34" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -648,7 +648,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <BorderPane fx:id="box33" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -678,7 +678,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <BorderPane fx:id="box32" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -708,7 +708,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <BorderPane fx:id="box31" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -738,7 +738,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <BorderPane fx:id="box30" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -768,7 +768,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+            <BorderPane fx:id="box29" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -798,7 +798,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+            <BorderPane fx:id="box28" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -828,7 +828,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <BorderPane fx:id="box27" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -858,7 +858,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <BorderPane fx:id="box26" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -888,7 +888,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <BorderPane fx:id="box25" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -918,7 +918,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <BorderPane fx:id="box24" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -948,7 +948,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+            <BorderPane fx:id="box21" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -978,7 +978,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+            <BorderPane fx:id="box20" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -1008,7 +1008,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <BorderPane fx:id="box23" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -1038,7 +1038,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+            <BorderPane fx:id="box22" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -1068,7 +1068,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <BorderPane fx:id="box19" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -1098,7 +1098,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="377.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
+            <BorderPane fx:id="box36" layoutX="10.0" layoutY="377.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -1128,7 +1128,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="468.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
+            <BorderPane fx:id="box42" layoutX="10.0" layoutY="468.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -1158,7 +1158,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+            <BorderPane fx:id="box41" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -1188,7 +1188,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+            <BorderPane fx:id="box40" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -1218,7 +1218,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+            <BorderPane fx:id="box39" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -1248,7 +1248,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <BorderPane fx:id="box38" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
@@ -1278,7 +1278,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <BorderPane fx:id="box37" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <bottom>
                   <MenuBar BorderPane.alignment="CENTER">
                      <menus>
