@@ -5,6 +5,7 @@ package BusinessLogic;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.LocalDate;
 
 
 /*
@@ -16,6 +17,7 @@ public class Reminders {
 	private Duration offset;
 	private LocalTime currentTime; // storing the current time
 	private Day reminderDay;
+	private LocalDate reminderDate;
 	
 	
 	/**
@@ -26,7 +28,7 @@ public class Reminders {
 	 * @throws InvalidEventTimeException
 	 * @throws negativeReminderOffsetException
 	 */
-	public Reminders(String message, int eventTime, Duration offset) throws InvalidEventTimeException, negativeReminderOffsetException {
+	public Reminders(String message, int eventTime, Duration offset, LocalDate reminderDate) throws InvalidEventTimeException, negativeReminderOffsetException {
 		if (eventTime < 0 || eventTime > 23) {
 			throw new InvalidEventTimeException("Event time must be between 0 and 23");
 		}
@@ -38,6 +40,7 @@ public class Reminders {
 		this.eventTime = eventTime;
 		this.offset = offset;
 		//this.currentTime = LocalTime.now();
+		this.reminderDate = reminderDate;
 	}
 	
 	/**
@@ -55,6 +58,14 @@ public class Reminders {
         this.offset = offset;
         this.reminderDay = reminderDay;
     }
+	
+	/**
+	 * 
+	 * @return reminderDate
+	 */
+	public LocalDate getReminderDate() {
+		return reminderDate;
+	}
 	
 	
 	/**

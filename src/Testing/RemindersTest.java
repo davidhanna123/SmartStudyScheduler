@@ -3,7 +3,9 @@ package Testing;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,25 +17,30 @@ class RemindersTest {
 
 	@Test
 	void testInvalidEventTime() throws InvalidEventTimeException, negativeReminderOffsetException{
-		Reminders reminder = new Reminders("Test", 12, Duration.ofMinutes(30));
+		LocalDate date = LocalDate.of(2023, Month.AUGUST, 12);
+		Reminders reminder = new Reminders("Test", 12, Duration.ofMinutes(30), date);
 	}
 	
 	@Test
 	void testNegativeOffset() {
         assertThrows(negativeReminderOffsetException.class, () -> {
-            Reminders reminder = new Reminders("Test2", 23, Duration.ofMinutes(-30));
+        	LocalDate date = LocalDate.of(2023, Month.AUGUST, 21);
+            Reminders reminder = new Reminders("Test2", 23, Duration.ofMinutes(-30),date);
         });
     }
 	
 	@Test
 	void testGetReminderTime() throws InvalidEventTimeException, negativeReminderOffsetException{
-		Reminders reminder = new Reminders("Test3", 10, Duration.ofMinutes(30));
+		LocalDate date = LocalDate.of(2023, Month.MARCH, 15);
+		Reminders reminder = new Reminders("Test3", 10, Duration.ofMinutes(30), date);
 		assertEquals(9, reminder.getReminderTime());
+		assertEquals(date, reminder.getReminderDate());
 	}
 	
 	@Test
 	void isTimeForReminder() throws InvalidEventTimeException, negativeReminderOffsetException{
-		Reminders reminder = new Reminders("Test4", 9, Duration.ofMinutes(30));
+		LocalDate date = LocalDate.of(2022, Month.APRIL, 23);
+		Reminders reminder = new Reminders("Test4", 9, Duration.ofMinutes(30), date);
 		
 		// Change the event time to 10 AM
         reminder.setEventTime(10);

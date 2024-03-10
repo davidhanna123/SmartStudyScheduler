@@ -43,7 +43,7 @@ public class ReminderController {
             int eventTime = time.getHour();
 
             // creating a reminder
-            Reminders newReminder = new Reminders(title, eventTime, offset);
+            Reminders newReminder = new Reminders(title, eventTime, offset, date);
             
             // adding a new reminder to a stub database
             StubDatabase.addReminder(newReminder);

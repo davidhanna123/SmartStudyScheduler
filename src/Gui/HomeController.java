@@ -4,6 +4,7 @@ package Gui;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -923,7 +924,8 @@ public class HomeController {
 				Reminders newReminder = new Reminders(
 				titleField.getText(),
 				Integer.parseInt(timeSpinner.getValue().toString()),
-				Duration.ofMinutes(Long.parseLong(offsetField.getText()))
+				Duration.ofMinutes(Long.parseLong(offsetField.getText())),
+				datePicker.getValue()
 				);
 				remindersList.add(newReminder);
 				displayReminders();
@@ -962,8 +964,9 @@ public class HomeController {
         layout.setPadding(new Insets(10));
 
         for (Reminders reminder : remindersList) {
-            String reminderText = String.format("Message: %s\nTime: %d\nOffset: %s minutes",
+            String reminderText = String.format("Message: %s\nDate %s\nTime: %d\nOffset: %s minutes",
                     reminder.getMessage(),
+                    reminder.getReminderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),                 
                     reminder.getEventTime(),
                     reminder.getOffset().toMinutes());
             Label reminderLabel = new Label(reminderText);
