@@ -70,10 +70,10 @@ log 15 - 3/10/24 - Yadon
 	Features that were pushed to next iteration:
 		- Event Rescheduling
 		- Automatic Event Adding
+		- UI and database integration for Homework/Assignment adding
 	Features that were implemented differently due to redesign of parts of the business 		logic:
 		- Event viewing(feature wasn't specifically implemented for each day, rather it 		was implemented to appear on a portion of the GUI when a day was selected)
 	Features that were fully or almost fully implemented:
-		- UI and database integration for Homework/Assignment adding
 		- UI and database integration of reminders
 		- UI and database integration of time related classes and events
 
