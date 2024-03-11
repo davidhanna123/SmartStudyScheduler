@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import BusinessLogic.*;
+import Database.DBops;
+import Database.Database;
 import Database.StubDatabase;
 import javafx.event.*;
 import javafx.fxml.FXML;
@@ -582,7 +584,7 @@ public class HomeController {
         	calendar.setCurrentMonth(1);
         	monthNow = calendar.getCurrentMonth();
         	
-        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+        	month = DBops.getMonthDB(yearNow, monthNow);
         	monthName.setText(month.getMonthName());
         	
         	//setting the year label
@@ -594,7 +596,7 @@ public class HomeController {
         	calendar.setCurrentMonth(calendar.getCurrentMonth()+1);
         	monthNow = calendar.getCurrentMonth();
         	
-        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+        	month = DBops.getMonthDB(yearNow, monthNow);
         	monthName.setText(month.getMonthName());
         	
         	//setting the year label
@@ -632,7 +634,7 @@ public class HomeController {
         	calendar.setCurrentMonth(12);
         	monthNow = calendar.getCurrentMonth();
         	
-        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+        	month = DBops.getMonthDB(yearNow, monthNow);
         	monthName.setText(month.getMonthName());
         	
         	//setting the year label
@@ -644,7 +646,7 @@ public class HomeController {
         	calendar.setCurrentMonth(calendar.getCurrentMonth()-1);
         	monthNow = calendar.getCurrentMonth();
         	
-        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+        	month = DBops.getMonthDB(yearNow, monthNow);
         	monthName.setText(month.getMonthName());
         	
         	//setting the year label
@@ -680,7 +682,9 @@ public class HomeController {
     		calendar.setCurrentYear(calendar.getCurrentYear() + 1);
     		yearNow = calendar.getCurrentYear();
     		monthNow = calendar.getCurrentMonth();
-    		month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+    		month = DBops.getMonthDB(yearNow, monthNow);
+    		
+    		//calendar.getYear(yearNow).findMonthByNumber(monthNow);
     		
     		// Create a LocalDate object
             LocalDate date = LocalDate.of(yearNow, monthNow, 1); 
@@ -716,7 +720,7 @@ public class HomeController {
     		calendar.setCurrentYear(calendar.getCurrentYear() - 1);
     		yearNow = calendar.getCurrentYear();
     		monthNow = calendar.getCurrentMonth();
-    		month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+    		month = DBops.getMonthDB(yearNow, monthNow);
     		
     		// Create a LocalDate object
             LocalDate date = LocalDate.of(yearNow, monthNow, 1); 

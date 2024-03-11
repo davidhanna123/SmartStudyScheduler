@@ -35,11 +35,15 @@ SELECT pg_catalog.setval('public.test_id_seq', 1, false);
 -- PostgreSQL database dump complete
 --
 
-
+CREATE TABLE main.calendars(
+	id SERIAL PRIMARY KEY,
+	
+)
 CREATE TABLE main.years (
     id SERIAL PRIMARY KEY,
-    currentYear INT,
-    calendarId INT REFERENCES main.calendars(id)
+    currentyear INT, 
+    calendarId INT REFERENCES main.calendars(calendarId) 
+    --monthId INT[] REFERENCES main.months(monthId)
 );
 
 CREATE TABLE main.months (
@@ -47,23 +51,27 @@ CREATE TABLE main.months (
 	monthName TEXT,
 	monthNumber INT,
 	numOfDays INT,
-	yearNumber INT, 
-	yearId INT REFERENCES main.years(id)
+	yearNumber INT 
 );
 
 CREATE TABLE main.days (
 	id SERIAL PRIMARY KEY,
 	dayOfWeek TEXT,
-	dayNumber INT, --dayNumber used instead OF date because date IS already a database datatype
-	monthId INT REFERENCES main.months(id)
+	yearNumber INT,
+	monthNumber INT,
+	dayNumber INT --dayNumber used instead OF date because date IS already a database datatype
+	--hourId INT[] REFERENCES main.hours(hourId)
 );
 
 CREATE TABLE main.hours(
 	id SERIAL PRIMARY KEY, 
 	timeNumber INT,
-	minuteModifier DOUBLE 
-	dayId INT REFERENCES main.days(id);
-)
+	minuteModifier DOUBLE PRECISION,
+	dayNumber INT,
+	monthNumber INT,
+	yearNumber INT
+	--dayId INT REFERENCES main.days(id);
+);
 
 
 

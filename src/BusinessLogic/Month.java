@@ -4,7 +4,11 @@
 package BusinessLogic;
 
 
+import java.sql.SQLException;
 import java.util.*;
+import BusinessLogic.Day;
+
+import Database.Database;
 /**
  * Month class that contains Day objects in a limited tree set. Each Year object should have 12 months.
  */
@@ -95,6 +99,18 @@ public class Month implements Comparable<Month> {
     	}
     	this.year = year;
 		this.monthNumber = monthNumber;
+		
+		LimitedTreeSet<Day> daysA = new LimitedTreeSet<>(this.numOfDays);
+		
+		for(int j = 1; j<=31; j++) {
+			try {
+				daysA.add(new Day(j, monthNumber, year));
+			}catch(Exception e) {	
+				//purposefully unhandled because we want it to just not add an extra day
+			}
+		}
+		
+		this.days = daysA;
 	}
     /**
      * Retrieves the name of the month.
