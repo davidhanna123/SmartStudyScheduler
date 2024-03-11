@@ -65,6 +65,15 @@ CREATE TABLE main.hours(
 	dayId INT REFERENCES main.days(id);
 )
 
+CREATE TABLE main.reminders (
+	id SERIAL PRIMARY KEY,  
+	title VARCHAR(255),
+	reminder_date DATE, 
+	reminder_time TIME, 
+	offset_minutes INT, 
+	message TEXT,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 
 
