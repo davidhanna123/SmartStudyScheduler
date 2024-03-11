@@ -37,7 +37,7 @@ SELECT pg_catalog.setval('public.test_id_seq', 1, false);
 
 CREATE TABLE main.calendars(
 	id SERIAL PRIMARY KEY,
-	
+	yearId INT[] REFERENCES main.years 
 )
 CREATE TABLE main.years (
     id SERIAL PRIMARY KEY,

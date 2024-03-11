@@ -584,7 +584,7 @@ public class HomeController {
         	calendar.setCurrentMonth(1);
         	monthNow = calendar.getCurrentMonth();
         	
-        	month = DBops.getMonthDB(yearNow, monthNow);
+        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
         	monthName.setText(month.getMonthName());
         	
         	//setting the year label
@@ -596,7 +596,7 @@ public class HomeController {
         	calendar.setCurrentMonth(calendar.getCurrentMonth()+1);
         	monthNow = calendar.getCurrentMonth();
         	
-        	month = DBops.getMonthDB(yearNow, monthNow);
+        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
         	monthName.setText(month.getMonthName());
         	
         	//setting the year label
@@ -634,7 +634,7 @@ public class HomeController {
         	calendar.setCurrentMonth(12);
         	monthNow = calendar.getCurrentMonth();
         	
-        	month = DBops.getMonthDB(yearNow, monthNow);
+        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
         	monthName.setText(month.getMonthName());
         	
         	//setting the year label
@@ -646,7 +646,7 @@ public class HomeController {
         	calendar.setCurrentMonth(calendar.getCurrentMonth()-1);
         	monthNow = calendar.getCurrentMonth();
         	
-        	month = DBops.getMonthDB(yearNow, monthNow);
+        	month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
         	monthName.setText(month.getMonthName());
         	
         	//setting the year label
@@ -682,7 +682,7 @@ public class HomeController {
     		calendar.setCurrentYear(calendar.getCurrentYear() + 1);
     		yearNow = calendar.getCurrentYear();
     		monthNow = calendar.getCurrentMonth();
-    		month = DBops.getMonthDB(yearNow, monthNow);
+    		month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
     		
     		//calendar.getYear(yearNow).findMonthByNumber(monthNow);
     		
@@ -720,7 +720,7 @@ public class HomeController {
     		calendar.setCurrentYear(calendar.getCurrentYear() - 1);
     		yearNow = calendar.getCurrentYear();
     		monthNow = calendar.getCurrentMonth();
-    		month = DBops.getMonthDB(yearNow, monthNow);
+    		month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
     		
     		// Create a LocalDate object
             LocalDate date = LocalDate.of(yearNow, monthNow, 1); 
