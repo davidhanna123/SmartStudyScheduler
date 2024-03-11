@@ -873,9 +873,6 @@ public class HomeController {
     	detailPane.getChildren().add(endTimeLabel);
     	detailPane.getChildren().add(datePick);
 
-    	
-    	
-    	
     	// Kamil's Reminders functionality implementation 
     	Button addReminderButton = new Button("Add Reminder");
     	addReminderButton.setLayoutX(5);
@@ -887,8 +884,26 @@ public class HomeController {
     	});
     	
     	detailPane.getChildren().add(addReminderButton);
+    	
+    	//Button to open Add_Homework class to create a homework object
+    	Button addHomeworkButton = new Button("Add Homework"); 
+    	addHomeworkButton.setLayoutX(5);
+    	addHomeworkButton.setLayoutY(335); 
+    	
+    	addHomeworkButton.setOnAction(e -> { 
+    		try {
+				Add_Homework.start();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    	});
+    	
+    	detailPane.getChildren().add(addHomeworkButton);
 
     	detailPane.getChildren().add(finish);
+    	
+    	
     }
     
     public void showAddReminderPopup() {
