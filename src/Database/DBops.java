@@ -3,7 +3,6 @@ package Database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,11 +11,9 @@ import java.util.List;
 
 import BusinessLogic.InvalidEventTimeException;
 import BusinessLogic.Reminders;
-import BusinessLogic.Year;
 import BusinessLogic.negativeReminderOffsetException;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 
 public interface DBops {

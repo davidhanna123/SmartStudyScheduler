@@ -65,6 +65,7 @@ CREATE TABLE main.hours(
 	dayId INT REFERENCES main.days(id);
 )
 
+-- reminders
 CREATE TABLE main.reminders (
 	id SERIAL PRIMARY KEY,  
 	title VARCHAR(255),
