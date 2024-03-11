@@ -63,7 +63,7 @@ log 15 - 3/10/24 - Yadon
 	Features and functionalities that were supposed to be finalized for this iterations:
 		- UI and database integration for Homework/Assignment adding
 		- UI and database integration of reminders
-		- UI and database integration of time related classes and 
+		- UI and database integration of time related classes and events
 		- Event Rescheduling
 		- Automatic event adding
 		- Extra features for adding, removing and editing events
@@ -75,5 +75,5 @@ log 15 - 3/10/24 - Yadon
 	Features that were fully or almost fully implemented:
 		- UI and database integration for Homework/Assignment adding
 		- UI and database integration of reminders
-		- UI and database integration of time related classes and  
+		- UI and database integration of time related classes and events
 
