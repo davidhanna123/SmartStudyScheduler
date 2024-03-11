@@ -33,6 +33,7 @@ log 9 - 2/19/24 - Kamil
   	1. Ordering of Year, Month, Day, and Event objects in their respective has-a relationships.
   	2. More Event and Day class integration testing.
   	3. Re-factoring in the NonRepeatingEventTesting class.
+  	4. Added Javadoc documentation comments for Reminder class
   Fully implemented the Reminder class and added the ReminderTest class to test it.
 log 10 - 2/19/24 - Yadon
   3:40PM - 9:50PM
@@ -51,29 +52,17 @@ log 12 - 2/25/24 - 2/26/24 - Yadon
 log 13 - 3/2/24 - Yadon
 	10:00PM - 11:45PM
 	Fully implemented calendar scrolling. Any day of any year is accessible now.
-log 14 - 3/10/24 - Yadon
-	6:00PM - 5:00AM (3/11/24)
-	Redesigning parts of the Business Logic for database integration and making database operation methods for the Month, Year, Hour, and Day classes.
-log 15 - 3/10/24 - Yadon
-	Changes in iteration 2 deliverables and extending the introduction of new features:
-		- Issues Encountered:
-			1. Database operation methods were faulty in different ways depending on each person's device. -Fully Resolved
-			2. Relationship between Year, Month, Day, and Hour classes required complex Object Relational Mapping tools that would have taken a lot of 			time to integrate with the project. We got by most of these issues by redesigning the main parts of the business logic. -Partially Resolved.
-			3. Redesigning the business logic prevented us from implementing one of the features that were supposed to be added in this iteration. 				Automatic event adding was not implemented as the business logic had to be redesigned to allow for consistent database related operations. 				- Resolved by extending the introduction of some features to next iterations. 
-	Features and functionalities that were supposed to be finalized for this iterations:
-		- UI and database integration for Homework/Assignment adding
-		- UI and database integration of reminders
-		- UI and database integration of time related classes and events
-		- Event Rescheduling
-		- Automatic event adding
-		- Extra features for adding, removing and editing events
-	Features that were pushed to next iteration:
-		- Event Rescheduling
-		- Automatic Event Adding
-		- UI and database integration for Homework/Assignment adding
-	Features that were implemented differently due to redesign of parts of the business 		logic:
-		- Event viewing(feature wasn't specifically implemented for each day, rather it 		was implemented to appear on a portion of the GUI when a day was selected)
-	Features that were fully or almost fully implemented:
-		- UI and database integration of reminders
-		- UI and database integration of time related classes and events
-
+log 14 - 3/7/24 - Kamil
+	5:45PM - 9:00PM, 11:00PM - 12:30AM
+	Connected the Gui for reminders to add event
+	Implemented the Reminders functionality
+	- Displaying Reminders in "Reminders" button, after reminder gets added to an event
+log 15 - 3/8/24 - Kamil
+	6:00PM - 8:00PM
+	Changed Day to LocalDate 
+log 16 - 3/9/24 - Kamil
+	5:40PM - 7:00PM
+	Edited ReminderController, reminders, remindersTest and homeController files by creating LocalDate to display the date for the reminders in GUI
+log 17 - 3/10/24 - Kamil
+	5:30PM - 9:00PM, 11:00PM - 1:20AM
+	Implemented the full database for Reminders
