@@ -35,44 +35,53 @@ SELECT pg_catalog.setval('public.test_id_seq', 1, false);
 -- PostgreSQL database dump complete
 --
 
-CREATE TABLE main.calendars(
-	id SERIAL PRIMARY KEY,
-	yearId INT[] REFERENCES main.years 
-)
-CREATE TABLE main.years (
-    id SERIAL PRIMARY KEY,
-    currentyear INT, 
-    calendarId INT REFERENCES main.calendars(calendarId) 
-    --monthId INT[] REFERENCES main.months(monthId)
-);
+--CREATE TABLE main.calendars(
+--	id SERIAL PRIMARY KEY,
+--	userName TEXT,
+--	years INT[]
+--)
 
-CREATE TABLE main.months (
-	id SERIAL PRIMARY KEY,
-	monthName TEXT,
-	monthNumber INT,
-	numOfDays INT,
-	yearNumber INT 
+CREATE TABLE sss.events(
+	title TEXT,
+	description TEXT,
+	startingTime INT,
+	duration INT,
+	eventDate DATE
 );
-
-CREATE TABLE main.days (
-	id SERIAL PRIMARY KEY,
-	dayOfWeek TEXT,
-	yearNumber INT,
-	monthNumber INT,
-	dayNumber INT --dayNumber used instead OF date because date IS already a database datatype
-	--hourId INT[] REFERENCES main.hours(hourId)
-);
-
-CREATE TABLE main.hours(
-	id SERIAL PRIMARY KEY, 
-	timeNumber INT,
-	minuteModifier DOUBLE PRECISION,
-	dayNumber INT,
-	monthNumber INT,
-	yearNumber INT
-	--dayId INT REFERENCES main.days(id);
-);
-
+--CREATE TABLE main.years (
+--    id SERIAL PRIMARY KEY,
+--    currentyear INT, 
+--    calendarId INT REFERENCES main.calendars(id) 
+--    --monthId INT[] REFERENCES main.months(monthId)
+--);
+--
+--CREATE TABLE main.months (
+--	id SERIAL PRIMARY KEY,
+--	monthName TEXT,
+--	monthNumber INT,
+--	numOfDays INT,
+--	yearNumber INT 
+--);
+--
+--CREATE TABLE main.days (
+--	id SERIAL PRIMARY KEY,
+--	dayOfWeek TEXT,
+--	yearNumber INT,
+--	monthNumber INT,
+--	dayNumber INT --dayNumber used instead OF date because date IS already a database datatype
+--	--hourId INT[] REFERENCES main.hours(hourId)
+--);
+--
+--CREATE TABLE main.hours(
+--	id SERIAL PRIMARY KEY, 
+--	timeNumber INT,
+--	minuteModifier DOUBLE PRECISION,
+--	dayNumber INT,
+--	monthNumber INT,
+--	yearNumber INT
+--	--dayId INT REFERENCES main.days(id);
+--);
+--
 
 
 
