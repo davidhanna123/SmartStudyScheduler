@@ -44,7 +44,7 @@ public class Reminders {
 	}
 	
 	/**
-	 * 
+	 * Gets a reminder
 	 * @param message
 	 * @param eventTime
 	 * @param offset
@@ -60,7 +60,7 @@ public class Reminders {
     }
 	
 	/**
-	 * 
+	 * Gets a reminder's date
 	 * @return reminderDate
 	 */
 	public LocalDate getReminderDate() {
@@ -69,7 +69,7 @@ public class Reminders {
 	
 	
 	/**
-	 * 
+	 * Gets a reminder's day
 	 * @return reminderDay
 	 */
 	public Day getReminderDay() {
@@ -77,7 +77,7 @@ public class Reminders {
     }
 	
 	/**
-	 * 
+	 * Sets a reminder's day
 	 * @param reminderDay
 	 */
 	public void setReminderDay(Day reminderDay) {
@@ -185,6 +185,9 @@ public class Reminders {
 	}
 		
 
+	/**
+	 * Returns a string version of the reminder.
+	 */
 	@Override
     public String toString() {
         return "Reminder{" +

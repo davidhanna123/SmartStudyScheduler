@@ -35,35 +35,19 @@ SELECT pg_catalog.setval('public.test_id_seq', 1, false);
 -- PostgreSQL database dump complete
 --
 
+--CREATE TABLE main.calendars(
+--	id SERIAL PRIMARY KEY,
+--	userName TEXT,
+--	years INT[]
+--)
 
-CREATE TABLE main.years (
-    id SERIAL PRIMARY KEY,
-    currentYear INT,
-    calendarId INT REFERENCES main.calendars(id)
+CREATE TABLE main.events(
+	title TEXT,
+	description TEXT,
+	startingTime INT,
+	duration INT,
+	eventDate DATE
 );
-
-CREATE TABLE main.months (
-	id SERIAL PRIMARY KEY,
-	monthName TEXT,
-	monthNumber INT,
-	numOfDays INT,
-	yearNumber INT, 
-	yearId INT REFERENCES main.years(id)
-);
-
-CREATE TABLE main.days (
-	id SERIAL PRIMARY KEY,
-	dayOfWeek TEXT,
-	dayNumber INT, --dayNumber used instead OF date because date IS already a database datatype
-	monthId INT REFERENCES main.months(id)
-);
-
-CREATE TABLE main.hours(
-	id SERIAL PRIMARY KEY, 
-	timeNumber INT,
-	minuteModifier DOUBLE 
-	dayId INT REFERENCES main.days(id);
-)
 
 -- reminders
 CREATE TABLE main.reminders (
@@ -75,6 +59,7 @@ CREATE TABLE main.reminders (
 	message TEXT,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 
 

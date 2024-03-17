@@ -1,4 +1,7 @@
 package BusinessLogic;
+
+import java.time.LocalDate;
+
 /**
  * A non-repeating event that is a subclass of the Event abstract class.
  * This event can be added to a Day by using methods in the Day class.
@@ -10,6 +13,23 @@ public class NonRepeatingEvent extends Event{
      */
 	public NonRepeatingEvent() {
 		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * Non repeating event constructor that takes an event title, description, starting time as an hour, duration as an integer, and date
+	 * @param title
+	 * @param description
+	 * @param startingTime
+	 * @param duration
+	 * @param date
+	 */ 
+	public NonRepeatingEvent(String title, String description, Hour startingTime, int duration, LocalDate date) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.title = title;
+		this.description = description;
+		this.startingTime = startingTime;
+	    this.duration = duration;
+		this.date = date;
 	}
 
 	/**

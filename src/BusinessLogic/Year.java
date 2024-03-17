@@ -3,7 +3,11 @@
 //218715508
 package BusinessLogic;
 
+import java.sql.SQLException;
+
 import java.util.*;
+
+import Database.Database;
 /**
  * Represents a year with its associated months.
  * Implements the Comparable interface to enable comparison between years.
@@ -21,6 +25,10 @@ public class Year implements Comparable<Year> {
     public Year(int currentYear) {
         this.currentYear = currentYear;
         this.months = new TreeSet<>();
+        
+        for(int i = 1; i<=12; i++) {
+			this.months.add(new Month(i, currentYear));
+		}
     }
     /**
      * Retrieves the current year.

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import BusinessLogic.InvalidEventTimeException;
 import BusinessLogic.Reminders;
 import BusinessLogic.negativeReminderOffsetException;
-import Database.StubDatabase;
+import Gui.resources.GuiHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -46,7 +46,7 @@ public class ReminderController {
             Reminders newReminder = new Reminders(title, eventTime, offset, date);
             
             // adding a new reminder to a stub database
-            StubDatabase.addReminder(newReminder);
+            GuiHelper.addReminder(newReminder);
   
             titleTextField.clear();
             datePicker.clear();
