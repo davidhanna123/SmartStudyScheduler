@@ -41,7 +41,7 @@ SELECT pg_catalog.setval('public.test_id_seq', 1, false);
 --	years INT[]
 --)
 
-CREATE TABLE sss.events(
+CREATE TABLE main.events(
 	title TEXT,
 	description TEXT,
 	startingTime INT,

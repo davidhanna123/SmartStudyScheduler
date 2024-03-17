@@ -5,7 +5,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
+import BusinessLogic.Event;
+import BusinessLogic.Hour;
 import BusinessLogic.Month;
+import BusinessLogic.NonRepeatingEvent;
 import BusinessLogic.Year;
 
 import java.sql.Connection;
@@ -14,11 +17,11 @@ import java.sql.PreparedStatement;
 
 public interface DBops {
 	
-	public static boolean addEventDB(String title, String description, int startingTime, int duration, LocalDate eventDate) throws SQLException {
+	public static boolean addNREventDB(String title, String description, int startingTime, int duration, LocalDate eventDate) throws SQLException {
 		databaseConnection dbConnect = new databaseConnection();
 		Connection connection = dbConnect.getConnection();
 		
-		String setSchema = "SET search_path TO sss";
+		String setSchema = "SET search_path TO main";
 		try(PreparedStatement stmt = connection.prepareStatement(setSchema)){
 			stmt.execute();
 		}catch(SQLException e) {
@@ -37,12 +40,44 @@ public interface DBops {
            
             // Execute the PreparedStatement
             int rowsInserted = stmt.executeUpdate();
+            connection.close();
             return rowsInserted > 0;
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
+            connection.close();
             return false;
        
         }
+	}
+	
+	public static Event getNREventDB(String title, LocalDate eventDate) throws SQLException {
+		databaseConnection dbConnect = new databaseConnection();
+		Connection connection = dbConnect.getConnection();
+		NonRepeatingEvent event = null;
+		String sql = "SELECT * FROM main.events WHERE title = ? AND eventDate = ?";
+		
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, title);
+            statement.setObject(2, eventDate);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    String retrievedTitle = resultSet.getString("title");
+                    String description = resultSet.getString("description");
+                    int startingTime = resultSet.getInt("startingTime");
+                    int duration = resultSet.getInt("duration");
+                    Date retrievedEventDate = resultSet.getDate("eventDate");
+                    
+                    Hour eventHour = new Hour(startingTime, 0);
+                    event = new NonRepeatingEvent(retrievedTitle, description, eventHour, duration, retrievedEventDate.toLocalDate());
+                }
+            }
+        }catch(SQLException e) {
+        	System.out.println("SQL Exception" + e.getMessage());
+        }
+        
+        connection.close();
+        return event;
 	}
         
 //	public static void addYearDB(int yearNumber) throws SQLException {

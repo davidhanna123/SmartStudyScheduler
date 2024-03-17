@@ -887,7 +887,7 @@ public class HomeController {
               try {
             	  //+System.out.println(dateData.toString());
             	  
-    			DBops.addEventDB(titleData, descriptionData, startingTimeData, durationData, dateData);
+    			DBops.addNREventDB(titleData, descriptionData, startingTimeData, durationData, dateData);
     			//clearing all info of added event from the gui to prepare for next event 
     			title.clear();
     			description.clear();

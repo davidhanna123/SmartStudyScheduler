@@ -31,7 +31,6 @@ public abstract class Event implements Comparable<Event>{
 		this.startingTime = startingTime;
 		this.duration = duration;
 		this.date = date;
-		
 	}
 	/**
 	 * No argument constructor for testing
