@@ -1,6 +1,7 @@
 package Gui;
 
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -10,8 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import BusinessLogic.*;
+
 import Database.*;
-import Database.StubDatabase;
+import Database.DBops;
+import Gui.resources.GuiHelper;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -26,6 +29,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -189,13 +193,19 @@ public class HomeController {
     
     
     List<Reminders> remindersList = new ArrayList<>();
+    public static CalendarApp calendar;
     
     //StubDatabase stub;
     public HomeController() {
     	super();
-    	//stub = new StubDatabase();
-    	StubDatabase.initialize();
+    	
+    	GuiHelper.initialize();
+    	calendar = GuiHelper.getCalendar();
+        
+//    	updateDayLabels(GuiHelper.getMonthStartingDay(), GuiHelper.getMonthNow());
+//    	yearLabel.setText(String.valueOf(LocalDate.now().getYear()));
     }
+    
     
   //list of labels for months that start on a monday
     public List<Label> initializeMon() {
@@ -556,7 +566,7 @@ public class HomeController {
     // method to show and refresh the reminders in the VBox
     private void showReminders() {
     	remindersVBox.getChildren().clear(); // clearing previous reminders
-    	List<Reminders> reminderList = StubDatabase.getReminders(); // getting reminders from stub database
+    	List<Reminders> reminderList = GuiHelper.getReminders(); // getting reminders from stub database
     	
     	for (Reminders reminder : reminderList) {
     		Label reminderLabel = new Label(reminder.toString());
@@ -573,7 +583,6 @@ public class HomeController {
 		int monthNow;
 		Month month;
     	
-    	CalendarApp calendar = StubDatabase.getCalendar();
     	
     	if(calendar.getCurrentMonth() == 12) {
     		calendar.incCurrentYear();
@@ -623,7 +632,6 @@ public class HomeController {
 		int monthNow;
 		Month month;
     	
-    	CalendarApp calendar = StubDatabase.getCalendar();
     	
     	if(calendar.getCurrentMonth() == 1) {
     		calendar.decCurrentYear();
@@ -672,7 +680,6 @@ public class HomeController {
     public void updateYearLabelNext() throws IllegalArgumentException, MonthNotFoundException {
     	clearDayLabels();
 		
-    	CalendarApp calendar = StubDatabase.getCalendar();
     	
     	int yearNow;
 		int monthNow;
@@ -683,6 +690,8 @@ public class HomeController {
     		yearNow = calendar.getCurrentYear();
     		monthNow = calendar.getCurrentMonth();
     		month = calendar.getYear(yearNow).findMonthByNumber(monthNow);
+    		
+    		//calendar.getYear(yearNow).findMonthByNumber(monthNow);
     		
     		// Create a LocalDate object
             LocalDate date = LocalDate.of(yearNow, monthNow, 1); 
@@ -708,8 +717,6 @@ public class HomeController {
     public void updateYearLabelPrev() throws IllegalArgumentException, MonthNotFoundException {
     	clearDayLabels();
 		
-    	CalendarApp calendar = StubDatabase.getCalendar();
-    	
     	int yearNow;
 		int monthNow;
 		Month month;
@@ -809,6 +816,9 @@ public class HomeController {
     @FXML
     public void addEvent() {
     	detailPane.getChildren().clear();
+    	//data to be stored in the database:
+    	
+    	
     	
     	TextField title = new TextField();
     	TextField description = new TextField();
@@ -823,33 +833,35 @@ public class HomeController {
         title.setLayoutX(5);
         title.setLayoutY(20);
         title.setId("titleBox");
+        
         //initializing event description input box
         description.setPromptText("Enter Event Description");
         description.setPrefWidth(150);
         description.setLayoutX(5);
         description.setLayoutY(60);
         description.setId("eventBox");
+        
         //initializing start time select spinner and label
         Label startTimeLabel = new Label("Event's starting time:");
         startTimeLabel.setLayoutX(5);
         startTimeLabel.setLayoutY(100);
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 0);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
         startTime.setValueFactory(valueFactory);
-        startTime.setPromptText("Select Event Starting Time");
+        startTime.setPromptText("Event Starts");
         startTime.setLayoutX(5);
         startTime.setLayoutY(120);
        //initializing start time select spinner and label
         Label endTimeLabel = new Label("Event's ending time:");
         endTimeLabel.setLayoutX(5);
         endTimeLabel.setLayoutY(150);
-        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 0);
+        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
         endTime.setValueFactory(valueFactory2);
-        endTime.setPromptText("Select Event Starting Time");
+        endTime.setPromptText("Event Ends");
         endTime.setLayoutX(5);
         endTime.setLayoutY(170);
         
-        //event duration will be end time - start time
         
+
         //setting up date picker for the event and date picker label
         Label datePick = new Label("Choose Event Date");
         datePick.setLayoutX(5);
@@ -857,12 +869,64 @@ public class HomeController {
         eventDate.setMaxWidth(150);
         eventDate.setLayoutX(5);
         eventDate.setLayoutY(260);
+       
+        
+        //adding the event to database when the finish button is clicked
+        EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	//capturing event title and description
+            	String titleData = title.getText();;
+            	String descriptionData = description.getText();
+            	//capturing event start time
+            	int startingTimeData = startTime.getValue();
+            	//event duration will be end time - start time
+                //setting event duration
+                int durationData = endTime.getValue() - startTime.getValue();
+                //capturing event date
+            	LocalDate dateData = eventDate.getValue();
+              try {
+            	  //+System.out.println(dateData.toString());
+            	  
+    			DBops.addEventDB(titleData, descriptionData, startingTimeData, durationData, dateData);
+    			//clearing all info of added event from the gui to prepare for next event 
+    			title.clear();
+    			description.clear();
+    			startTime.getValueFactory().setValue(0);
+    			endTime.getValueFactory().setValue(0);
+    			eventDate.setValue(null);
+    			
+    			//displaying message if event is successfully added
+    			Label resultMessage = new Label();
+    			resultMessage.setTextFill(Color.LIGHTGREEN);
+    			resultMessage.setText("Event Added");
+    			resultMessage.setLayoutX(5);
+    		    resultMessage.setLayoutY(440);
+    		    detailPane.getChildren().add(resultMessage);
+    			//stopping program for 1 second 
+    			try {
+    				Thread.sleep(1000);
+    			}catch(Exception e) {
+    				e.printStackTrace();
+    			}
+    			resultMessage.setText("");//clearing message after 1 second
+    			//removing result message
+    			detailPane.getChildren().remove(resultMessage);
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+            }
+        };
+        
         
         //setting up finish button
         finish.setText("Finish");
         finish.setLayoutX(105);
         finish.setLayoutY(460);
         finish.setId("finishButton");
+        finish.setOnAction(eventHandler);
+        
         
     	detailPane.getChildren().add(title);
     	detailPane.getChildren().add(description);

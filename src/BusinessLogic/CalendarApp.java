@@ -25,9 +25,17 @@
 package BusinessLogic;
 
 
+import java.sql.SQLException;
 import java.util.*;
-import Database.DBops;
 
+import Database.DBops;
+import Database.Database;
+
+/**
+ * A class for a Calendar object. It keeps track of the years inside of a calendar and the current day, month, and year of the calendar
+ * currentMonth - represents the current month that the user is viewing and not the current month in real life
+ * currentYear - represents the current year that the user is viewing and not the current year in real life
+ */
 public class CalendarApp implements DBops{
 	private TreeSet<Year> years;
 	private int lastYear;
@@ -51,7 +59,7 @@ public class CalendarApp implements DBops{
 	}
 	
 	/**
-	 * 
+	 * Adds a year to the calendar
 	 * @param Year
 	 */
 	public void addYear(Year year) {
@@ -60,32 +68,66 @@ public class CalendarApp implements DBops{
 		
 	}
 	
-	
+	/**
+	 * Adds a year along with its months and days to a calendar
+	 * @param yearNum
+	 */
 	public void addYear(int yearNum) {
 		Year year = new Year(yearNum);
 		this.addYear(year);
 		
-		Month[] months = new Month[12];
-		Day[] days = new Day[31];
- 		Hour[] hours = new Hour[24];
+//		try {
+//			DBops.addYearDB(yearNum);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
-		
-		for(int i = 1; i<=12; i++) {
-			months[i-1] = new Month(i, yearNum);
-			for(int j = 1; j<=31; j++) {
-				days[j-1] = new Day(j);//we should make day have an integer between 0 and 32 and make a constructor for that. Up to Kamil though.
-				for(int k = 1; k <=24; k++) {
-					hours[k-1] = new Hour(k, 0.0);
-					days[j-1].addHour(hours[k-1]);
-				}
-				try {
-					months[i-1].addDay(days[j-1]);
-				}catch(Exception e) {	
-					//purposefully unhandled because we want it to just not add an extra day
-				}	
-			}
-			year.addMonth(months[i-1]);
-		}
+//		Month[] months = new Month[12];
+//		Day[] days = new Day[31];
+// 		Hour[] hours = new Hour[24];
+//		
+//		
+//		for(int i = 1; i<=12; i++) {
+//			months[i-1] = new Month(i, yearNum);
+//			for(int j = 1; j<=31; j++) {
+//				days[j-1] = new Day(j, i, yearNum);//we should make day have an integer between 0 and 32 and make a constructor for that. Up to Kamil though.
+//				for(int k = 0; k <=23; k++) {
+//					hours[k] = new Hour(k, 0.0, j, i, yearNum);
+//					days[j-1].addHour(hours[k]);
+//					
+//					//adding an hour to the database
+//					try {
+//						DBops.addHourDB(k, 0.0, j, i, yearNum);
+//					} catch (SQLException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//					
+//				}
+//				try {
+//					months[i-1].addDay(days[j-1]);
+//				}catch(Exception e) {	
+//					//purposefully unhandled because we want it to just not add an extra day
+//				}
+//				
+//				//adding a day to the database
+//				try {
+//					DBops.addDayDB(days[j-1].getDayOfWeek(), yearNum, i, j);
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			
+//			//adding the month to a database
+//			try {
+//				DBops.addMonthDB(months[i-1].getMonthName(), i, months[i-1].getNumOfDays(), yearNum);
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 	}
 	
 	/**
@@ -135,6 +177,12 @@ public class CalendarApp implements DBops{
 		this.lastYear = 0;
 	}
 	
+	/**
+	 * Gets year object of specified year number.
+	 * @param yearNumber
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public Year getYear(int yearNumber) throws IllegalArgumentException{
 		for(Year y: this.years) {
 			if (y.getCurrentYear() == yearNumber) {
@@ -144,41 +192,78 @@ public class CalendarApp implements DBops{
 		throw new IllegalArgumentException("Year not found");
 	}
 	
+	/**
+	 * Sets current month of calendar
+	 * @param month
+	 */
 	public void setCurrentMonth(int month) {
 		this.currentMonth = month;
 	}
+	/**
+	 * Sets current year of calendar
+	 * @param year
+	 */
 	public void setCurrentYear(int year) {
 		this.currentYear = year;
 	}
+	/**
+	 * Sets current day of the calendar
+	 * @param currentDay
+	 */
 	public void setCurrentDay(int currentDay) {
 		this.currentDay = currentDay;
 	}
+	/**
+	 * Increases the current month of the calendar
+	 */
 	public void incCurrentMonth() {
 		this.currentMonth++;
 	}
+	/**
+	 * Decreases the current month of the calendar
+	 */
 	public void decCurrentMonth() {
 		this.currentMonth--;
 	}
+	/**
+	 * Increases the current year of the calendar
+	 */
 	public void incCurrentYear() {
 		this.currentYear++;
 	}
+	/**
+	 * Decreases the current year of the calendar
+	 */
 	public void decCurrentYear() {
 		this.currentYear--;
 	}
-
+	/**
+	 * Returns the current year of the calendar
+	 * @return currentYear
+	 */
 	public int getCurrentYear() {
 		return currentYear;
 	}
-
+	/**
+	 * Returns the current month of the calendar
+	 * @return currentMonth
+	 */
 	public int getCurrentMonth() {
 		return currentMonth;
 	}
-	
+	/**
+	 * Returns current day of the calendar
+	 * @return currentDay
+	 */
 	public int getCurrentDay() {
 		return currentDay;
 	}
 
-	
+	/**
+	 * Checks if a calendar contains a specific year.
+	 * @param year
+	 * @return
+	 */
 	public boolean contains(int year) {
 		for(Year y : this.years) {
 			if(y.getCurrentYear() == year) {

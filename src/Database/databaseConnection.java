@@ -25,7 +25,7 @@ public class databaseConnection {
             username = properties.getProperty("db.username");
             password = properties.getProperty("db.password");
         } catch (IOException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
 		
 		connection = DriverManager.getConnection(url, username, password);

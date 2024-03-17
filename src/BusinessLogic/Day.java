@@ -3,8 +3,11 @@
 //218715508
 package BusinessLogic;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
+
+import Database.Database;
 /**
  * Day class that represents a day of the month. Events are contained by this class.
  */
@@ -13,6 +16,9 @@ public class Day implements Comparable<Day>{
 	private String dayOfWeek;
 	private TreeSet<Hour> hours;
 	private TreeSet<Event> events;
+	int month;
+	int year;
+	
 	
 	/**
 	 * Default constructor
@@ -32,6 +38,33 @@ public class Day implements Comparable<Day>{
 		this.date = date;
 		this.hours = new TreeSet<>();
 		this.events = new TreeSet<>();
+		
+		TreeSet<Hour> hours = new TreeSet<>();
+		
+		for(int k = 1; k <=24; k++) {
+			hours.add(new Hour(k, 0.0));
+		}
+	}
+	
+	/**
+	 * Alternative constructor for a day that keeps track of which month and which year it is in
+	 * @param date
+	 * @param month
+	 * @param year
+	 */
+	public Day(int date, int month, int year) {
+		super();
+		this.date = date;
+		this.month = month;
+		this.year = year;
+		this.hours = new TreeSet<>();
+		this.events = new TreeSet<>();
+		
+		TreeSet<Hour> hours = new TreeSet<>();
+		
+		for(int k = 1; k <=24; k++) {
+			hours.add(new Hour(k, 0.0, date, month, year)); 
+		}
 	}
 	
 	/**

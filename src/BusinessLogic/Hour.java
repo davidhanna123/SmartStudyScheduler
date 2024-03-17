@@ -11,6 +11,9 @@ import java.util.*;
 public class Hour implements Comparable<Hour> {
 	private int time;
 	private double minuteModifier;
+	private int day;
+	private int month;
+	private int year;
 	
 	/**
 	 * No argument constructor
@@ -27,6 +30,15 @@ public class Hour implements Comparable<Hour> {
 		super();
 		this.time = time;
 		this.minuteModifier = minuteModifier;
+	}
+	
+	public Hour(int time, double minuteModifier, int day, int month, int year) {
+		super();
+		this.time = time;
+		this.minuteModifier = minuteModifier;
+		this.year = year;
+		this.day = day;
+		this.month = month;
 	}
 	/**
 	 * 
