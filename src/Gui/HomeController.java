@@ -903,11 +903,11 @@ public class HomeController {
     		    resultMessage.setLayoutY(440);
     		    detailPane.getChildren().add(resultMessage);
     			//stopping program for 1 second 
-    			try {
-    				Thread.sleep(1000);
-    			}catch(Exception e) {
-    				e.printStackTrace();
-    			}
+//    			try {
+//    				Thread.sleep(1000);
+//    			}catch(Exception e) {
+//    				e.printStackTrace();
+//    			}   WILL BRING THIS BACK AFTER THE ISSUES WITH THE TEXT IS FIGURED OUT
     			resultMessage.setText("");//clearing message after 1 second
     			//removing result message
     			detailPane.getChildren().remove(resultMessage);
