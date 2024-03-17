@@ -48,40 +48,19 @@ CREATE TABLE sss.events(
 	duration INT,
 	eventDate DATE
 );
---CREATE TABLE main.years (
---    id SERIAL PRIMARY KEY,
---    currentyear INT, 
---    calendarId INT REFERENCES main.calendars(id) 
---    --monthId INT[] REFERENCES main.months(monthId)
---);
---
---CREATE TABLE main.months (
---	id SERIAL PRIMARY KEY,
---	monthName TEXT,
---	monthNumber INT,
---	numOfDays INT,
---	yearNumber INT 
---);
---
---CREATE TABLE main.days (
---	id SERIAL PRIMARY KEY,
---	dayOfWeek TEXT,
---	yearNumber INT,
---	monthNumber INT,
---	dayNumber INT --dayNumber used instead OF date because date IS already a database datatype
---	--hourId INT[] REFERENCES main.hours(hourId)
---);
---
---CREATE TABLE main.hours(
---	id SERIAL PRIMARY KEY, 
---	timeNumber INT,
---	minuteModifier DOUBLE PRECISION,
---	dayNumber INT,
---	monthNumber INT,
---	yearNumber INT
---	--dayId INT REFERENCES main.days(id);
---);
---
+
+
+-- reminders
+CREATE TABLE main.reminders (
+	id SERIAL PRIMARY KEY,  
+	title VARCHAR(255),
+	reminder_date DATE, 
+	reminder_time TIME, 
+	offset_minutes INT, 
+	message TEXT,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 
 

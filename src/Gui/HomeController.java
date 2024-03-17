@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import BusinessLogic.*;
-import Database.DBops;
-import Database.Database;
+import Database.*;
+import Database.StubDatabase;
 import Gui.resources.GuiHelper;
 import javafx.event.*;
 import javafx.fxml.FXML;
@@ -192,8 +192,7 @@ public class HomeController {
     
     
     List<Reminders> remindersList = new ArrayList<>();
-    public static CalendarApp calendar;
-    
+    CalendarApp calendar;
     //StubDatabase stub;
     public HomeController() {
     	super();
@@ -817,8 +816,6 @@ public class HomeController {
     	detailPane.getChildren().clear();
     	//data to be stored in the database:
     	
-    	
-    	
     	TextField title = new TextField();
     	TextField description = new TextField();
     	Spinner<Integer> startTime = new Spinner<>();
@@ -832,14 +829,12 @@ public class HomeController {
         title.setLayoutX(5);
         title.setLayoutY(20);
         title.setId("titleBox");
-        
         //initializing event description input box
         description.setPromptText("Enter Event Description");
         description.setPrefWidth(150);
         description.setLayoutX(5);
         description.setLayoutY(60);
         description.setId("eventBox");
-        
         //initializing start time select spinner and label
         Label startTimeLabel = new Label("Event's starting time:");
         startTimeLabel.setLayoutX(5);
@@ -936,9 +931,6 @@ public class HomeController {
     	detailPane.getChildren().add(endTimeLabel);
     	detailPane.getChildren().add(datePick);
 
-    	
-    	
-    	
     	// Kamil's Reminders functionality implementation 
     	Button addReminderButton = new Button("Add Reminder");
     	addReminderButton.setLayoutX(5);
@@ -950,8 +942,26 @@ public class HomeController {
     	});
     	
     	detailPane.getChildren().add(addReminderButton);
+    	
+    	//Button to open Add_Homework class to create a homework object
+    	Button addHomeworkButton = new Button("Add Homework"); 
+    	addHomeworkButton.setLayoutX(5);
+    	addHomeworkButton.setLayoutY(335); 
+    	
+    	addHomeworkButton.setOnAction(e -> { 
+    		try {
+				Add_Homework.start();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    	});
+    	
+    	detailPane.getChildren().add(addHomeworkButton);
 
     	detailPane.getChildren().add(finish);
+    	
+    	
     }
     
     public void showAddReminderPopup() {
@@ -986,15 +996,33 @@ public class HomeController {
             //  after clicking on save button probably database implementation will be here
         	//  by  creating a new reminders objects 
         	try {
-				Reminders newReminder = new Reminders(
-				titleField.getText(),
-				Integer.parseInt(timeSpinner.getValue().toString()),
-				Duration.ofMinutes(Long.parseLong(offsetField.getText())),
-				datePicker.getValue()
-				);
-				remindersList.add(newReminder);
-				displayReminders();
+				String title = titleField.getText();
+				LocalDate reminderDate = datePicker.getValue();
+				int eventTime = timeSpinner.getValue();
+				int offsetMinutes = Integer.parseInt(offsetField.getText());
 				
+				Reminders newReminder = new Reminders(title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate);
+				remindersList.add(newReminder);
+				//displayReminders();
+				
+				// saving the reminders to database
+				try {
+					DBops.addRemindersDB(title, 
+							reminderDate, 
+							eventTime, 
+							offsetMinutes, 
+							newReminder.getMessage());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				try {
+					displayReminders();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 	            window.close(); 
 	            
 			} catch (NumberFormatException e1) {
@@ -1022,13 +1050,15 @@ public class HomeController {
     }
     
     
-    private void displayReminders() {
+    private void displayReminders() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
     	detailPane.getChildren().clear(); 
     	
         VBox layout = new VBox(10); 
         layout.setPadding(new Insets(10));
+        
+        List<Reminders> fetchedReminders = DBops.getAllRemindersDB();
 
-        for (Reminders reminder : remindersList) {
+        for (Reminders reminder : fetchedReminders) {
             String reminderText = String.format("Message: %s\nDate %s\nTime: %d\nOffset: %s minutes",
                     reminder.getMessage(),
                     // displaying date
@@ -1047,7 +1077,23 @@ public class HomeController {
         detailPane.getChildren().add(scrollPane); // Add the VBox to the detail pane
     }
     
-    public void initialize() {
-        seeReminders.setOnAction(event -> displayReminders());
+    public void initialize() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
+        seeReminders.setOnAction(event -> {
+			try {
+				displayReminders();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidEventTimeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (negativeReminderOffsetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+        //displayReminders();
     }
+    
+
 }

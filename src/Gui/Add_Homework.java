@@ -26,64 +26,50 @@ import BusinessLogic.Assignment;
 //Jonah Ottini 
 //218945030 
 
-//Add line to VM arguments under run configuration:
-// --module-path "\path\to\javafx-sdk-17\lib" --add-modules javafx.controls,javafx.fxml 
-//and replace inside quotes with path to javafx sdk lib folder on your PC
-
 /**
  * 
  * Creates a Homework or Assignment object using user input, and adds it to the Calendar
  */
-public class Add_Homework extends Application implements EventHandler<ActionEvent> {
+public class Add_Homework {
 	
-	//GUI Variables
-	Stage window; 
-	Scene scene; 
-	Label errorMsg;
-	GridPane grid;
+	 //GUI Variables
+	static Stage window; 
+	static Scene scene; 
+	static Label errorMsg;
+	static GridPane grid;
 
-	TextField taskInput = new TextField();
-	TextField ccInput = new TextField();
-	TextField timeInput = new TextField(); 
+	static TextField taskInput = new TextField();
+	static TextField ccInput = new TextField();
+	static TextField timeInput = new TextField(); 
 	
-	Label yearLabel;
-	Label monthLabel;
-	Label dueDate;  
-	TextField yearInput = new TextField(); 
-	TextField monthInput = new TextField();
-	TextField dateInput = new TextField(); 
-	Boolean assignCheck = false;
+	static Label yearLabel;
+	static Label monthLabel;
+	static Label dueDate;  
+	static TextField yearInput = new TextField(); 
+	static TextField monthInput = new TextField();
+	static TextField dateInput = new TextField(); 
+	static Boolean assignCheck = false;
 	
-	Button enter = new Button();
-	RadioButton yes = new RadioButton();
-	RadioButton no = new RadioButton(); 
-	final ToggleGroup group = new ToggleGroup();
+	static Button enter = new Button();
+	static RadioButton yes = new RadioButton();
+	static RadioButton no = new RadioButton(); 
+	static final ToggleGroup group = new ToggleGroup();
 	
 	
 	//Data Variables
-	String task;
-	String course; 
-	int duration; 
-	int year;
-	int month;
-	int date; 
-	Homework hw;
-	
-	/**
-	 * Main, launches GUI for this class
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		launch(args); 
-
-	}
+	static String task;
+	static String course; 
+	static int duration; 
+	static int year;
+	static int month;
+	static int date; 
+	static Homework hw;
 	
 	/**
 	 * Creates GUI for class
 	 */
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		window = primaryStage;
+	public static void start() throws Exception {
+		window = new Stage();
 		window.setTitle("Add Homework");
 		
 		grid = new GridPane(); 
@@ -131,12 +117,18 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 		Label noLabel = new Label("No"); 
 		GridPane.setConstraints(noLabel, 3, 3);
 
-		yes.setOnAction(this);
-		no.setOnAction(this);
+		yes.setOnAction(e ->{
+			yesCheck();
+		});
+		no.setOnAction(e -> { 
+			noCheck();
+		});
 		
 		//Enter Button
 		enter = new Button("Enter"); 
-		enter.setOnAction(this);
+		enter.setOnAction(e -> {
+			handleEnter();
+		});
 		GridPane.setConstraints(enter, 6, 9);
 		
 		//Error Message
@@ -150,69 +142,63 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 		window.show();
 	}
 	
+	/**
+	 * runs when yes selection is chosen 
+	 */
+	public static void yesCheck() { 
+		assignCheck = true;
+		
+		yearLabel = new Label("Year due: ");
+		GridPane.setConstraints(yearLabel, 0, 6, 2, 1);
+		yearInput.setPromptText("ex. 2024");
+		yearInput.setMaxWidth(75);
+		GridPane.setConstraints(yearInput, 1, 6, 3, 1);
+		
+		monthLabel = new Label("Month due: ");
+		GridPane.setConstraints(monthLabel, 0, 7, 2, 1);
+		GridPane.setConstraints(monthInput, 1, 7);
+		
+		dueDate = new Label("Day of Month due: "); 
+		GridPane.setConstraints(dueDate, 0, 8, 2, 1);
+		GridPane.setConstraints(dateInput, 1, 8);
+		
+		grid.getChildren().addAll(yearLabel, yearInput, monthLabel, monthInput, dueDate, dateInput);
+	}
 	
 	/**
-	 * Handles event when any of the buttons are pressed 
-	 * Adds new fields if due date is selected
-	 * Takes user inputs when the "Enter" button is pressed
+	 * runs when yes selection is chosen 
 	 */
-	@Override
-	public void handle(ActionEvent event) {
-		
-		//Get due date if user selects yes
-		if(event.getSource() == yes) { 
-			assignCheck = true;
-			
-			yearLabel = new Label("Year due: ");
-			GridPane.setConstraints(yearLabel, 0, 6, 2, 1);
-			yearInput.setPromptText("ex. 2024");
-			yearInput.setMaxWidth(75);
-			GridPane.setConstraints(yearInput, 1, 6, 3, 1);
-			
-			monthLabel = new Label("Month due: ");
-			GridPane.setConstraints(monthLabel, 0, 7, 2, 1);
-			GridPane.setConstraints(monthInput, 1, 7);
-			
-			dueDate = new Label("Day of Month due: "); 
-			GridPane.setConstraints(dueDate, 0, 8, 2, 1);
-			GridPane.setConstraints(dateInput, 1, 8);
-			
-			grid.getChildren().addAll(yearLabel, yearInput, monthLabel, monthInput, dueDate, dateInput);
+	public static void noCheck() { 
+		assignCheck = false;
+		grid.getChildren().removeAll(yearLabel, yearInput, monthLabel, monthInput, dueDate, dateInput);
+	}
 	
-		}
-		
-		//Removes extra fields if user selects no
-		else if(event.getSource() == no) {
-			assignCheck = false;
-			grid.getChildren().removeAll(yearLabel, yearInput, monthLabel, monthInput, dueDate, dateInput);
-		}
-		
-		//Checks to make sure all data is entered correctly when Enter is pressed
-		if(event.getSource() == enter) { 
-			
-			if(checkEmpty(taskInput) == false && checkEmpty(ccInput) == false && checkEmpty(timeInput) == false) {
-				if (assignCheck.booleanValue() == true) {
-					if(checkEmpty(yearInput) == false && checkEmpty(monthInput) == false && checkEmpty(dateInput) == false)  {
-						
-						//Creates Assignment if all data is entered correctly
-						if (isInt(timeInput) == true && isInt(yearInput) == true && isInt(monthInput) == true && isInt(dateInput) == true) { 
-							System.out.println(createHw());
-						}
+	/**
+	 * runs when enter button is pressed
+	 */
+	public static void handleEnter() { 
+		if(checkEmpty(taskInput) == false && checkEmpty(ccInput) == false && checkEmpty(timeInput) == false) {
+			if (assignCheck.booleanValue() == true) {
+				if(checkEmpty(yearInput) == false && checkEmpty(monthInput) == false && checkEmpty(dateInput) == false)  {
+					
+					//Creates Assignment if all data is entered correctly
+					if (isInt(timeInput) == true && isInt(yearInput) == true && isInt(monthInput) == true && isInt(dateInput) == true) { 
+						System.out.println(createHw());
 					}
 				}
-				//Creates Homework if all data is entered correctly
-				else if (isInt(timeInput) == true) {
-					System.out.println(createHw());
-				}	
+			}
+			//Creates Homework if all data is entered correctly
+			else if (isInt(timeInput) == true) {
+				System.out.println(createHw());
 			}	
-		}
+		}	
 	}
 	
 	/**
 	 * Creates Homework or Assignment Object with user inputs
 	 * @return Homework or Assignment
 	 */
-	public Homework createHw() { 
+	public static Homework createHw() { 
 		
 		task = taskInput.getText();
 		course = ccInput.getText();
@@ -239,7 +225,7 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 	 * @param input
 	 * @return boolean
 	 */
-	private boolean checkEmpty(TextField input) { 
+	private static boolean checkEmpty(TextField input) { 
 		
 		if(input.getText().equals("")) { 
 			errorMsg.setText("Error: Please fill out all fields");
@@ -258,7 +244,7 @@ public class Add_Homework extends Application implements EventHandler<ActionEven
 	 * @param input
 	 * @return boolean
 	 */
-	private boolean isInt(TextField input) { 
+	private static boolean isInt(TextField input) { 
 		try { 
 			int x = Integer.valueOf((input.getText()));
 			return true;
