@@ -34,6 +34,7 @@ public class ReminderController {
     @FXML
     private void handleSaveReminder(ActionEvent event) {
         try {
+        	String message = titleTextField.getText();
             String title = titleTextField.getText();
             LocalDate date = LocalDate.parse(datePicker.getText(), DateTimeFormatter.ISO_DATE); // This assumes the date is in (YYYY-MM-DD)
             LocalTime time = LocalTime.parse(timeTextField.getText(), DateTimeFormatter.ofPattern("HH:mm")); // This assumes the time is in HH:mm format
@@ -43,7 +44,7 @@ public class ReminderController {
             int eventTime = time.getHour();
 
             // creating a reminder with the localDate
-            Reminders newReminder = new Reminders(title, eventTime, offset, date);
+            Reminders newReminder = new Reminders(message, title, eventTime, offset, date);
             
             // adding a new reminder to a stub database
             GuiHelper.addReminder(newReminder);

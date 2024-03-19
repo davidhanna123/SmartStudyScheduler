@@ -125,7 +125,7 @@ public interface DBops {
 	            int offsetMinutes = rs.getInt("offset_minutes");
 	            String message = rs.getString("message");
 	            
-	            Reminders reminder = new Reminders(title, reminderTime.getHour(), Duration.ofMinutes(offsetMinutes), reminderDate);
+	            Reminders reminder = new Reminders(message, title, reminderTime.getHour(), Duration.ofMinutes(offsetMinutes), reminderDate);
 	        
 	            reminder.setMessage(message); 
 	            reminderList.add(reminder);

@@ -1001,12 +1001,13 @@ public class HomeController {
             //  after clicking on save button probably database implementation will be here
         	//  by  creating a new reminders objects 
         	try {
+        		String message = titleField.getText();
 				String title = titleField.getText();
 				LocalDate reminderDate = datePicker.getValue();
 				int eventTime = timeSpinner.getValue();
 				int offsetMinutes = Integer.parseInt(offsetField.getText());
 				
-				Reminders newReminder = new Reminders(title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate);
+				Reminders newReminder = new Reminders(message, title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate);
 				remindersList.add(newReminder);
 				//displayReminders();
 				
