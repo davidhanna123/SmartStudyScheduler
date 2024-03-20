@@ -166,6 +166,62 @@ public interface DBops {
 	    }
 	    return reminderList;
 	} 
+	
+	/**
+	 * Add Homework Object to Event database
+	 * @param title
+	 * @param course
+	 * @param duration
+	 * @throws SQLException
+	 */
+	public static void addHomework(String title, String course, int duration) throws SQLException { 
+		databaseConnection dbConnect = new databaseConnection();
+		Connection connection  = dbConnect.getConnection();
+		
+		String sql = "INSERT INTO events (title, description, duration) VALUES (?, ?, ?)";
+		
+		try (PreparedStatement stmt = connection.prepareStatement(sql)){ 
+			stmt.setString(1, title);
+			stmt.setString(2, course);
+			stmt.setInt(3,duration);
+			stmt.executeUpdate();
+			connection.close();
+		} catch (SQLException e) { 
+			System.out.println("SQLException: " + e.getMessage());
+            connection.close();
+		}
+		
+	}
+	
+	/**
+	 * Adds Assignment object to Event database
+	 * @param title
+	 * @param course
+	 * @param duration
+	 * @param due
+	 * @throws SQLException
+	 */
+	public static void addAssignment(String title, String course, int duration, LocalDate due) throws SQLException { 
+		databaseConnection dbConnect = new databaseConnection();
+		Connection connection  = dbConnect.getConnection();
+		
+		String sql = "INSERT INTO events (title, description, duration, eventDate) VALUES (?, ?, ?, ?)";
+		
+		try (PreparedStatement stmt = connection.prepareStatement(sql)){ 
+			LocalDate sqlDate = due;
+			stmt.setString(1, title);
+			stmt.setString(2, course);
+			stmt.setInt(3,duration);
+			stmt.setObject(4, sqlDate);
+			stmt.executeUpdate();
+			connection.close();
+		} catch (SQLException e) { 
+			System.out.println("SQLException: " + e.getMessage());
+            connection.close();
+		}
+		
+	}
+	
 
 //	public static void addYearDB(int yearNumber) throws SQLException {
 //	databaseConnection dbConnect = new databaseConnection();
