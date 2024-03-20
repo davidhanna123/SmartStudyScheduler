@@ -1,6 +1,7 @@
 package Gui;
 
 import java.awt.Button;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -9,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import BusinessLogic.InvalidEventTimeException;
 import BusinessLogic.Reminders;
 import BusinessLogic.negativeReminderOffsetException;
+import Database.DBops;
 import Gui.resources.GuiHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +34,7 @@ public class ReminderController {
     
     
     @FXML
-    private void handleSaveReminder(ActionEvent event) {
+    private void handleSaveReminder(ActionEvent event) throws SQLException {
         try {
         	String message = titleTextField.getText();
             String title = titleTextField.getText();
@@ -42,9 +44,9 @@ public class ReminderController {
 
             Duration offset = Duration.ofMinutes(offsetMinutes);
             int eventTime = time.getHour();
-
+            int reminderId = DBops.addRemindersDB(title, date, eventTime, offsetMinutes, message);
             // creating a reminder with the localDate
-            Reminders newReminder = new Reminders(message, title, eventTime, offset, date);
+            Reminders newReminder = new Reminders(reminderId, message, title, eventTime, offset, date);
             
             // adding a new reminder to a stub database
             GuiHelper.addReminder(newReminder);

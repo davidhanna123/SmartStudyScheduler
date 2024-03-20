@@ -92,21 +92,33 @@ public interface DBops {
         
 
 
-	public static void  addRemindersDB(String title, LocalDate  reminderDate, int eventTime, int offsetMinutes, String message) throws SQLException {
+	public static int addRemindersDB(String title, LocalDate  reminderDate, int eventTime, int offsetMinutes, String message) throws SQLException {
+		// we have to get an ID of each reminder that was added
+		int id = -1; 
 		databaseConnection dbConnect = new databaseConnection();
 		Connection connection  = dbConnect.getConnection();
 		
-		String SQL = "INSERT INTO main.reminders(title, reminder_date, reminder_time, offset_minutes, message) VALUES(?, ?, ?, ?, ?)";
-		try(PreparedStatement statement = connection.prepareStatement(SQL)){
+		String SQL = "INSERT INTO main.reminders(title, reminder_date, reminder_time, offset_minutes, message) VALUES(?, ?, ?, ?, ?) RETURNING id";
+		try(PreparedStatement statement = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)){
 			statement.setString(1, title);
 	        statement.setDate(2, java.sql.Date.valueOf(reminderDate)); 
 	        statement.setTime(3, java.sql.Time.valueOf(LocalTime.of(eventTime, 0))); 
 	        statement.setInt(4, offsetMinutes);
 	        statement.setString(5, message);
-	        statement.executeUpdate();
+	        int addedRows = statement.executeUpdate();
+	        
+	        if (addedRows > 0) {
+	        	ResultSet rs = statement.getGeneratedKeys();
+	        	if(rs.next()) {
+	        		id = rs.getInt(1);
+	        	}
+	        }
 		}catch (SQLException  e) {
 			e.printStackTrace();
+		}finally {
+			connection.close();
 		}
+		return id;
 	}
 	
 	// method to retrieve all the reminders from the database, which returns the list of Reminders objects
@@ -119,23 +131,71 @@ public interface DBops {
 	         ResultSet rs = statement.executeQuery("SELECT * FROM main.reminders")) {
 
 	        while (rs.next()) {
+	        	int id = rs.getInt("id");
 	            String title = rs.getString("title");
 	            LocalDate reminderDate = rs.getDate("reminder_date").toLocalDate();
 	            LocalTime reminderTime = rs.getTime("reminder_time").toLocalTime();
 	            int offsetMinutes = rs.getInt("offset_minutes");
 	            String message = rs.getString("message");
 	            
-	            Reminders reminder = new Reminders(message, title, reminderTime.getHour(), Duration.ofMinutes(offsetMinutes), reminderDate);
+	            Reminders reminder = new Reminders(id, message, title, reminderTime.getHour(), Duration.ofMinutes(offsetMinutes), reminderDate);
 	        
 	            reminder.setMessage(message); 
-	            reminderList.add(reminder);
+	            reminderList.add(reminder);	             
 	           
-	            reminder.setMessage(message); 
-	            reminderList.add(reminder);
+	            //reminder.setMessage(message); 
+	            //reminderList.add(reminder);
 	        }
 	    }
 	    return reminderList;
 	} 
+	
+	public static boolean deleteReminderDB(int id) throws SQLException {
+		boolean result = false;
+        databaseConnection dbConnect = new databaseConnection();
+        Connection connection = dbConnect.getConnection();
+        
+        String SQL = "DELETE FROM main.reminders WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(SQL)) {
+            statement.setInt(1, id);
+            
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                //System.out.println("A reminder was deleted successfully!");
+                result = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return result;
+    }
+	
+	// method for the testing
+	public static boolean reminderExistsDB(int id) throws SQLException {
+		boolean exists = false;
+		databaseConnection dbConnect = new databaseConnection();
+		Connection connection = dbConnect.getConnection();
+		
+		PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM main.reminders WHERE id = ?");
+		
+		pstmt.setInt(1, id);
+		ResultSet rs = pstmt.executeQuery();
+		if(rs.next()) {
+			// if count is more than zero then the reminder exists
+			exists = rs.getInt(1) > 0;
+		}
+		
+		return exists;
+	}
 
 //	public static void addYearDB(int yearNumber) throws SQLException {
 //	databaseConnection dbConnect = new databaseConnection();

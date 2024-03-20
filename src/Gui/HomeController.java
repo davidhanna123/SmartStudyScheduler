@@ -26,6 +26,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -1001,35 +1002,43 @@ public class HomeController {
             //  after clicking on save button probably database implementation will be here
         	//  by  creating a new reminders objects 
         	try {
-        		String message = titleField.getText();
+        		//String message = titleField.getText();
 				String title = titleField.getText();
+				String message = title;
 				LocalDate reminderDate = datePicker.getValue();
 				int eventTime = timeSpinner.getValue();
 				int offsetMinutes = Integer.parseInt(offsetField.getText());
+	
 				
-				Reminders newReminder = new Reminders(message, title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate);
-				remindersList.add(newReminder);
-				//displayReminders();
+				int id = DBops.addRemindersDB(title,reminderDate, eventTime, offsetMinutes, message);
 				
+				if (id != -1) {
+					Reminders newReminder = new Reminders(id, message, title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate);
+					remindersList.add(newReminder);
+				}
+				displayReminders();
+				window.close();
 				// saving the reminders to database
-				try {
-					DBops.addRemindersDB(title, 
-							reminderDate, 
-							eventTime, 
-							offsetMinutes, 
-							newReminder.getMessage());
-				} catch (SQLException e1) {
+				//try {
+				//	DBops.addRemindersDB(title, 
+				//			reminderDate, 
+				//			eventTime, 
+				//			offsetMinutes, 
+				//			newReminder.getMessage());
+				//			reminderId
+						
+				//} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				//	e1.printStackTrace();
+				//}
 				
-				try {
-					displayReminders();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-	            window.close(); 
+				//try {
+				//	displayReminders();
+				//} catch (SQLException e1) {
+				//	// TODO Auto-generated catch block
+				//	e1.printStackTrace();
+				//}
+	            // window.close(); 
 	            
 			} catch (NumberFormatException e1) {
 				// TODO Auto-generated catch block
@@ -1040,7 +1049,10 @@ public class HomeController {
 			} catch (negativeReminderOffsetException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} 
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         });
 
         layout.getChildren().addAll(
@@ -1072,7 +1084,24 @@ public class HomeController {
                     reminder.getEventTime(),
                     reminder.getOffset().toMinutes());
             Label reminderLabel = new Label(reminderText);
-            layout.getChildren().add(reminderLabel);
+            Button deleteButton = new Button("Delete");
+            //layout.getChildren().add(reminderLabel);
+            
+            deleteButton.setOnAction(e -> { 	
+            	//layout.getChildren().remove(reminderLabel);
+            	//layout.getChildren().remove(deleteButton);  
+				try {
+					deleteReminder(reminder, fetchedReminders);
+					displayReminders();
+				} catch (SQLException | InvalidEventTimeException | negativeReminderOffsetException e1) {		
+					e1.printStackTrace();
+				}
+            });
+            
+            VBox reminderBox = new VBox(5);
+            reminderBox.getChildren().addAll(reminderLabel, deleteButton);
+            layout.getChildren().add(reminderBox);
+            //layout.getChildren().addAll(reminderLabel,deleteButton);
         }
 
         ScrollPane scrollPane =  new ScrollPane(layout);
@@ -1081,6 +1110,13 @@ public class HomeController {
         scrollPane.setPrefHeight(494);
 
         detailPane.getChildren().add(scrollPane); // Add the VBox to the detail pane
+    }
+    
+    public void deleteReminder(Reminders reminder, List<Reminders> fetchedReminders) throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
+    	System.out.println("Deleting reminder");
+    	DBops.deleteReminderDB(reminder.getId());
+    	fetchedReminders.remove(reminder);
+    	displayReminders();
     }
     
     public void initialize() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
