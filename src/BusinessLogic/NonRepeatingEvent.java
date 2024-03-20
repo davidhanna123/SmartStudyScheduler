@@ -135,4 +135,13 @@ public class NonRepeatingEvent extends Event{
 		// TODO Auto-generated method stub
 		super.setAssignment(assignment);
 	}
+	/**
+	 * Returns a string version of a non repeating event object
+	 */
+	@Override
+	public String toString() {
+		return "NonRepeatingEvent [title=" + title + ", description=" + description + ", startingTime=" + startingTime
+				+ ", duration=" + duration + ", date=" + date + "]";
+	}
+	
 }

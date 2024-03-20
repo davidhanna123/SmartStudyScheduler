@@ -8,8 +8,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import BusinessLogic.*;
+import BusinessLogic.Event;
 import Database.*;
 import Database.DBops;
 import Database.Database;
@@ -26,6 +28,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -198,14 +201,66 @@ public class HomeController {
     public HomeController() {
     	super();
     	
+    	//getting a calendar with the current year for all business logic operations
     	GuiHelper.initialize();
     	calendar = GuiHelper.getCalendar();
-        
+    	//adding all of the users events to this calendar
+    	addEventsToCalendar(calendar);
+    	
 //    	updateDayLabels(GuiHelper.getMonthStartingDay(), GuiHelper.getMonthNow());
 //    	yearLabel.setText(String.valueOf(LocalDate.now().getYear()));
     }
     
-    
+    /**
+     * Helper method for adding all the events in a database to a current calendar
+     * @param calendar
+     */
+    private static void addEventsToCalendar(CalendarApp calendar) {
+    	//fetching all the events currently saved in the database
+    	TreeSet<Event> events = null;
+    	try {
+			events = DBops.getAllEventDB();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        //adding every year that there is an event for to prepare for operations later
+    	for(Event e: events) {
+    		calendar.addYear(e.getDate().getYear());
+    	}
+    	
+    	//adding each event in the database to its corresponding day in the calendar
+    	for(Event e: events) {
+    		Year eventYear = null;
+    		try {
+				eventYear = calendar.findYear(e.getDate().getYear());
+			} catch (CalendarException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    		
+    	//getting the month that the event is on
+    		Month eventMonth = null;	
+    		try {
+    			eventMonth = eventYear.findMonthByNumber(e.getDate().getMonthValue());
+    		} catch (MonthNotFoundException e1) {
+    			// TODO Auto-generated catch block
+    			e1.printStackTrace();
+    		}
+    		
+    		Day eventDay = null;
+    		eventDay = eventMonth.getDayByNumber(e.getDate().getDayOfMonth());
+    	
+    		try {
+				eventDay.addEvent(e);
+				System.out.println(e.toString());
+			} catch (EventOverlapException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
+    	}
+    }
   //list of labels for months that start on a monday
     public List<Label> initializeMon() {
     	List<Label> dayList = new ArrayList<>();
@@ -825,6 +880,7 @@ public class HomeController {
     	Spinner<Integer> endTime = new Spinner<>();
     	DatePicker eventDate = new DatePicker();
     	Button finish = new Button();
+    	Button clear = new Button();
     	
         //initializing event title input box
         title.setPromptText("Enter Event Title");
@@ -915,16 +971,36 @@ public class HomeController {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
-            }
+            }         
         };
         
         
-        //setting up finish button
+        EventHandler<ActionEvent> eventHandlerClear = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            //clearing all info of added event from the gui to prepare for next event 
+			title.clear();
+			description.clear();
+			startTime.getValueFactory().setValue(0);
+			endTime.getValueFactory().setValue(0);
+			eventDate.setValue(null);
+            }         
+        };
+        
+        
+        //setting up finish button and clear button
         finish.setText("Finish");
         finish.setLayoutX(105);
         finish.setLayoutY(460);
         finish.setId("finishButton");
         finish.setOnAction(eventHandler);
+        
+        clear.setText("Clear");
+        clear.setLayoutX(5);
+        clear.setLayoutY(460);
+        clear.setId("clearButton");
+        clear.setOnAction(eventHandlerClear);
+        
         
         
     	detailPane.getChildren().add(title);
@@ -935,7 +1011,7 @@ public class HomeController {
     	detailPane.getChildren().add(startTimeLabel);
     	detailPane.getChildren().add(endTimeLabel);
     	detailPane.getChildren().add(datePick);
-
+    	
     	// Kamil's Reminders functionality implementation 
     	Button addReminderButton = new Button("Add Reminder");
     	addReminderButton.setLayoutX(5);
@@ -962,15 +1038,140 @@ public class HomeController {
 			}
     	});
     	
+    	
+    	// Automatic scheduling feature
+    	//Button to trigger auto scheduling feature 
+    	Button autoAddButton = new Button("Automatically Schedule");
+    	autoAddButton.setLayoutX(5);
+    	autoAddButton.setLayoutY(375);
+    	
+    	// action handler to open the new dialog 
+    	autoAddButton.setOnAction(e -> {
+    		openAutomaticSchedulingWindow(eventDate, startTime, endTime);
+    	});
+    	
     	detailPane.getChildren().add(addHomeworkButton);
-
+    	detailPane.getChildren().add(autoAddButton);
     	detailPane.getChildren().add(finish);
-    	
-    	
+    	detailPane.getChildren().add(clear);    	
+    }
+    
+    // Method to open a new window for automatic event scheduling
+    private static void openAutomaticSchedulingWindow(DatePicker date, Spinner<Integer> startTime, Spinner<Integer> endTime) {
+        Stage newWindow = new Stage();
+        Image icon = new Image("logo5.jpg");
+		newWindow.getIcons().add(icon);
+        newWindow.setTitle("Auto-Schedule");
+
+        VBox layout = new VBox(10);
+    
+
+        Scene scene = new Scene(layout, 450, 350);
+        newWindow.setScene(scene);
+        //initializing the window components
+        Label minimumDateLabel = new Label("The event should be on the day of or after: ");
+        
+        DatePicker minEventDate = new DatePicker();
+        
+        Label maximumDateLabel = new Label("The event should be on the day of or before: ");
+        
+        DatePicker maxEventDate = new DatePicker();
+        
+        Label durationLabel = new Label("What is the duration of the event in Hours?");
+        
+        Spinner<Integer> duration = new Spinner<>();
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
+        duration.setValueFactory(valueFactory);
+        
+        Label startTimeLabel = new Label("How late into the day are you willing to start this event?(Hour of the day)");
+        
+        Spinner<Integer> maxStartTime = new Spinner<>();
+        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
+        maxStartTime.setValueFactory(valueFactory2);
+        
+        Label startTimeLabel2 = new Label("How early are you willing to start this event?(Hour of the day)");
+        		
+        Spinner<Integer> minStartTime = new Spinner<>();
+        SpinnerValueFactory<Integer> valueFactory3 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
+        minStartTime.setValueFactory(valueFactory3);
+        
+        Button schedule = new Button("Schedule");
+        
+        schedule.setOnAction(e -> {
+        	try {
+        		boolean added = false;//a boolean indicating if an event can be added
+        		
+        		for(Year y : calendar.getYears()) {
+        			int maxYear = maxEventDate.getValue().getYear();//maximum allowable year for this event to be on
+        			int minYear = minEventDate.getValue().getYear();//minimum allowable year for this event to be on
+        			//checking if it can be added in the specified year range
+        			if(y.getCurrentYear() >= minYear && y.getCurrentYear() <= maxYear) {
+        				for(Month m : y.getMonths()) {
+        					int maxMonth = maxEventDate.getValue().getMonthValue();//maximum allowable month for this event to be on
+                			int minMonth = minEventDate.getValue().getMonthValue();//minimum allowable month for this event to be on
+                			//checking if it can be added in the specified month range
+                			if(m.getMonthNumber() >= minMonth && m.getMonthNumber() <= maxMonth) {
+                				int maxDay = maxEventDate.getValue().getDayOfMonth();//maximum allowable Day for this event to be on
+                    			int minDay = minEventDate.getValue().getDayOfMonth();//minimum allowable Day for this event to be on
+                    			//checking if it can be added in the specified day range
+                    			for(Day d : m.getDays()) {
+                					if(d.getDate() >= minDay && d.getDate() <= maxDay) {
+                						int minStartHour = minStartTime.getValue();//maximum allowable Hour for this event to be on
+                						int maxStartHour = maxStartTime.getValue();//minimum allowable Hour for this event to be on
+                						int eventDuration = duration.getValue();
+                						//checking if it can be added in the specified hour range
+                						for(int i = minStartHour; i <= maxStartHour; i++) {
+                							LocalDate newEventDate = LocalDate.of(y.getCurrentYear(), m.getMonthNumber(), d.getDate());
+                							added = d.checkEventAddable(new NonRepeatingEvent("", "", new Hour(i, 0), eventDuration, newEventDate));//checking if the event can be added at the specified time for the current loop using a method in the Day class
+                							if(added == true) {
+                								date.setValue(newEventDate);
+                								startTime.getValueFactory().setValue(i);
+                								endTime.getValueFactory().setValue(i+eventDuration);
+                							}
+                						}
+                					}
+                				}
+                			}
+            			}
+        			}
+        		}
+        		LocalDate dateValue = date.getValue();
+        		int latestStart = maxStartTime.getValue();
+        		int start = startTime.getValue();
+        		int end = startTime.getValue();
+        		
+        		
+        		
+	            newWindow.close(); 
+			} catch (NumberFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+        });
+        
+        //adding all the components of the new window to the scene
+        layout.getChildren().add(minimumDateLabel);
+        layout.getChildren().add(minEventDate);
+        layout.getChildren().add(maximumDateLabel);
+        layout.getChildren().add(maxEventDate);
+        layout.getChildren().add(durationLabel);
+        layout.getChildren().add(duration);
+        layout.getChildren().add(startTimeLabel);
+        layout.getChildren().add(maxStartTime);
+        layout.getChildren().add(startTimeLabel2);
+        layout.getChildren().add(minStartTime);
+        layout.getChildren().add(schedule);
+        
+        // Show the new window
+        newWindow.show();
     }
     
     public void showAddReminderPopup() {
         Stage window = new Stage();
+        //Yadon added the logo, feel free to remove it if u want to
+        Image icon = new Image("logo5.jpg");
+		window.getIcons().add(icon);
+		
         window.initModality(Modality.APPLICATION_MODAL);
         window.setMinWidth(400);
         window.setMinHeight(470);
