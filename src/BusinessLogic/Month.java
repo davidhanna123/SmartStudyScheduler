@@ -185,6 +185,20 @@ public class Month implements Comparable<Month> {
     	this.days.add(day);
     }
     /**
+     * Returns a Day object whose day of month corresponds to the dayNum input 
+     * @param dayNum: an integer that is the day number of Day object to be returned 
+     * @return Day object whose day number corresponds to the specified dayNum input integer
+     */
+    public Day getDayByNumber(int dayNum) {
+    	Day day = null;
+
+    	for(Day d : this.getDays()) {
+    		if(d.getDate() == dayNum)
+    			day = d;
+    	}
+    	return day;
+    }
+    /**
      * Compares this Month object with another Month object for order.
      * 
      * <p>

@@ -74,7 +74,10 @@ public class CalendarApp implements DBops{
 	 */
 	public void addYear(int yearNum) {
 		Year year = new Year(yearNum);
-		this.addYear(year);
+		//adding the year if it is not already contained by the calendar
+		if(!(this.contains(yearNum))) {
+			this.addYear(year);
+		}
 		
 //		try {
 //			DBops.addYearDB(yearNum);

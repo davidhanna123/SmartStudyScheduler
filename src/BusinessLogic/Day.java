@@ -68,11 +68,12 @@ public class Day implements Comparable<Day>{
 	}
 	
 	/**
-	 * Adds an event to the event TreeSet of a Day Object
+	 * Adding an event to a specific Day
 	 * @param event
+	 * @return boolean: true is returned if the event is added. If the event is not added, an exception is thrown...false is never returned by this method.
 	 * @throws EventOverlapException
 	 */
-	public void addEvent(Event event) throws EventOverlapException{
+	public boolean addEvent(Event event) throws EventOverlapException{
 		if(!(this.events.isEmpty())) {
 			for(Event e: events) {
 				if(event.startingTime.getTime() >= e.startingTime.getTime() && event.startingTime.getTime() < (e.startingTime.getTime() + e.duration)) {
@@ -84,7 +85,26 @@ public class Day implements Comparable<Day>{
 			}
 		}
 		events.add(event);
-		
+		return true;
+	}
+	/**
+	 * Checks if an event can be added to a day or not. It does not actually add the event, it just returns a boolean indicating whether or not it can be added.
+	 * @param event
+	 * @return boolean: true is returned if the event can be added, false if it can not (example: there is an event overlap at the specified event time)
+	 * @throws EventOverlapException
+	 */
+	public boolean checkEventAddable(Event event){
+		if(!(this.events.isEmpty())) {
+			for(Event e: events) {
+				if(event.startingTime.getTime() >= e.startingTime.getTime() && event.startingTime.getTime() < (e.startingTime.getTime() + e.duration)) {
+					return false;
+				}
+				if(e.startingTime.getTime() >= event.startingTime.getTime() && e.startingTime.getTime() < (event.startingTime.getTime() + event.duration)) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	//
 	public void AddRepeatingEvent(Event event, int repeat) throws EventOverlapException {
