@@ -26,7 +26,7 @@ import java.sql.PreparedStatement;
 
 public interface DBops {
 	
-	public static boolean addNREventDB(String title, String description, int startingTime, int duration, LocalDate eventDate) throws SQLException {
+	public static boolean addNREventDB(String title, String description, int startingTime, int duration, LocalDate eventDate, int repeat) throws SQLException {
 		databaseConnection dbConnect = new databaseConnection();
 		Connection connection = dbConnect.getConnection();
 		
@@ -40,15 +40,28 @@ public interface DBops {
 		String sql = "INSERT INTO events (title, description, startingTime, duration, eventDate) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             // Set parameters for the PreparedStatement
-        	Date sqlDate = Date.valueOf(eventDate);
-            stmt.setString(1, title);
-            stmt.setString(2, description);
-            stmt.setInt(3, startingTime);
-            stmt.setInt(4, duration);
-            stmt.setObject(5, sqlDate);
+        	int rowsInserted = 0;
+        	for (int i = 0; i <= repeat; i++) {
+            	Date sqlDate = Date.valueOf(eventDate.plusWeeks(i));
+                stmt.setString(1, title);
+                stmt.setString(2, description);
+                stmt.setInt(3, startingTime);
+                stmt.setInt(4, duration);
+                stmt.setObject(5, sqlDate);
+                
+                //eventDate = eventDate.plusWeeks(1);
+                // Execute the PreparedStatement
+                rowsInserted = stmt.executeUpdate();
+            	}
+        	//Date sqlDate = Date.valueOf(eventDate);
+           // stmt.setString(1, title);
+            //stmt.setString(2, description);
+            //stmt.setInt(3, startingTime);
+            //stmt.setInt(4, duration);
+            //stmt.setObject(5, sqlDate);
            
             // Execute the PreparedStatement
-            int rowsInserted = stmt.executeUpdate();
+            //rowsInserted = stmt.executeUpdate();
             connection.close();
             return rowsInserted > 0;
         } catch (SQLException e) {

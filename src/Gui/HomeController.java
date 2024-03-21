@@ -826,6 +826,7 @@ public class HomeController {
     	Spinner<Integer> endTime = new Spinner<>();
     	DatePicker eventDate = new DatePicker();
     	Button finish = new Button();
+    	Spinner<Integer> repeat = new Spinner<>();
     	
         //initializing event title input box
         title.setPromptText("Enter Event Title");
@@ -860,7 +861,15 @@ public class HomeController {
         endTime.setLayoutX(5);
         endTime.setLayoutY(170);
         
-        
+        Label repeatLabel = new Label("Repeat times:");
+        repeatLabel.setLayoutX(5);
+        repeatLabel.setLayoutY(200);
+        SpinnerValueFactory<Integer> valueFactory3 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
+        repeat.setValueFactory(valueFactory3);
+        repeat.setValueFactory(valueFactory3);
+        repeat.setPromptText("Repeat times");
+        repeat.setLayoutX(5);
+        repeat.setLayoutY(220);
 
         //setting up date picker for the event and date picker label
         Label datePick = new Label("Choose Event Date");
@@ -885,16 +894,19 @@ public class HomeController {
                 int durationData = endTime.getValue() - startTime.getValue();
                 //capturing event date
             	LocalDate dateData = eventDate.getValue();
+            	
+            	int repeatData = repeat.getValue();
               try {
             	  //+System.out.println(dateData.toString());
             	  
-    			DBops.addNREventDB(titleData, descriptionData, startingTimeData, durationData, dateData);
+    			DBops.addNREventDB(titleData, descriptionData, startingTimeData, durationData, dateData, repeatData);
     			//clearing all info of added event from the gui to prepare for next event 
     			title.clear();
     			description.clear();
     			startTime.getValueFactory().setValue(0);
     			endTime.getValueFactory().setValue(0);
     			eventDate.setValue(null);
+    			repeat.getValueFactory().setValue(0);
     			
     			//displaying message if event is successfully added
     			Label resultMessage = new Label();
@@ -932,9 +944,11 @@ public class HomeController {
     	detailPane.getChildren().add(description);
     	detailPane.getChildren().add(startTime);
     	detailPane.getChildren().add(endTime);
+    	detailPane.getChildren().add(repeat);
     	detailPane.getChildren().add(eventDate);
     	detailPane.getChildren().add(startTimeLabel);
     	detailPane.getChildren().add(endTimeLabel);
+    	detailPane.getChildren().add(repeatLabel);
     	detailPane.getChildren().add(datePick);
 
     	// Kamil's Reminders functionality implementation 
