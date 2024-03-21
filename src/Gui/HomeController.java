@@ -8,10 +8,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 
 import BusinessLogic.*;
-import BusinessLogic.Event;
 import Database.*;
 import Database.DBops;
 import Database.Database;
@@ -29,6 +27,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -201,66 +200,14 @@ public class HomeController {
     public HomeController() {
     	super();
     	
-    	//getting a calendar with the current year for all business logic operations
     	GuiHelper.initialize();
     	calendar = GuiHelper.getCalendar();
-    	//adding all of the users events to this calendar
-    	addEventsToCalendar(calendar);
-    	
+        
 //    	updateDayLabels(GuiHelper.getMonthStartingDay(), GuiHelper.getMonthNow());
 //    	yearLabel.setText(String.valueOf(LocalDate.now().getYear()));
     }
     
-    /**
-     * Helper method for adding all the events in a database to a current calendar
-     * @param calendar
-     */
-    private static void addEventsToCalendar(CalendarApp calendar) {
-    	//fetching all the events currently saved in the database
-    	TreeSet<Event> events = null;
-    	try {
-			events = DBops.getAllEventDB();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-        //adding every year that there is an event for to prepare for operations later
-    	for(Event e: events) {
-    		calendar.addYear(e.getDate().getYear());
-    	}
-    	
-    	//adding each event in the database to its corresponding day in the calendar
-    	for(Event e: events) {
-    		Year eventYear = null;
-    		try {
-				eventYear = calendar.findYear(e.getDate().getYear());
-			} catch (CalendarException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-    		
-    	//getting the month that the event is on
-    		Month eventMonth = null;	
-    		try {
-    			eventMonth = eventYear.findMonthByNumber(e.getDate().getMonthValue());
-    		} catch (MonthNotFoundException e1) {
-    			// TODO Auto-generated catch block
-    			e1.printStackTrace();
-    		}
-    		
-    		Day eventDay = null;
-    		eventDay = eventMonth.getDayByNumber(e.getDate().getDayOfMonth());
-    	
-    		try {
-				eventDay.addEvent(e);
-				System.out.println(e.toString());
-			} catch (EventOverlapException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}	
-    	}
-    }
+    
   //list of labels for months that start on a monday
     public List<Label> initializeMon() {
     	List<Label> dayList = new ArrayList<>();
@@ -880,7 +827,7 @@ public class HomeController {
     	Spinner<Integer> endTime = new Spinner<>();
     	DatePicker eventDate = new DatePicker();
     	Button finish = new Button();
-    	Button clear = new Button();
+    	Spinner<Integer> repeat = new Spinner<>();
     	
         //initializing event title input box
         title.setPromptText("Enter Event Title");
@@ -915,7 +862,15 @@ public class HomeController {
         endTime.setLayoutX(5);
         endTime.setLayoutY(170);
         
-        
+        Label repeatLabel = new Label("Repeat times:");
+        repeatLabel.setLayoutX(5);
+        repeatLabel.setLayoutY(200);
+        SpinnerValueFactory<Integer> valueFactory3 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
+        repeat.setValueFactory(valueFactory3);
+        repeat.setValueFactory(valueFactory3);
+        repeat.setPromptText("Repeat times");
+        repeat.setLayoutX(5);
+        repeat.setLayoutY(220);
 
         //setting up date picker for the event and date picker label
         Label datePick = new Label("Choose Event Date");
@@ -940,16 +895,19 @@ public class HomeController {
                 int durationData = endTime.getValue() - startTime.getValue();
                 //capturing event date
             	LocalDate dateData = eventDate.getValue();
+            	
+            	int repeatData = repeat.getValue();
               try {
             	  //+System.out.println(dateData.toString());
             	  
-    			DBops.addNREventDB(titleData, descriptionData, startingTimeData, durationData, dateData);
+    			DBops.addNREventDB(titleData, descriptionData, startingTimeData, durationData, dateData, repeatData);
     			//clearing all info of added event from the gui to prepare for next event 
     			title.clear();
     			description.clear();
     			startTime.getValueFactory().setValue(0);
     			endTime.getValueFactory().setValue(0);
     			eventDate.setValue(null);
+    			repeat.getValueFactory().setValue(0);
     			
     			//displaying message if event is successfully added
     			Label resultMessage = new Label();
@@ -971,47 +929,29 @@ public class HomeController {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
-            }         
+            }
         };
         
         
-        EventHandler<ActionEvent> eventHandlerClear = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            //clearing all info of added event from the gui to prepare for next event 
-			title.clear();
-			description.clear();
-			startTime.getValueFactory().setValue(0);
-			endTime.getValueFactory().setValue(0);
-			eventDate.setValue(null);
-            }         
-        };
-        
-        
-        //setting up finish button and clear button
+        //setting up finish button
         finish.setText("Finish");
         finish.setLayoutX(105);
         finish.setLayoutY(460);
         finish.setId("finishButton");
         finish.setOnAction(eventHandler);
         
-        clear.setText("Clear");
-        clear.setLayoutX(5);
-        clear.setLayoutY(460);
-        clear.setId("clearButton");
-        clear.setOnAction(eventHandlerClear);
-        
-        
         
     	detailPane.getChildren().add(title);
     	detailPane.getChildren().add(description);
     	detailPane.getChildren().add(startTime);
     	detailPane.getChildren().add(endTime);
+    	detailPane.getChildren().add(repeat);
     	detailPane.getChildren().add(eventDate);
     	detailPane.getChildren().add(startTimeLabel);
     	detailPane.getChildren().add(endTimeLabel);
+    	detailPane.getChildren().add(repeatLabel);
     	detailPane.getChildren().add(datePick);
-    	
+
     	// Kamil's Reminders functionality implementation 
     	Button addReminderButton = new Button("Add Reminder");
     	addReminderButton.setLayoutX(5);
@@ -1038,22 +978,11 @@ public class HomeController {
 			}
     	});
     	
-    	
-    	// Automatic scheduling feature
-    	//Button to trigger auto scheduling feature 
-    	Button autoAddButton = new Button("Automatically Schedule");
-    	autoAddButton.setLayoutX(5);
-    	autoAddButton.setLayoutY(375);
-    	
-    	// action handler to open the new dialog 
-    	autoAddButton.setOnAction(e -> {
-    		openAutomaticSchedulingWindow(eventDate, startTime, endTime);
-    	});
-    	
     	detailPane.getChildren().add(addHomeworkButton);
-    	detailPane.getChildren().add(autoAddButton);
+
     	detailPane.getChildren().add(finish);
-    	detailPane.getChildren().add(clear);    	
+
+    	//detailPane.getChildren().add(clear);    	
     }
     
     // Method to open a new window for automatic event scheduling
@@ -1122,7 +1051,7 @@ public class HomeController {
                 						//checking if it can be added in the specified hour range
                 						for(int i = minStartHour; i <= maxStartHour; i++) {
                 							LocalDate newEventDate = LocalDate.of(y.getCurrentYear(), m.getMonthNumber(), d.getDate());
-                							added = d.checkEventAddable(new NonRepeatingEvent("", "", new Hour(i, 0), eventDuration, newEventDate));//checking if the event can be added at the specified time for the current loop using a method in the Day class
+                							//added = d.checkEventAddable(new NonRepeatingEvent("", "", new Hour(i, 0), eventDuration, newEventDate));//checking if the event can be added at the specified time for the current loop using a method in the Day class
                 							if(added == true) {
                 								date.setValue(newEventDate);
                 								startTime.getValueFactory().setValue(i);
@@ -1174,14 +1103,14 @@ public class HomeController {
         
         // Show the new window
         newWindow.show();
+//=======
+//    	
+//    	
+//>>>>>>> refs/remotes/origin/master
     }
     
     public void showAddReminderPopup() {
         Stage window = new Stage();
-        //Yadon added the logo, feel free to remove it if u want to
-        Image icon = new Image("logo5.jpg");
-		window.getIcons().add(icon);
-		
         window.initModality(Modality.APPLICATION_MODAL);
         window.setMinWidth(400);
         window.setMinHeight(470);
@@ -1212,35 +1141,43 @@ public class HomeController {
             //  after clicking on save button probably database implementation will be here
         	//  by  creating a new reminders objects 
         	try {
-        		String message = titleField.getText();
+        		//String message = titleField.getText();
 				String title = titleField.getText();
+				String message = title;
 				LocalDate reminderDate = datePicker.getValue();
 				int eventTime = timeSpinner.getValue();
 				int offsetMinutes = Integer.parseInt(offsetField.getText());
+	
 				
-				Reminders newReminder = new Reminders(message, title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate);
-				remindersList.add(newReminder);
-				//displayReminders();
+				int id = DBops.addRemindersDB(title,reminderDate, eventTime, offsetMinutes, message);
 				
+				if (id != -1) {
+					Reminders newReminder = new Reminders(id, message, title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate);
+					remindersList.add(newReminder);
+				}
+				displayReminders();
+				window.close();
 				// saving the reminders to database
-				try {
-					DBops.addRemindersDB(title, 
-							reminderDate, 
-							eventTime, 
-							offsetMinutes, 
-							newReminder.getMessage());
-				} catch (SQLException e1) {
+				//try {
+				//	DBops.addRemindersDB(title, 
+				//			reminderDate, 
+				//			eventTime, 
+				//			offsetMinutes, 
+				//			newReminder.getMessage());
+				//			reminderId
+						
+				//} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				//	e1.printStackTrace();
+				//}
 				
-				try {
-					displayReminders();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-	            window.close(); 
+				//try {
+				//	displayReminders();
+				//} catch (SQLException e1) {
+				//	// TODO Auto-generated catch block
+				//	e1.printStackTrace();
+				//}
+	            // window.close(); 
 	            
 			} catch (NumberFormatException e1) {
 				// TODO Auto-generated catch block
@@ -1251,7 +1188,10 @@ public class HomeController {
 			} catch (negativeReminderOffsetException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} 
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         });
 
         layout.getChildren().addAll(
@@ -1283,7 +1223,24 @@ public class HomeController {
                     reminder.getEventTime(),
                     reminder.getOffset().toMinutes());
             Label reminderLabel = new Label(reminderText);
-            layout.getChildren().add(reminderLabel);
+            Button deleteButton = new Button("Delete");
+            //layout.getChildren().add(reminderLabel);
+            
+            deleteButton.setOnAction(e -> { 	
+            	//layout.getChildren().remove(reminderLabel);
+            	//layout.getChildren().remove(deleteButton);  
+				try {
+					deleteReminder(reminder, fetchedReminders);
+					displayReminders();
+				} catch (SQLException | InvalidEventTimeException | negativeReminderOffsetException e1) {		
+					e1.printStackTrace();
+				}
+            });
+            
+            VBox reminderBox = new VBox(5);
+            reminderBox.getChildren().addAll(reminderLabel, deleteButton);
+            layout.getChildren().add(reminderBox);
+            //layout.getChildren().addAll(reminderLabel,deleteButton);
         }
 
         ScrollPane scrollPane =  new ScrollPane(layout);
@@ -1292,6 +1249,13 @@ public class HomeController {
         scrollPane.setPrefHeight(494);
 
         detailPane.getChildren().add(scrollPane); // Add the VBox to the detail pane
+    }
+    
+    public void deleteReminder(Reminders reminder, List<Reminders> fetchedReminders) throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
+    	System.out.println("Deleting reminder");
+    	DBops.deleteReminderDB(reminder.getId());
+    	fetchedReminders.remove(reminder);
+    	displayReminders();
     }
     
     public void initialize() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {

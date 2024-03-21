@@ -92,13 +92,12 @@ public class EventDayIntegrationTesting {
 		
 		NonRepeatingEvent event1 = new NonRepeatingEvent();
 		event1.setStartingTime(new Hour(9,0));
-		event1.setDuration(3);
 		event1.setTitle("Event1");
 		testDay.addEvent(event1);
 		
 		NonRepeatingEvent event2 = new NonRepeatingEvent(); 
 		event2.setStartingTime(new Hour(9,30));
-		event2.setDuration(2); // two hours
+		event2.setDuration(60); // one hour
 		event2.setTitle("Event2");
 		
 		

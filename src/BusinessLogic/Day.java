@@ -72,7 +72,7 @@ public class Day implements Comparable<Day>{
 	 * @param event
 	 * @throws EventOverlapException
 	 */
-	public boolean addEvent(Event event) throws EventOverlapException{
+	public void addEvent(Event event) throws EventOverlapException{
 		if(!(this.events.isEmpty())) {
 			for(Event e: events) {
 				if(event.startingTime.getTime() >= e.startingTime.getTime() && event.startingTime.getTime() < (e.startingTime.getTime() + e.duration)) {
@@ -84,29 +84,8 @@ public class Day implements Comparable<Day>{
 			}
 		}
 		events.add(event);
-		return true;
+		
 	}
-	/**
-	 * Checks if an event can be added to a day or not. It does not actually add the event, it just returns a boolean indicating whether or not it can be added.
-	 * @param event
-	 * @return
-	 * @throws EventOverlapException
-	 */
-	public boolean checkEventAddable(Event event){
-		if(!(this.events.isEmpty())) {
-			for(Event e: events) {
-				if(event.startingTime.getTime() >= e.startingTime.getTime() && event.startingTime.getTime() < (e.startingTime.getTime() + e.duration)) {
-					return false;
-				}
-				if(e.startingTime.getTime() >= event.startingTime.getTime() && e.startingTime.getTime() < (event.startingTime.getTime() + event.duration)) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-	
-	
 	//
 	public void AddRepeatingEvent(Event event, int repeat) throws EventOverlapException {
 		
@@ -243,6 +222,9 @@ public class Day implements Comparable<Day>{
 	public List<Event> listEvents(){
 		return new ArrayList<>(events);
 	}
+	
+
+
 	/**
 	 * To string method: format is dayOfWeek + ", " + date
 	 */

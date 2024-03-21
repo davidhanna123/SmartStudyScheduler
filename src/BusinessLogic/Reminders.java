@@ -11,6 +11,7 @@ import java.time.LocalDate;
  * This class represents reminders for events. 
  * */
 public class Reminders {
+	private int id; 
 	private String message;
 	private String title;
 	private int eventTime;
@@ -18,6 +19,8 @@ public class Reminders {
 	private LocalTime currentTime; // storing the current time
 	private Day reminderDay;
 	private LocalDate reminderDate;
+	
+	
 	
 	
 	/**
@@ -30,7 +33,7 @@ public class Reminders {
 	 * @throws InvalidEventTimeException
 	 * @throws negativeReminderOffsetException
 	 */
-	public Reminders(String message, String title, int eventTime, Duration offset, LocalDate reminderDate) throws InvalidEventTimeException, negativeReminderOffsetException {
+	public Reminders(int id, String message, String title, int eventTime, Duration offset, LocalDate reminderDate) throws InvalidEventTimeException, negativeReminderOffsetException {
 		if (eventTime < 0 || eventTime > 23) {
 			throw new InvalidEventTimeException("Event time must be between 0 and 23");
 		}
@@ -44,6 +47,7 @@ public class Reminders {
 		this.offset = offset;
 		//this.currentTime = LocalTime.now();
 		this.reminderDate = reminderDate;
+		this.id = id;
 	}
 	
 	/**
@@ -63,6 +67,23 @@ public class Reminders {
         this.offset = offset;
         this.reminderDay = reminderDay;
     }
+	
+	
+	/**
+	 * 
+	 * @return id
+	 */
+	public int getId() {
+		return id;
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	/**
 	 * 

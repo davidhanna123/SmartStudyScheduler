@@ -55,10 +55,36 @@ class RemindersTest {
 	}
 	
 	@Test
+	void deleteReminder() throws SQLException {
+		LocalDate date = LocalDate.of(2023, Month.APRIL, 12);
+	    int eventTime = 12; 
+	    int offsetMinutes = 30;
+	    String title = "Test Reminder";
+	    String message = "Test Message";
+
+	    int id = DBops.addRemindersDB(title, date, eventTime, offsetMinutes, message);
+
+		assertTrue(DBops.reminderExistsDB(id));
+		DBops.deleteReminderDB(id);
+		assertFalse(DBops.reminderExistsDB(id));
+	}
+	
+	@Test
+	void testReminderCreation() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
+		LocalDate date = LocalDate.of(2023, Month.APRIL, 12);
+	    Duration offset = Duration.ofMinutes(23);
+	    int eventTime = 12;  
+	    int id = DBops.addRemindersDB("Test Message", date, eventTime, (int) offset.toMinutes(), "Test");
+
+	    Reminders reminder = new Reminders(id, "Test Message", "Test", eventTime, offset, date);
+	    assertTrue(DBops.reminderExistsDB(id));
+	}
+	
+	@Test
 	void testInvalidEventTime() throws InvalidEventTimeException, negativeReminderOffsetException{
 		// added localdate 
 		LocalDate date = LocalDate.of(2023, Month.AUGUST, 12);
-		Reminders reminder = new Reminders("Test Message", "Test", 12, Duration.ofMinutes(30), date);
+		Reminders reminder = new Reminders(1, "Test Message", "Test", 12, Duration.ofMinutes(30), date);
 	}
 	
 	@AfterEach
@@ -74,14 +100,14 @@ class RemindersTest {
 	void testNegativeOffset() {
         assertThrows(negativeReminderOffsetException.class, () -> {
         	LocalDate date = LocalDate.of(2023, Month.AUGUST, 21);
-            Reminders reminder = new Reminders("Test Message", "Test2", 23, Duration.ofMinutes(-30),date);
+            Reminders reminder = new Reminders(2,"Test Message", "Test2", 23, Duration.ofMinutes(-30),date);
         });
     }
 	
 	@Test
 	void testGetReminderTime() throws InvalidEventTimeException, negativeReminderOffsetException{
 		LocalDate date = LocalDate.of(2023, Month.MARCH, 15);
-		Reminders reminder = new Reminders("Test Message", "Test3", 10, Duration.ofMinutes(30), date);
+		Reminders reminder = new Reminders(3, "Test Message", "Test3", 10, Duration.ofMinutes(30), date);
 		assertEquals(9, reminder.getReminderTime());
 		assertEquals(date, reminder.getReminderDate());
 	}
@@ -89,7 +115,7 @@ class RemindersTest {
 	@Test
 	void isTimeForReminder() throws InvalidEventTimeException, negativeReminderOffsetException{
 		LocalDate date = LocalDate.of(2022, Month.APRIL, 23);
-		Reminders reminder = new Reminders("Test Message", "Test4", 9, Duration.ofMinutes(30), date);
+		Reminders reminder = new Reminders(4, "Test Message", "Test4", 9, Duration.ofMinutes(30), date);
 		
 		// Change the event time to 10 AM
         reminder.setEventTime(10);
@@ -102,4 +128,6 @@ class RemindersTest {
         reminder.setCurrentTime(LocalTime.of(10, 30)); // Adjust current time for the new event time
         assertTrue(reminder.isTimeForReminder(), "Reminder should trigger at 10:30 AM for an 11 AM event with a 30-minute offset");
     }
+	
+	
 }

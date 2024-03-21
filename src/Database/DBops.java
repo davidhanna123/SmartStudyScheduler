@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
+
 import java.time.LocalDate;
 import BusinessLogic.InvalidEventTimeException;
 import BusinessLogic.Reminders;
@@ -26,7 +26,7 @@ import java.sql.PreparedStatement;
 
 public interface DBops {
 	
-	public static boolean addNREventDB(String title, String description, int startingTime, int duration, LocalDate eventDate) throws SQLException {
+	public static boolean addNREventDB(String title, String description, int startingTime, int duration, LocalDate eventDate, int repeat) throws SQLException {
 		databaseConnection dbConnect = new databaseConnection();
 		Connection connection = dbConnect.getConnection();
 		
@@ -40,15 +40,28 @@ public interface DBops {
 		String sql = "INSERT INTO events (title, description, startingTime, duration, eventDate) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             // Set parameters for the PreparedStatement
-        	Date sqlDate = Date.valueOf(eventDate);
-            stmt.setString(1, title);
-            stmt.setString(2, description);
-            stmt.setInt(3, startingTime);
-            stmt.setInt(4, duration);
-            stmt.setObject(5, sqlDate);
+        	int rowsInserted = 0;
+        	for (int i = 0; i <= repeat; i++) {
+            	Date sqlDate = Date.valueOf(eventDate.plusWeeks(i));
+                stmt.setString(1, title);
+                stmt.setString(2, description);
+                stmt.setInt(3, startingTime);
+                stmt.setInt(4, duration);
+                stmt.setObject(5, sqlDate);
+                
+                //eventDate = eventDate.plusWeeks(1);
+                // Execute the PreparedStatement
+                rowsInserted = stmt.executeUpdate();
+            	}
+        	//Date sqlDate = Date.valueOf(eventDate);
+           // stmt.setString(1, title);
+            //stmt.setString(2, description);
+            //stmt.setInt(3, startingTime);
+            //stmt.setInt(4, duration);
+            //stmt.setObject(5, sqlDate);
            
             // Execute the PreparedStatement
-            int rowsInserted = stmt.executeUpdate();
+            //rowsInserted = stmt.executeUpdate();
             connection.close();
             return rowsInserted > 0;
         } catch (SQLException e) {
@@ -89,54 +102,36 @@ public interface DBops {
         connection.close();
         return event;
 	}
-	
-	public static TreeSet<Event> getAllEventDB() throws SQLException {
-		databaseConnection dbConnect = new databaseConnection();
-		Connection connection = dbConnect.getConnection();
-		NonRepeatingEvent event = null;
-		String sql = "SELECT * FROM main.events";
-		TreeSet<Event> eventSet = new TreeSet<>();
-		
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-     
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    String retrievedTitle = resultSet.getString("title");
-                    String description = resultSet.getString("description");
-                    int startingTime = resultSet.getInt("startingTime");
-                    int duration = resultSet.getInt("duration");
-                    Date retrievedEventDate = resultSet.getDate("eventDate");
-                    
-                    Hour eventHour = new Hour(startingTime, 0);
-                    event = new NonRepeatingEvent(retrievedTitle, description, eventHour, duration, retrievedEventDate.toLocalDate());
-                    eventSet.add(event);
-                }
-            }
-        }catch(SQLException e) {
-        	System.out.println("SQL Exception" + e.getMessage());
-        }
-        
-        connection.close();
-        return eventSet;
-	}
         
 
 
-	public static void  addRemindersDB(String title, LocalDate  reminderDate, int eventTime, int offsetMinutes, String message) throws SQLException {
+	public static int addRemindersDB(String title, LocalDate  reminderDate, int eventTime, int offsetMinutes, String message) throws SQLException {
+		// we have to get an ID of each reminder that was added
+		int id = -1; 
 		databaseConnection dbConnect = new databaseConnection();
 		Connection connection  = dbConnect.getConnection();
 		
-		String SQL = "INSERT INTO main.reminders(title, reminder_date, reminder_time, offset_minutes, message) VALUES(?, ?, ?, ?, ?)";
-		try(PreparedStatement statement = connection.prepareStatement(SQL)){
+		String SQL = "INSERT INTO main.reminders(title, reminder_date, reminder_time, offset_minutes, message) VALUES(?, ?, ?, ?, ?) RETURNING id";
+		try(PreparedStatement statement = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)){
 			statement.setString(1, title);
 	        statement.setDate(2, java.sql.Date.valueOf(reminderDate)); 
 	        statement.setTime(3, java.sql.Time.valueOf(LocalTime.of(eventTime, 0))); 
 	        statement.setInt(4, offsetMinutes);
 	        statement.setString(5, message);
-	        statement.executeUpdate();
+	        int addedRows = statement.executeUpdate();
+	        
+	        if (addedRows > 0) {
+	        	ResultSet rs = statement.getGeneratedKeys();
+	        	if(rs.next()) {
+	        		id = rs.getInt(1);
+	        	}
+	        }
 		}catch (SQLException  e) {
 			e.printStackTrace();
+		}finally {
+			connection.close();
 		}
+		return id;
 	}
 	
 	// method to retrieve all the reminders from the database, which returns the list of Reminders objects
@@ -149,79 +144,71 @@ public interface DBops {
 	         ResultSet rs = statement.executeQuery("SELECT * FROM main.reminders")) {
 
 	        while (rs.next()) {
+	        	int id = rs.getInt("id");
 	            String title = rs.getString("title");
 	            LocalDate reminderDate = rs.getDate("reminder_date").toLocalDate();
 	            LocalTime reminderTime = rs.getTime("reminder_time").toLocalTime();
 	            int offsetMinutes = rs.getInt("offset_minutes");
 	            String message = rs.getString("message");
 	            
-	            Reminders reminder = new Reminders(message, title, reminderTime.getHour(), Duration.ofMinutes(offsetMinutes), reminderDate);
+	            Reminders reminder = new Reminders(id, message, title, reminderTime.getHour(), Duration.ofMinutes(offsetMinutes), reminderDate);
 	        
 	            reminder.setMessage(message); 
-	            reminderList.add(reminder);
+	            reminderList.add(reminder);	             
 	           
-	            reminder.setMessage(message); 
-	            reminderList.add(reminder);
+	            //reminder.setMessage(message); 
+	            //reminderList.add(reminder);
 	        }
 	    }
 	    return reminderList;
 	} 
 	
-	/**
-	 * Add Homework Object to Event database
-	 * @param title
-	 * @param course
-	 * @param duration
-	 * @throws SQLException
-	 */
-	public static void addHomework(String title, String course, int duration) throws SQLException { 
+	public static boolean deleteReminderDB(int id) throws SQLException {
+		boolean result = false;
+        databaseConnection dbConnect = new databaseConnection();
+        Connection connection = dbConnect.getConnection();
+        
+        String SQL = "DELETE FROM main.reminders WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(SQL)) {
+            statement.setInt(1, id);
+            
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                //System.out.println("A reminder was deleted successfully!");
+                result = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return result;
+    }
+	
+	// method for the testing
+	public static boolean reminderExistsDB(int id) throws SQLException {
+		boolean exists = false;
 		databaseConnection dbConnect = new databaseConnection();
-		Connection connection  = dbConnect.getConnection();
+		Connection connection = dbConnect.getConnection();
 		
-		String sql = "INSERT INTO events (title, description, duration) VALUES (?, ?, ?)";
+		PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM main.reminders WHERE id = ?");
 		
-		try (PreparedStatement stmt = connection.prepareStatement(sql)){ 
-			stmt.setString(1, title);
-			stmt.setString(2, course);
-			stmt.setInt(3,duration);
-			stmt.executeUpdate();
-			connection.close();
-		} catch (SQLException e) { 
-			System.out.println("SQLException: " + e.getMessage());
-            connection.close();
+		pstmt.setInt(1, id);
+		ResultSet rs = pstmt.executeQuery();
+		if(rs.next()) {
+			// if count is more than zero then the reminder exists
+			exists = rs.getInt(1) > 0;
 		}
 		
+		return exists;
 	}
-	
-	/**
-	 * Adds Assignment object to Event database
-	 * @param title
-	 * @param course
-	 * @param duration
-	 * @param due
-	 * @throws SQLException
-	 */
-	public static void addAssignment(String title, String course, int duration, LocalDate due) throws SQLException { 
-		databaseConnection dbConnect = new databaseConnection();
-		Connection connection  = dbConnect.getConnection();
-		
-		String sql = "INSERT INTO events (title, description, duration, eventDate) VALUES (?, ?, ?, ?)";
-		
-		try (PreparedStatement stmt = connection.prepareStatement(sql)){ 
-			LocalDate sqlDate = due;
-			stmt.setString(1, title);
-			stmt.setString(2, course);
-			stmt.setInt(3,duration);
-			stmt.setObject(4, sqlDate);
-			stmt.executeUpdate();
-			connection.close();
-		} catch (SQLException e) { 
-			System.out.println("SQLException: " + e.getMessage());
-            connection.close();
-		}
-		
-	}
-	
 
 //	public static void addYearDB(int yearNumber) throws SQLException {
 //	databaseConnection dbConnect = new databaseConnection();
