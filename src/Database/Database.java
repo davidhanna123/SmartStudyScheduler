@@ -14,8 +14,7 @@ public class Database {
 	}
 	
 	public static void addYearDB(int yearNumber) throws SQLException {
-		databaseConnection dbConnect = new databaseConnection();
-		Connection connection = dbConnect.getConnection();
+		Connection connection = databaseConnection.connectDB();
 		
 		String sql = "INSERT INTO main.years (currentyear) VALUES (?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -27,8 +26,7 @@ public class Database {
 	}
 	
 	public static void addMonthDB(String monthName, int monthNumber, int numOfDays, int year) throws SQLException {
-		databaseConnection dbConnect = new databaseConnection();
-		Connection connection = dbConnect.getConnection();
+		Connection connection = databaseConnection.connectDB();
 		
 		String sql = "INSERT INTO main.months (monthName, monthNumber, numOfDays, yearNumber) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -44,8 +42,7 @@ public class Database {
 	}
 	
 	public static void addDayDB(String dayOfWeek, int yearNumber, int monthNumber, int dayNumber) throws SQLException {
-		databaseConnection dbConnect = new databaseConnection();
-		Connection connection = dbConnect.getConnection();
+		Connection connection = databaseConnection.connectDB();
 		
 		String sql = "INSERT INTO main.days (dayOfWeek, yearNumber, monthNumber, dayNumber) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -60,8 +57,7 @@ public class Database {
 	}
 	
 	public static void addHourDB(int time, double minuteModifier, int day, int month, int year) throws SQLException {
-		databaseConnection dbConnect = new databaseConnection();
-		Connection connection = dbConnect.getConnection();
+		Connection connection = databaseConnection.connectDB();
 		
 		String sql = "INSERT INTO main.hours (timeNumber, minuteModifier, dayNumber, monthNumber, yearNumber) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -83,14 +79,7 @@ public class Database {
         int numOfDays = 0;
         int yearNumber = 0;
         
-		databaseConnection dbConnect = null;
-		try {
-			dbConnect = new databaseConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Connection connection = dbConnect.getConnection();
+        Connection connection = databaseConnection.connectDB();
 		
 		String query = "SELECT * FROM main.months WHERE yearNumber = " + String.valueOf(year) + " AND monthNumber = " + String.valueOf(month);
 		

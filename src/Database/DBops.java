@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import BusinessLogic.InvalidEventTimeException;
 import BusinessLogic.Reminders;
 import BusinessLogic.negativeReminderOffsetException;
+
 import BusinessLogic.Event;
 import BusinessLogic.Hour;
 import BusinessLogic.Month;
@@ -26,47 +27,57 @@ import java.sql.PreparedStatement;
 
 public interface DBops {
 	
-	public static boolean addNREventDB(String title, String description, int startingTime, int duration, LocalDate eventDate) throws SQLException {
-		databaseConnection dbConnect = new databaseConnection();
-		Connection connection = dbConnect.getConnection();
+	public static boolean addNREventDB(String title, String description, int startingTime, int duration, LocalDate eventDate, int repeat) throws SQLException {
+		Connection con = databaseConnection.connectDB();
 		
-		String setSchema = "SET search_path TO main";
-		try(PreparedStatement stmt = connection.prepareStatement(setSchema)){
+		String setSchema = "USE main";
+		PreparedStatement stmt = null;
+		//i changed this to USE main
+		/*
+		try{
+			stmt = con.prepareStatement(setSchema);
 			stmt.execute();
 		}catch(SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 		}
-		
-		String sql = "INSERT INTO events (title, description, startingTime, duration, eventDate) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		*/
+		String sql = "INSERT INTO main.events (title, description, startingTime, duration, eventDate) VALUES (?, ?, ?, ?, ?)";
+        try {
+        	stmt = con.prepareStatement(sql);
             // Set parameters for the PreparedStatement
-        	Date sqlDate = Date.valueOf(eventDate);
+        	int rowsInserted = 0;
+        	for (int i = 0; i <= repeat; i++) {
+        	Date sqlDate = Date.valueOf(eventDate.plusWeeks(i));
             stmt.setString(1, title);
             stmt.setString(2, description);
             stmt.setInt(3, startingTime);
             stmt.setInt(4, duration);
             stmt.setObject(5, sqlDate);
-           
+            
+            //eventDate = eventDate.plusWeeks(1);
             // Execute the PreparedStatement
-            int rowsInserted = stmt.executeUpdate();
-            connection.close();
+            rowsInserted = stmt.executeUpdate();
+        	}
+            con.close();
             return rowsInserted > 0;
+        	
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
-            connection.close();
+            con.close();
             return false;
        
         }
+		
 	}
 	
 
 	public static Event getNREventDB(String title, LocalDate eventDate) throws SQLException {
-		databaseConnection dbConnect = new databaseConnection();
-		Connection connection = dbConnect.getConnection();
+		Connection connection = databaseConnection.connectDB();
 		NonRepeatingEvent event = null;
 		String sql = "SELECT * FROM main.events WHERE title = ? AND eventDate = ?";
-		
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+		PreparedStatement statement = null;
+        try  {
+        	statement = connection.prepareStatement(sql);
             statement.setString(1, title);
             statement.setObject(2, eventDate);
 
@@ -93,8 +104,8 @@ public interface DBops {
 
 
 	public static void  addRemindersDB(String title, LocalDate  reminderDate, int eventTime, int offsetMinutes, String message) throws SQLException {
-		databaseConnection dbConnect = new databaseConnection();
-		Connection connection  = dbConnect.getConnection();
+		
+		Connection connection = databaseConnection.connectDB();
 		
 		String SQL = "INSERT INTO main.reminders(title, reminder_date, reminder_time, offset_minutes, message) VALUES(?, ?, ?, ?, ?)";
 		try(PreparedStatement statement = connection.prepareStatement(SQL)){
@@ -108,15 +119,19 @@ public interface DBops {
 			e.printStackTrace();
 		}
 	}
+	// open this up again bleow
+	
 	
 	// method to retrieve all the reminders from the database, which returns the list of Reminders objects
+	
 	public static List<Reminders> getAllRemindersDB() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
 	    List<Reminders> reminderList = new ArrayList<>();
 	   
-	    databaseConnection  dbConnect = new databaseConnection();
-	    try (Connection connection = dbConnect.getConnection();
+	    Connection connection = databaseConnection.connectDB();
+	    try {
+	    		
 	         Statement statement = connection.createStatement();
-	         ResultSet rs = statement.executeQuery("SELECT * FROM main.reminders")) {
+	         ResultSet rs = statement.executeQuery("SELECT * FROM main.reminders"); 
 
 	        while (rs.next()) {
 	            String title = rs.getString("title");
@@ -133,6 +148,8 @@ public interface DBops {
 	            reminder.setMessage(message); 
 	            reminderList.add(reminder);
 	        }
+	    }finally {
+	    	
 	    }
 	    return reminderList;
 	} 
