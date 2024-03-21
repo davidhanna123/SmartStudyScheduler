@@ -1127,13 +1127,23 @@ public class HomeController {
                 								date.setValue(newEventDate);
                 								startTime.getValueFactory().setValue(i);
                 								endTime.getValueFactory().setValue(i+eventDuration);
+                								break;//breaking out of the loop since event has been scheduled
                 							}
                 						}
                 					}
+                					if(added == true) {
+        								break;//breaking out of the loop since event has been scheduled
+        							}
                 				}
                 			}
+                			if(added == true) {
+								break;//breaking out of the loop since event has been scheduled
+							} 
             			}
         			}
+        			if(added == true) {
+						break;//breaking out of the loop since event has been scheduled
+					}
         		}
         		LocalDate dateValue = date.getValue();
         		int latestStart = maxStartTime.getValue();
