@@ -1263,7 +1263,7 @@ public class HomeController {
 
         Scene scene = new Scene(layout, 470, 400);
         window.setScene(scene);
-        window.showAndWait(); 
+        window.showAndWait();  
     }
     
     
