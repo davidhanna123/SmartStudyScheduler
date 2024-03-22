@@ -20,7 +20,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import BusinessLogic.Homework;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+
 import BusinessLogic.Assignment;
+import Database.DBops;
 
 //Add_Homework class for SmartStudyScheduler
 //Jonah Ottini 
@@ -127,7 +132,12 @@ public class Add_Homework {
 		//Enter Button
 		enter = new Button("Enter"); 
 		enter.setOnAction(e -> {
-			handleEnter();
+			try {
+				handleEnter();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		});
 		GridPane.setConstraints(enter, 6, 9);
 		
@@ -175,8 +185,9 @@ public class Add_Homework {
 	
 	/**
 	 * runs when enter button is pressed
+	 * @throws SQLException 
 	 */
-	public static void handleEnter() { 
+	public static void handleEnter() throws SQLException { 
 		if(checkEmpty(taskInput) == false && checkEmpty(ccInput) == false && checkEmpty(timeInput) == false) {
 			if (assignCheck.booleanValue() == true) {
 				if(checkEmpty(yearInput) == false && checkEmpty(monthInput) == false && checkEmpty(dateInput) == false)  {
@@ -198,7 +209,7 @@ public class Add_Homework {
 	 * Creates Homework or Assignment Object with user inputs
 	 * @return Homework or Assignment
 	 */
-	public static Homework createHw() { 
+	public static Homework createHw() throws SQLException { 
 		
 		task = taskInput.getText();
 		course = ccInput.getText();
@@ -209,11 +220,15 @@ public class Add_Homework {
 			year = Integer.valueOf(yearInput.getText());
 			month = Integer.valueOf(monthInput.getText());
 			date = Integer.valueOf(dateInput.getText());
-			hw = new Assignment(task, course, duration, year, month, date);
+			LocalDate due = LocalDate.of(year, month, date);
+			hw = new Assignment(task, course, duration, due);
+			DBops.addAssignment(task, course, duration, due);
+			
 		}
 		
 		else { 
 			hw = new Homework(task, course, duration);
+			DBops.addHomework(task, course, duration);
 		}
 		
 		window.close();
