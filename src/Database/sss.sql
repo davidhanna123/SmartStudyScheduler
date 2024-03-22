@@ -60,6 +60,18 @@ CREATE TABLE main.reminders (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE main.assignments(
+	title TEXT,
+	course TEXT,
+	duration INT,
+	eventDate DATE
+);
+
+CREATE TABLE main.homework(
+	title TEXT,
+	course TEXT,
+	duration INT
+);
 
 
 

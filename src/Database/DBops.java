@@ -242,7 +242,7 @@ public interface DBops {
 		databaseConnection dbConnect = new databaseConnection(); 
 		Connection connection = dbConnect.getConnection();
 		
-		String sql = "INSERT INTO events (title, descrption, duration) VALUES(?,?,?)";
+		String sql = "INSERT INTO main.homework (title, course, duration) VALUES(?,?,?)";
 		
 		try (PreparedStatement stmt = connection.prepareStatement(sql)){ 
 			stmt.setString(1, title);
@@ -260,7 +260,7 @@ public interface DBops {
 		databaseConnection dbConnect = new databaseConnection(); 
 		Connection connection = dbConnect.getConnection();
 		
-		String sql = "INSERT INTO events (title, descrption, duration, eventDate) VALUES(?,?,?,?)";
+		String sql = "INSERT INTO main.assignments (title, course, duration, eventDate) VALUES(?,?,?,?)";
 		
 		try (PreparedStatement stmt = connection.prepareStatement(sql)){ 
 			stmt.setString(1, title);
