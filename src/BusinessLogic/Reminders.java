@@ -127,7 +127,6 @@ public class Reminders {
 	 * @param message
 	 * @param reminder_time
 	 */
-	
 	public void setReminders(String message, int reminder_time) {
 		this.message = message;
 		this.eventTime = reminder_time;

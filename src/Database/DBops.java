@@ -52,7 +52,7 @@ public interface DBops {
                 //eventDate = eventDate.plusWeeks(1);
                 // Execute the PreparedStatement
                 rowsInserted = stmt.executeUpdate();
-            	}
+            }
         	//Date sqlDate = Date.valueOf(eventDate);
            // stmt.setString(1, title);
             //stmt.setString(2, description);

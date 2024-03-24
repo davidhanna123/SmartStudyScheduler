@@ -24,10 +24,7 @@ public class GuiHelper {
     	LocalDate date = LocalDate.now();
     	calendar = new CalendarApp();
     	calendar.addYear(date.getYear());
-//    	calendar.setCurrentMonth(date.getMonthValue());
-//    	calendar.setCurrentYear(date.getYear());
-//    	
-    	//Month monthNow = null;
+
     	try {
 			monthNow = calendar.getYear(date.getYear()).findMonthByNumber(date.getMonthValue());
 		} catch (Exception e) {
