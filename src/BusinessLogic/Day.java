@@ -41,7 +41,7 @@ public class Day implements Comparable<Day>{
 		
 		TreeSet<Hour> hours = new TreeSet<>();
 		
-		for(int k = 1; k <=24; k++) {
+		for(int k = 0; k <=23; k++) {
 			hours.add(new Hour(k, 0.0));
 		}
 	}
@@ -72,8 +72,9 @@ public class Day implements Comparable<Day>{
 	 * @param event
 	 * @return boolean: true is returned if the event is added. If the event is not added, an exception is thrown...false is never returned by this method.
 	 * @throws EventOverlapException
+	 * @throws EventSurpassesDayException 
 	 */
-	public boolean addEvent(Event event) throws EventOverlapException{
+	public boolean addEvent(Event event) throws EventOverlapException, EventSurpassesDayException{
 		if(!(this.events.isEmpty())) {
 			for(Event e: events) {
 				if(event.startingTime.getTime() >= e.startingTime.getTime() && event.startingTime.getTime() < (e.startingTime.getTime() + e.duration)) {
@@ -83,6 +84,9 @@ public class Day implements Comparable<Day>{
 					throw new EventOverlapException("Event overlaps with another");
 				}
 			}
+		}
+		if((event.getStartingTime().getTime() + event.getDuration()) > 24) {
+			throw new EventSurpassesDayException("The event time surpasses the length of the day.");
 		}
 		events.add(event);
 		return true;
@@ -104,10 +108,13 @@ public class Day implements Comparable<Day>{
 				}
 			}
 		}
+		if((event.getStartingTime().getTime() + event.getDuration()) > 24) {
+			return false;
+		}
 		return true;
 	}
 	//
-	public void AddRepeatingEvent(Event event, int repeat) throws EventOverlapException {
+	public void AddRepeatingEvent(Event event, int repeat) throws EventOverlapException, EventSurpassesDayException {
 		
 		for (int i =1; i < repeat; i++) {
 			LocalDate incrementedDate = event.getDate().plusDays(7*i);

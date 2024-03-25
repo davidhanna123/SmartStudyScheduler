@@ -66,7 +66,7 @@ public class EventDayIntegrationTesting {
 	}
 	
 	@Test
-	void AddEventTest() throws EventOverlapException {
+	void AddEventTest() throws EventOverlapException, EventSurpassesDayException {
 		Day testDay = new Day();
 		
 		NonRepeatingEvent event1 = new NonRepeatingEvent();
@@ -87,7 +87,7 @@ public class EventDayIntegrationTesting {
 	}
 	
 	@Test
-	void addingOverlappingEventTest() throws EventOverlapException {
+	void addingOverlappingEventTest() throws EventOverlapException, EventSurpassesDayException {
 		Day testDay = new Day();
 		
 		NonRepeatingEvent event1 = new NonRepeatingEvent();
@@ -106,5 +106,20 @@ public class EventDayIntegrationTesting {
 		assertThrows(EventOverlapException.class, () -> testDay.addEvent(event2),
 		        "adding overlapping event should throw overlap exception");
 		
+	}
+	
+	@Test
+	void eventSurpassingDayExceptionTest() throws EventOverlapException, EventSurpassesDayException{
+		Day testDay = new Day(15);
+		
+		NonRepeatingEvent event1 = new NonRepeatingEvent();
+		event1.setStartingTime(new Hour(23,0));
+		event1.setDuration(3);
+		event1.setTitle("Event1");
+		//testDay.addEvent(event1);
+		
+		// trying to add the second event that overlaps with the first event
+		assertThrows(EventSurpassesDayException.class, () -> testDay.addEvent(event1),
+				        "adding an event whose end time is on the next day should throw an EventSurpassesDayException");
 	}
 }

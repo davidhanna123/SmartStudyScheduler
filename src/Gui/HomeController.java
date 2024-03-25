@@ -248,7 +248,6 @@ public class HomeController implements GuiControllerHelper{
     		try {
     			eventMonth = eventYear.findMonthByNumber(e.getDate().getMonthValue());
     		} catch (MonthNotFoundException e1) {
-    			// TODO Auto-generated catch block
     			e1.printStackTrace();
     		}
 
@@ -259,9 +258,10 @@ public class HomeController implements GuiControllerHelper{
 				eventDay.addEvent(e);
 				System.out.println(e.toString());
 			} catch (EventOverlapException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}	
+			} catch (EventSurpassesDayException e2) {
+				e2.printStackTrace();
+			}
     	}
     }
     
@@ -880,61 +880,61 @@ public class HomeController implements GuiControllerHelper{
         //initializing event title input box
         title.setPromptText("Enter Event Title");
         title.setPrefWidth(150);
-        title.setLayoutX(5);
+        title.setLayoutX(0);
         title.setLayoutY(20);
         title.setId("titleBox");
         //initializing event description input box
         description.setPromptText("Enter Event Description");
         description.setPrefWidth(150);
-        description.setLayoutX(5);
+        description.setLayoutX(0);
         description.setLayoutY(60);
         description.setId("eventBox");    
         //initializing start time select spinner and label
         Label startTimeLabel = new Label("Event's starting time:");
-        startTimeLabel.setLayoutX(5);
+        startTimeLabel.setLayoutX(0);
         startTimeLabel.setLayoutY(100);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
         startTime.setValueFactory(valueFactory);
         startTime.setPromptText("Event Starts");
-        startTime.setLayoutX(5);
+        startTime.setLayoutX(0);
         startTime.setLayoutY(120);
        //initializing start time select spinner and label
         Label endTimeLabel = new Label("Event's ending time:");
-        endTimeLabel.setLayoutX(5);
+        endTimeLabel.setLayoutX(0);
         endTimeLabel.setLayoutY(150);
         SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0);
         endTime.setValueFactory(valueFactory2);
         endTime.setPromptText("Event Ends");
-        endTime.setLayoutX(5);
+        endTime.setLayoutX(0);
         endTime.setLayoutY(170);
         //initializing repeat label and spinner for repeat frequency
         Label repeatLabel = new Label("Repeat times:");
-        repeatLabel.setLayoutX(5);
+        repeatLabel.setLayoutX(0);
         repeatLabel.setLayoutY(195);
         SpinnerValueFactory<Integer> valueFactory3 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
         repeat.setValueFactory(valueFactory3);
         repeat.setValueFactory(valueFactory3);
         repeat.setPromptText("Repeat times");
-        repeat.setLayoutX(5);
+        repeat.setLayoutX(0);
         repeat.setLayoutY(215);
         //setting up date picker for the event and date picker label
         Label datePick = new Label("Choose Event Date");
-        datePick.setLayoutX(5);
+        datePick.setLayoutX(0);
         datePick.setLayoutY(240);
         eventDate.setMaxWidth(150);
-        eventDate.setLayoutX(5);
+        eventDate.setLayoutX(0);
         eventDate.setLayoutY(260);
         
         //Label to indicate if event has been added
         Label resultMessage = new Label();
 		resultMessage.setTextFill(Color.LIGHTGREEN);
-		resultMessage.setLayoutX(5);
-	    resultMessage.setLayoutY(440);
+		resultMessage.setLayoutX(-10);
+	    resultMessage.setLayoutY(405);
         
         // Automatic scheduling feature
     	//Button to trigger auto scheduling feature 
     	Button autoAddButton = new Button("Automatically Schedule");
-    	autoAddButton.setLayoutX(5);
+    	autoAddButton.setLayoutX(0);
     	autoAddButton.setLayoutY(375);
     	
     	// action handler to open the new dialog for automatic event scheduling 
@@ -944,7 +944,7 @@ public class HomeController implements GuiControllerHelper{
     	
     	// Kamil's Reminders functionality implementation 
     	Button addReminderButton = new Button("Add Reminder");
-    	addReminderButton.setLayoutX(5);
+    	addReminderButton.setLayoutX(0);
     	addReminderButton.setLayoutY(300);
     	
     	// action handler to open the new dialog 
@@ -956,7 +956,7 @@ public class HomeController implements GuiControllerHelper{
     	
     	//Button to open Add_Homework class to create a homework object
     	Button addHomeworkButton = new Button("Add Homework"); 
-    	addHomeworkButton.setLayoutX(5);
+    	addHomeworkButton.setLayoutX(0);
     	addHomeworkButton.setLayoutY(335); 
     	
     	addHomeworkButton.setOnAction(e -> { 
@@ -969,46 +969,88 @@ public class HomeController implements GuiControllerHelper{
     	});
         
         //adding the event to database when the finish button is clicked
-        EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
+        EventHandler<ActionEvent> eventAddHandler = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	//capturing event title and description
-            	String titleData = title.getText();;
-            	String descriptionData = description.getText();
-            	//capturing event start time
-            	int startingTimeData = startTime.getValue();
-            	//event duration will be end time - start time
-                //setting event duration
-                int durationData = endTime.getValue() - startTime.getValue();
-                //capturing event date
-            	LocalDate dateData = eventDate.getValue();
+            	if(title.getText() == "") {
+            		resultMessage.setTextFill(Color.RED);
+    				resultMessage.setLayoutX(10);
+	        	    resultMessage.setLayoutY(405);
+    				resultMessage.setText("Error: The event does not\nhave a title");
+            	}else if(description.getText() == "") {
+            		resultMessage.setTextFill(Color.RED);
+    				resultMessage.setLayoutX(10);
+	        	    resultMessage.setLayoutY(405);
+    				resultMessage.setText("Error: The event does not\nhave a description");
+            	}else if(eventDate.getValue() == null) {
+            		resultMessage.setTextFill(Color.RED);
+    				resultMessage.setLayoutX(10);
+	        	    resultMessage.setLayoutY(405);
+    				resultMessage.setText("Error: An event date\nwas not chosen.");
+            	}else if(startTime.getValue() >= endTime.getValue()) {
+            		resultMessage.setTextFill(Color.RED);
+    				resultMessage.setLayoutX(-8);
+	        	    resultMessage.setLayoutY(405);
+    				resultMessage.setText("Error: The event's starting time\ncannot be greater than or\nequal to it's ending time.");
+            	}else {
+            		//capturing event title and description
+                	String titleData = title.getText();;
+                	String descriptionData = description.getText();
+                	//capturing event start time
+                	int startingTimeData = startTime.getValue();
+                	//event duration will be end time - start time
+                    //setting event duration
+                    int durationData = endTime.getValue() - startTime.getValue();
+                    //capturing event date
+                	LocalDate dateData = eventDate.getValue();
+                	
+                	int repeatData = repeat.getValue();
+    	              try {
+    	            	Hour eventStartingHour = new Hour(startingTimeData, 0);//initializing event starting hour
+    	    			NonRepeatingEvent eventToBeAdded = new NonRepeatingEvent(titleData, descriptionData, eventStartingHour, durationData, dateData);//creating event object
+    	    			
+    	    			//checking if the event can be added to that day and adding if it can
+    	    			if(calendar.getYear(dateData.getYear()).findMonthByNumber(dateData.getMonthValue()).getDayByNumber(dateData.getDayOfMonth()).checkEventAddable(eventToBeAdded)) {
+    	    				//adding the event to the database
+    		            	DBops.addNREventDB(titleData, descriptionData, startingTimeData, durationData, dateData, repeatData);
+    		            	//displaying message indicating successful adding
+    		            	resultMessage.setTextFill(Color.LIGHTGREEN);
+    		            	resultMessage.setLayoutX(25);
+    	    			    resultMessage.setLayoutY(420);
+    		            	resultMessage.setText("Event Added");
+    		            	//fetching the day object that corresponds to the selected date and adding an event to the calendar since the one saved in the database has not been 
+    		    			try {
+    							calendar.getYear(dateData.getYear()).findMonthByNumber(dateData.getMonthValue()).getDayByNumber(dateData.getDayOfMonth()).addEvent(eventToBeAdded);
+    						} catch (EventSurpassesDayException e) {
+    							// TODO Auto-generated catch block
+    							e.printStackTrace();
+    						}
+    	    			}else {
+    	    				resultMessage.setTextFill(Color.RED);
+    	    				resultMessage.setLayoutX(-10);
+    		        	    resultMessage.setLayoutY(405);
+    	    				resultMessage.setText("Error: Event Overlaps with\nanother or it can't be finished\non the starting day");
+    	    			}
+    	    			
+    	    			//clearing all info of added event from the gui to prepare for next event 
+    	    			title.clear();
+    	    			description.clear();
+    	    			startTime.getValueFactory().setValue(0);
+    	    			endTime.getValueFactory().setValue(0);
+    	    			eventDate.setValue(null);
+    	    			repeat.getValueFactory().setValue(0);
+    	    			
+    	    		} catch (SQLException e) {
+    	    			e.printStackTrace();
+    	    		} catch (IllegalArgumentException e) {
+    					e.printStackTrace();
+    				} catch (EventOverlapException e) {
+    					e.printStackTrace();
+    				} catch (MonthNotFoundException e) {
+    					e.printStackTrace();
+    				}
+            	}
             	
-            	int repeatData = repeat.getValue();
-	              try {
-	            	DBops.addNREventDB(titleData, descriptionData, startingTimeData, durationData, dateData, repeatData);
-//	    			NonRepeatingEvent eventAdd = new NonRepeatingEvent();
-//	    			calendar.getYear(dateData.getYear()).get
-	    			//clearing all info of added event from the gui to prepare for next event 
-	    			title.clear();
-	    			description.clear();
-	    			startTime.getValueFactory().setValue(0);
-	    			endTime.getValueFactory().setValue(0);
-	    			eventDate.setValue(null);
-	    			repeat.getValueFactory().setValue(0);
-	    			
-	//    			//displaying message if event is successfully added
-	//    		    long time = System.currentTimeMillis();
-	//    		    
-	//    		    resultMessage.setText("Event Added");
-	//    		    
-	//    		    while(System.currentTimeMillis() < time + 2000) {
-	//    		    	
-	//    		    }
-	//    			resultMessage.setText("");  SUCCESSFUL EVENT ADDING TEXT...SHOULD BE FIXED
-	    		} catch (SQLException e) {
-	    			// TODO Auto-generated catch block
-	    			e.printStackTrace();
-	    		}
             }
         };
         
@@ -1030,10 +1072,10 @@ public class HomeController implements GuiControllerHelper{
         finish.setLayoutX(105);
         finish.setLayoutY(460);
         finish.setId("finishButton");
-        finish.setOnAction(eventHandler);
+        finish.setOnAction(eventAddHandler);
         
         clear.setText("Clear");
-        clear.setLayoutX(5);
+        clear.setLayoutX(0);
         clear.setLayoutY(460);
         clear.setId("clearButton");
         clear.setOnAction(eventHandlerClear);
