@@ -930,34 +930,17 @@ public class HomeController implements GuiControllerHelper{
 		resultMessage.setTextFill(Color.LIGHTGREEN);
 		resultMessage.setLayoutX(-10);
 	    resultMessage.setLayoutY(405);
-        
-        // Automatic scheduling feature
-    	//Button to trigger auto scheduling feature 
-    	Button autoAddButton = new Button("Automatically Schedule");
-    	autoAddButton.setLayoutX(0);
-    	autoAddButton.setLayoutY(375);
-    	
-    	// action handler to open the new dialog for automatic event scheduling 
-    	autoAddButton.setOnAction(e -> {
-    		openAutomaticSchedulingWindow(eventDate, startTime, endTime);
-    	});
     	
     	// Kamil's Reminders functionality implementation 
     	Button addReminderButton = new Button("Add Reminder");
-    	addReminderButton.setLayoutX(0);
-    	addReminderButton.setLayoutY(300);
-    	
+
     	// action handler to open the new dialog 
     	addReminderButton.setOnAction(e -> {
     		showAddReminderPopup();
     	});
     	
-    	detailPane.getChildren().add(addReminderButton);
-    	
     	//Button to open Add_Homework class to create a homework object
-    	Button addHomeworkButton = new Button("Add Homework"); 
-    	addHomeworkButton.setLayoutX(0);
-    	addHomeworkButton.setLayoutY(335); 
+    	Button addHomeworkButton = new Button("Add HW"); 
     	
     	addHomeworkButton.setOnAction(e -> { 
     		try {
@@ -968,6 +951,24 @@ public class HomeController implements GuiControllerHelper{
 			}
     	});
         
+    	//Hbox containing the add homeowrk and add reminder button (to save vertical space for error message)
+    	HBox reminderAndHomework = new HBox(5);
+    	reminderAndHomework.getChildren().addAll(addHomeworkButton, addReminderButton);
+    	reminderAndHomework.setLayoutX(-8);
+    	reminderAndHomework.setLayoutY(295);
+    	detailPane.getChildren().add(reminderAndHomework);
+    	
+    	// Automatic scheduling feature
+    	//Button to trigger auto scheduling feature 
+    	Button autoAddButton = new Button("Automatically Schedule");
+    	autoAddButton.setLayoutX(0);
+    	autoAddButton.setLayoutY(325);
+    	
+    	// action handler to open the new dialog for automatic event scheduling 
+    	autoAddButton.setOnAction(e -> {
+    		openAutomaticSchedulingWindow(eventDate, startTime, endTime);
+    	});
+    	
         //adding the event to database when the finish button is clicked
         EventHandler<ActionEvent> eventAddHandler = new EventHandler<ActionEvent>() {
             @Override
@@ -1018,7 +1019,7 @@ public class HomeController implements GuiControllerHelper{
     		            	resultMessage.setLayoutX(25);
     	    			    resultMessage.setLayoutY(420);
     		            	resultMessage.setText("Event Added");
-    		            	//fetching the day object that corresponds to the selected date and adding an event to the calendar since the one saved in the database has not been 
+    		            	//fetching the day object that corresponds to the selected date and adding an event to the calendar since the GUI's calendar has not been updated yet
     		    			try {
     							calendar.getYear(dateData.getYear()).findMonthByNumber(dateData.getMonthValue()).getDayByNumber(dateData.getDayOfMonth()).addEvent(eventToBeAdded);
     						} catch (EventSurpassesDayException e) {
@@ -1090,7 +1091,7 @@ public class HomeController implements GuiControllerHelper{
     	detailPane.getChildren().add(endTimeLabel);
     	detailPane.getChildren().add(repeatLabel);
     	detailPane.getChildren().add(datePick);
-    	detailPane.getChildren().add(addHomeworkButton);
+    	//detailPane.getChildren().add(addHomeworkButton);
     	detailPane.getChildren().add(autoAddButton);
     	detailPane.getChildren().add(resultMessage);
     	detailPane.getChildren().add(finish);
