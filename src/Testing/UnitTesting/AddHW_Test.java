@@ -1,4 +1,4 @@
-package Testing;
+package Testing.UnitTesting;
 
 import BusinessLogic.Homework;
 import Gui.Add_Homework;
