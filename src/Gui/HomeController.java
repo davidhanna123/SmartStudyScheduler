@@ -1370,6 +1370,8 @@ public class HomeController implements GuiControllerHelper{
     
     public void openDeleteEventWindow() throws SQLException {
     	Stage window = new Stage();
+    	Image icon = new Image("logo5.jpg");
+		window.getIcons().add(icon);
         window.initModality(Modality.APPLICATION_MODAL); 
         window.setTitle("Delete Event");
 

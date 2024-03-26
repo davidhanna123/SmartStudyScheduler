@@ -148,7 +148,6 @@ public class NonRepeatingEvent extends Event{
 	 * Returns a string version of a non repeating event object
 	 */
 	public String toString() {
-		return "NonRepeatingEvent [title=" + title + ", description=" + description + ", startingTime=" + startingTime
-				+ ", duration=" + duration + ", date=" + date + "]";
+		return title + " on " + date + " from " + String.valueOf(startingTime.getTime()) + " until " + String.valueOf(startingTime.getTime() + duration) + " | Description: " + description;
 	}
 }
