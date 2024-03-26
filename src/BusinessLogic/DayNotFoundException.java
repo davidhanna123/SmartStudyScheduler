@@ -3,7 +3,7 @@ package BusinessLogic;
  * An exception that gets thrown if a month does not have a specified day
  */
 public class DayNotFoundException extends Exception {
-
+ 
 	/**
 	 * No argument constructor
 	 */

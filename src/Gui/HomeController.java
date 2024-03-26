@@ -1018,7 +1018,7 @@ public class HomeController implements GuiControllerHelper{
     	    			if(!(calendar.contains(yearNum))){
     	    				calendar.addYear(yearNum);
     	    			}
-    	    			//Added a fix to the event adding feature. If an event is added to a year that the local calendar does not have, the year is added. A day finder method was also created in the calendar class to shorten function calls.
+    	    			
     	    			//checking if the event can be added to that day and adding if it can
     	    			if(calendar.findDay(yearNum, monthNum, dayNum).checkEventAddable(eventToBeAdded)) {
     	    				//adding the event to the database
