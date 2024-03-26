@@ -173,6 +173,27 @@ public class CalendarApp implements DBops{
 	}
 	
 	/**
+	 * Returns a Day object of the specified year, month, and day numbers
+	 * @param yearNum
+	 * @param monthNum
+	 * @param dayNum
+	 * @return Day object on the inputed year, month, and day
+	 * @throws DayNotFoundException
+	 * @throws MonthNotFoundException
+	 * @throws CalendarException
+	 */
+	public Day findDay(int yearNum, int monthNum, int dayNum) throws DayNotFoundException, MonthNotFoundException, CalendarException {
+		Year year = this.findYear(yearNum);
+		Month month = year.findMonthByNumber(monthNum);
+		
+		if(month.getDays().size() < dayNum) {
+			throw new DayNotFoundException(month.getMonthName() + " does not contain day " + String.valueOf(dayNum));
+		}else {
+			return month.getDayByNumber(dayNum);
+		}
+	}
+	
+	/**
 	 * Clears the years TreeSet of the Calendar object
 	 */
 	public void clear() {

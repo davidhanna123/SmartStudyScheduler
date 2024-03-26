@@ -1010,18 +1010,27 @@ public class HomeController implements GuiControllerHelper{
     	            	Hour eventStartingHour = new Hour(startingTimeData, 0);//initializing event starting hour
     	    			NonRepeatingEvent eventToBeAdded = new NonRepeatingEvent(titleData, descriptionData, eventStartingHour, durationData, dateData);//creating event object
     	    			
+    	    			int yearNum = dateData.getYear();
+    	    			int monthNum = dateData.getMonthValue();
+    	    			int dayNum = dateData.getDayOfMonth();
+    	    			
+    	    			//adding the year of the event if it is not already contained in the calendar
+    	    			if(!(calendar.contains(yearNum))){
+    	    				calendar.addYear(yearNum);
+    	    			}
+    	    			//Added a fix to the event adding feature. If an event is added to a year that the local calendar does not have, the year is added. A day finder method was also created in the calendar class to shorten function calls.
     	    			//checking if the event can be added to that day and adding if it can
-    	    			if(calendar.getYear(dateData.getYear()).findMonthByNumber(dateData.getMonthValue()).getDayByNumber(dateData.getDayOfMonth()).checkEventAddable(eventToBeAdded)) {
+    	    			if(calendar.findDay(yearNum, monthNum, dayNum).checkEventAddable(eventToBeAdded)) {
     	    				//adding the event to the database
     		            	DBops.addNREventDB(titleData, descriptionData, startingTimeData, durationData, dateData, repeatData);
     		            	//displaying message indicating successful adding
-    		            	resultMessage.setTextFill(Color.LIGHTGREEN);
-    		            	resultMessage.setLayoutX(25);
+    		            	resultMessage.setTextFill(Color.GREEN);
+    		            	resultMessage.setLayoutX(35);
     	    			    resultMessage.setLayoutY(420);
     		            	resultMessage.setText("Event Added");
     		            	//fetching the day object that corresponds to the selected date and adding an event to the calendar since the GUI's calendar has not been updated yet
     		    			try {
-    							calendar.getYear(dateData.getYear()).findMonthByNumber(dateData.getMonthValue()).getDayByNumber(dateData.getDayOfMonth()).addEvent(eventToBeAdded);
+    							calendar.findDay(yearNum, monthNum, dayNum).addEvent(eventToBeAdded);
     						} catch (EventSurpassesDayException e) {
     							// TODO Auto-generated catch block
     							e.printStackTrace();
@@ -1049,7 +1058,12 @@ public class HomeController implements GuiControllerHelper{
     					e.printStackTrace();
     				} catch (MonthNotFoundException e) {
     					e.printStackTrace();
-    				}
+    				} catch (DayNotFoundException e) {
+    					e.printStackTrace();
+    				} catch (CalendarException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
             	}
             	
             }
@@ -1065,6 +1079,7 @@ public class HomeController implements GuiControllerHelper{
 			endTime.getValueFactory().setValue(0);
 			eventDate.setValue(null);
 			repeat.getValueFactory().setValue(0);
+			resultMessage.setText("");
             }         
         };
         
