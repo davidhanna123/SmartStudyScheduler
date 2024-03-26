@@ -197,7 +197,7 @@ public class HomeController implements GuiControllerHelper{
     private Pane detailPane;
 
     @FXML
-    private Button addEventButton;
+    private Button eventButton;
     
     @FXML
     private Button seeReminders;
@@ -980,6 +980,7 @@ public class HomeController implements GuiControllerHelper{
     	
     	deleteEventButton.setOnAction(e -> {
     		try {
+    			resultMessage.setText("");
 				openDeleteEventWindow();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -1057,6 +1058,14 @@ public class HomeController implements GuiControllerHelper{
     							// TODO Auto-generated catch block
     							e.printStackTrace();
     						}
+    		    			
+    		    			//clearing all info of added event from the gui to prepare for next event 
+        	    			title.clear();
+        	    			description.clear();
+        	    			startTime.getValueFactory().setValue(0);
+        	    			endTime.getValueFactory().setValue(0);
+        	    			eventDate.setValue(null);
+        	    			repeat.getValueFactory().setValue(0);
     	    			}else {
     	    				resultMessage.setTextFill(Color.RED);
     	    				resultMessage.setLayoutX(-10);
@@ -1064,14 +1073,7 @@ public class HomeController implements GuiControllerHelper{
     	    				resultMessage.setText("Error: Event Overlaps with\nanother or it can't be finished\non the starting day");
     	    			}
     	    			
-    	    			//clearing all info of added event from the gui to prepare for next event 
-    	    			title.clear();
-    	    			description.clear();
-    	    			startTime.getValueFactory().setValue(0);
-    	    			endTime.getValueFactory().setValue(0);
-    	    			eventDate.setValue(null);
-    	    			repeat.getValueFactory().setValue(0);
-    	    			
+    	    					
     	    		} catch (SQLException e) {
     	    			e.printStackTrace();
     	    		} catch (IllegalArgumentException e) {
@@ -1105,15 +1107,15 @@ public class HomeController implements GuiControllerHelper{
             }         
         };
         
-        //setting up finish button and clear button
-        finish.setText("Finish");
-        finish.setLayoutX(105);
+        //setting up finish for adding events button and clear button
+        finish.setText("Add Event");
+        finish.setLayoutX(80);
         finish.setLayoutY(460);
         finish.setId("finishButton");
         finish.setOnAction(eventAddHandler);
         
         clear.setText("Clear");
-        clear.setLayoutX(0);
+        clear.setLayoutX(-10);
         clear.setLayoutY(460);
         clear.setId("clearButton");
         clear.setOnAction(eventHandlerClear);
@@ -1391,8 +1393,13 @@ public class HomeController implements GuiControllerHelper{
                     boolean isDeleted = DBops.deleteEventDB(selectedEvent.getId());
                     if (isDeleted) {
                         System.out.println("Event deleted: " + selectedEvent);
+                        //Deleting the event from the local version of the calendar
+                        int year = selectedEvent.getDate().getYear();
+                        int month = selectedEvent.getDate().getMonthValue();
+                        int day = selectedEvent.getDate().getDayOfMonth();
+                        calendar.findDay(year, month, day).removeEvent(selectedEvent);
                         
-                        //Refresh the events display in UI method here
+                        //Refresh the events display in UI method here 
                        
                     } else {
                         System.out.println("Failed to delete event: " + selectedEvent);
@@ -1400,7 +1407,16 @@ public class HomeController implements GuiControllerHelper{
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     System.out.println("Error");
-                }
+                } catch (DayNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (MonthNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (CalendarException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
             //System.out.println("Ready to delete: " + selectedEvent);
             window.close(); 

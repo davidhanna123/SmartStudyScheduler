@@ -189,7 +189,6 @@ public class Day implements Comparable<Day>{
 	public void setDayOfWeek(String dayOfWeek) {
 		this.dayOfWeek = dayOfWeek;
 	}
-	
 	/**
 	 * 
 	 * @return hours of day
@@ -197,7 +196,6 @@ public class Day implements Comparable<Day>{
 	public TreeSet<Hour> getHours(){
 		return hours;
 	}
-	
 	/**
 	 * 
 	 * @return events of day 
@@ -205,7 +203,6 @@ public class Day implements Comparable<Day>{
 	public TreeSet<Event> getEvent(){
 		return events;
 	}
-	
 	/**
 	 * 
 	 * @param title
@@ -219,7 +216,6 @@ public class Day implements Comparable<Day>{
 		}
 		return null;
 	}
-	
 	/**
 	 * Compares two days based on their day of the month integer(between 0 and 32)
 	 */
@@ -233,7 +229,6 @@ public class Day implements Comparable<Day>{
 			return 0;
 		}
 	}
-	
 	/**
 	 * 
 	 * @param hour
@@ -241,7 +236,6 @@ public class Day implements Comparable<Day>{
 	public void addHour(Hour hour) {
 		this.hours.add(hour);
 	}
-	
 	/**
 	 * Gives an arrayList representation of the events of the day
 	 * @return List<Event>
@@ -249,9 +243,6 @@ public class Day implements Comparable<Day>{
 	public List<Event> listEvents(){
 		return new ArrayList<>(events);
 	}
-	
-
-
 	/**
 	 * To string method: format is dayOfWeek + ", " + date
 	 */

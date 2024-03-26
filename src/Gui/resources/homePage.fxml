@@ -1325,7 +1325,7 @@
          </font>
       </Label>
       <Button fx:id="seeReminders" layoutX="12.0" layoutY="13.0" mnemonicParsing="false" text="Reminders" />
-      <Button fx:id="addEventGeneral" layoutX="96.0" layoutY="13.0" mnemonicParsing="false" onAction="#addEvent" text="Add Event" />
+      <Button fx:id="addEventGeneral" layoutX="112.0" layoutY="13.0" mnemonicParsing="false" onAction="#addEvent" text="Events" />
       <Pane fx:id="detailPane" layoutX="15.0" layoutY="50.0" prefHeight="494.0" prefWidth="162.0" />
    </children>
    <effect>

@@ -78,59 +78,6 @@ public class CalendarApp implements DBops{
 		if(!(this.contains(yearNum))) {
 			this.addYear(year);
 		}
-		
-//		try {
-//			DBops.addYearDB(yearNum);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-//		Month[] months = new Month[12];
-//		Day[] days = new Day[31];
-// 		Hour[] hours = new Hour[24];
-//		
-//		
-//		for(int i = 1; i<=12; i++) {
-//			months[i-1] = new Month(i, yearNum);
-//			for(int j = 1; j<=31; j++) {
-//				days[j-1] = new Day(j, i, yearNum);//we should make day have an integer between 0 and 32 and make a constructor for that. Up to Kamil though.
-//				for(int k = 0; k <=23; k++) {
-//					hours[k] = new Hour(k, 0.0, j, i, yearNum);
-//					days[j-1].addHour(hours[k]);
-//					
-//					//adding an hour to the database
-//					try {
-//						DBops.addHourDB(k, 0.0, j, i, yearNum);
-//					} catch (SQLException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//					
-//				}
-//				try {
-//					months[i-1].addDay(days[j-1]);
-//				}catch(Exception e) {	
-//					//purposefully unhandled because we want it to just not add an extra day
-//				}
-//				
-//				//adding a day to the database
-//				try {
-//					DBops.addDayDB(days[j-1].getDayOfWeek(), yearNum, i, j);
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			
-//			//adding the month to a database
-//			try {
-//				DBops.addMonthDB(months[i-1].getMonthName(), i, months[i-1].getNumOfDays(), yearNum);
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
 	}
 	
 	/**
