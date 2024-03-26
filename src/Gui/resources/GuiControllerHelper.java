@@ -27,7 +27,7 @@ public interface GuiControllerHelper {
     						//checking if it can be added in the specified hour range
     						for(int i = minStartHour; i <= maxStartHour; i++) {
     							LocalDate newEventDate = LocalDate.of(y.getCurrentYear(), m.getMonthNumber(), d.getDate());
-    							added = d.checkEventAddable(new NonRepeatingEvent("", "", new Hour(i, 0), eventDuration, newEventDate));//checking if the event can be added at the specified time for the current loop using a method in the Day class
+    							added = d.checkEventAddable(new NonRepeatingEvent(i, "", "", new Hour(i, 0), eventDuration, newEventDate));//checking if the event can be added at the specified time for the current loop using a method in the Day class
     							if(added == true) {
     								//setting the values of the gui components to be seen
     								outputs.setEventDate(newEventDate);
@@ -80,7 +80,7 @@ public interface GuiControllerHelper {
         						//checking if it can be added in the specified hour range
         						for(int i = minStartHour; i <= maxStartHour; i++) {
         							LocalDate newEventDate = LocalDate.of(y.getCurrentYear(), m.getMonthNumber(), d.getDate());
-        							added = d.checkEventAddable(new NonRepeatingEvent("", "", new Hour(i, 0), eventDuration, newEventDate));//checking if the event can be added at the specified time for the current loop using a method in the Day class
+        							added = d.checkEventAddable(new NonRepeatingEvent(i, "", "", new Hour(i, 0), eventDuration, newEventDate));//checking if the event can be added at the specified time for the current loop using a method in the Day class
         							if(added == true) {
         								outputs.setEventDate(newEventDate);
         								outputs.setStartingTimeSpinner(i);
@@ -137,7 +137,7 @@ public interface GuiControllerHelper {
             						//checking if it can be added in the specified hour range
             						for(int i = minStartHour; i <= maxStartHour; i++) {
             							LocalDate newEventDate = LocalDate.of(y.getCurrentYear(), m.getMonthNumber(), d.getDate());
-            							added = d.checkEventAddable(new NonRepeatingEvent("", "", new Hour(i, 0), eventDuration, newEventDate));//checking if the event can be added at the specified time for the current loop using a method in the Day class
+            							added = d.checkEventAddable(new NonRepeatingEvent(i, "", "", new Hour(i, 0), eventDuration, newEventDate));//checking if the event can be added at the specified time for the current loop using a method in the Day class
             							if(added == true) {
             								outputs.setEventDate(newEventDate);
             								outputs.setStartingTimeSpinner(i);

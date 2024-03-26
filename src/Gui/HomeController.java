@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.TreeSet;
 
 import BusinessLogic.*;
@@ -19,11 +20,15 @@ import Gui.resources.GuiControllerHelper;
 import Gui.resources.GuiHelper;
 import Gui.resources.ScheduleInputComponents;
 import Gui.resources.ScheduleOutputComponents;
+import javafx.collections.FXCollections;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -969,6 +974,22 @@ public class HomeController implements GuiControllerHelper{
     		openAutomaticSchedulingWindow(eventDate, startTime, endTime);
     	});
     	
+    	Button deleteEventButton = new Button("Delete Event");
+    	deleteEventButton.setLayoutX(0);
+    	deleteEventButton.setLayoutY(360); 
+    	
+    	deleteEventButton.setOnAction(e -> {
+    		try {
+				openDeleteEventWindow();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    	});
+    	detailPane.getChildren().add(deleteEventButton);
+
+    	
+    	
         //adding the event to database when the finish button is clicked
         EventHandler<ActionEvent> eventAddHandler = new EventHandler<ActionEvent>() {
             @Override
@@ -995,6 +1016,7 @@ public class HomeController implements GuiControllerHelper{
     				resultMessage.setText("Error: The event's starting time\ncannot be greater than or\nequal to it's ending time.");
             	}else {
             		//capturing event title and description
+            		
                 	String titleData = title.getText();;
                 	String descriptionData = description.getText();
                 	//capturing event start time
@@ -1008,7 +1030,7 @@ public class HomeController implements GuiControllerHelper{
                 	int repeatData = repeat.getValue();
     	              try {
     	            	Hour eventStartingHour = new Hour(startingTimeData, 0);//initializing event starting hour
-    	    			NonRepeatingEvent eventToBeAdded = new NonRepeatingEvent(titleData, descriptionData, eventStartingHour, durationData, dateData);//creating event object
+    	    			NonRepeatingEvent eventToBeAdded = new NonRepeatingEvent(repeatData, titleData, descriptionData, eventStartingHour, durationData, dateData);//creating event object
     	    			
     	    			int yearNum = dateData.getYear();
     	    			int monthNum = dateData.getMonthValue();
@@ -1267,28 +1289,7 @@ public class HomeController implements GuiControllerHelper{
 					remindersList.add(newReminder);
 				}
 				displayReminders();
-				window.close();
-				// saving the reminders to database
-				//try {
-				//	DBops.addRemindersDB(title, 
-				//			reminderDate, 
-				//			eventTime, 
-				//			offsetMinutes, 
-				//			newReminder.getMessage());
-				//			reminderId
-						
-				//} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-				//	e1.printStackTrace();
-				//}
-				
-				//try {
-				//	displayReminders();
-				//} catch (SQLException e1) {
-				//	// TODO Auto-generated catch block
-				//	e1.printStackTrace();
-				//}
-	            // window.close(); 
+				window.close();			
 	            
 			} catch (NumberFormatException e1) {
 				// TODO Auto-generated catch block
@@ -1335,11 +1336,9 @@ public class HomeController implements GuiControllerHelper{
                     reminder.getOffset().toMinutes());
             Label reminderLabel = new Label(reminderText);
             Button deleteButton = new Button("Delete");
-            //layout.getChildren().add(reminderLabel);
+
             
             deleteButton.setOnAction(e -> { 	
-            	//layout.getChildren().remove(reminderLabel);
-            	//layout.getChildren().remove(deleteButton);  
 				try {
 					deleteReminder(reminder, fetchedReminders);
 					displayReminders();
@@ -1351,7 +1350,6 @@ public class HomeController implements GuiControllerHelper{
             VBox reminderBox = new VBox(5);
             reminderBox.getChildren().addAll(reminderLabel, deleteButton);
             layout.getChildren().add(reminderBox);
-            //layout.getChildren().addAll(reminderLabel,deleteButton);
         }
 
         ScrollPane scrollPane =  new ScrollPane(layout);
@@ -1369,6 +1367,53 @@ public class HomeController implements GuiControllerHelper{
     	displayReminders();
     }
     
+    
+    public void openDeleteEventWindow() throws SQLException {
+    	Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL); 
+        window.setTitle("Delete Event");
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(10));
+
+        Label label = new Label("Select an event to delete:");
+        ComboBox<Event> eventComboBox = new ComboBox<>();
+        eventComboBox.setItems(FXCollections.observableArrayList(DBops.getAllEventDB())); 
+
+        Button confirmDeleteButton = new Button("Delete");
+        confirmDeleteButton.setOnAction(e -> {
+            Event selectedEvent = eventComboBox.getSelectionModel().getSelectedItem();
+            // getting the method for deleting event from dbops
+            if (selectedEvent != null) {
+                try { 	
+                    boolean isDeleted = DBops.deleteEventDB(selectedEvent.getId());
+                    if (isDeleted) {
+                        System.out.println("Event deleted: " + selectedEvent);
+                        
+                        //Refresh the events display in UI method here
+                       
+                    } else {
+                        System.out.println("Failed to delete event: " + selectedEvent);
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    System.out.println("Error");
+                }
+            }
+            //System.out.println("Ready to delete: " + selectedEvent);
+            window.close(); 
+        });
+
+        layout.getChildren().addAll(label, eventComboBox, confirmDeleteButton);
+
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+    }
+    
+    
+    
+    
     public void initialize() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
         seeReminders.setOnAction(event -> { 
 			try {
@@ -1384,7 +1429,6 @@ public class HomeController implements GuiControllerHelper{
 				e.printStackTrace();
 			}
 		});
-        //displayReminders();
     }
     
 

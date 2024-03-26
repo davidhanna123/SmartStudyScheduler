@@ -7,6 +7,7 @@ import java.util.Objects;
  * 1Abstract class that other different kinds of event will extend. Parent abstract class of ExternalEvent, NonRepeatingEvent, Extracurricular, and NonRepeatingEvent
  */
 public abstract class Event implements Comparable<Event>{
+	private int id;
 	protected String title;
 	protected String description;
 	protected Hour startingTime;
@@ -23,9 +24,10 @@ public abstract class Event implements Comparable<Event>{
 	 * @param startingTime
 	 * @param duration
 	 */
-	protected Event(String title, String description, Hour startingTime, int duration, LocalDate date) {
+	protected Event(int id, String title, String description, Hour startingTime, int duration, LocalDate date) {
 		// TODO Auto-generated constructor stub
 		super();
+		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.startingTime = startingTime;
@@ -73,6 +75,23 @@ public abstract class Event implements Comparable<Event>{
 	public void createAssignment() { 
 		this.assignment = new Assignment(this.title, this.description, this.duration, this.date);
 	}
+	
+	/**
+	 * 
+	 * @return id
+	 */
+	public int getId() {
+		return id;
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	/**
 	 * 
 	 * @return Event title

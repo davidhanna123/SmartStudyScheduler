@@ -42,6 +42,7 @@ SELECT pg_catalog.setval('public.test_id_seq', 1, false);
 --)
 
 CREATE TABLE main.events(
+	id SERIAL PRIMARY KEY,
 	title TEXT,
 	description TEXT,
 	startingTime INT,

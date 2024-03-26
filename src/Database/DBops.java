@@ -85,6 +85,7 @@ public interface DBops {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
+                	int id = resultSet.getInt("id");
                     String retrievedTitle = resultSet.getString("title");
                     String description = resultSet.getString("description");
                     int startingTime = resultSet.getInt("startingTime");
@@ -92,7 +93,7 @@ public interface DBops {
                     Date retrievedEventDate = resultSet.getDate("eventDate");
                     
                     Hour eventHour = new Hour(startingTime, 0);
-                    event = new NonRepeatingEvent(retrievedTitle, description, eventHour, duration, retrievedEventDate.toLocalDate());
+                    event = new NonRepeatingEvent(id, retrievedTitle, description, eventHour, duration, retrievedEventDate.toLocalDate());
                 }
             }
         }catch(SQLException e) {
@@ -114,6 +115,7 @@ public interface DBops {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
+                	int id = resultSet.getInt("id");
                     String retrievedTitle = resultSet.getString("title");
                     String description = resultSet.getString("description");
                     int startingTime = resultSet.getInt("startingTime");
@@ -121,7 +123,7 @@ public interface DBops {
                     Date retrievedEventDate = resultSet.getDate("eventDate");
 
                     Hour eventHour = new Hour(startingTime, 0);
-                    event = new NonRepeatingEvent(retrievedTitle, description, eventHour, duration, retrievedEventDate.toLocalDate());
+                    event = new NonRepeatingEvent(id, retrievedTitle, description, eventHour, duration, retrievedEventDate.toLocalDate());
                     eventSet.add(event);
                 }
             }
@@ -273,6 +275,35 @@ public interface DBops {
 			System.out.println("SQLException: " + e.getMessage()); 
 			connection.close();
 		}
+	}
+	
+	// method to delete the event from database
+	public static boolean deleteEventDB(int id) throws SQLException {
+		boolean result = false;
+		databaseConnection dbConnect = new databaseConnection();
+		Connection connection = dbConnect.getConnection();
+		
+		String SQL = "DELETE FROM main.events WHERE id = ?";
+		try(PreparedStatement statement = connection.prepareStatement(SQL)){
+			statement.setInt(1, id);
+			
+			int rowsDeleted = statement.executeUpdate();
+			if(rowsDeleted > 0) {
+				result = true;
+			}
+		}catch(SQLException e) {
+			System.out.print("SQLException: " + e.getMessage());
+			e.printStackTrace();
+		}finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return result;
 	}
 
 //	public static void addYearDB(int yearNumber) throws SQLException {

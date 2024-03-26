@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * This event can be added to a Day by using methods in the Day class.
  */
 public class NonRepeatingEvent extends Event{
-
+	private int id; 
 	/**
      * Constructs a new NonRepeatingEvent object.
      */
@@ -22,7 +22,7 @@ public class NonRepeatingEvent extends Event{
 	 * @param duration
 	 * @param date
 	 */ 
-	public NonRepeatingEvent(String title, String description, Hour startingTime, int duration, LocalDate date) {
+	public NonRepeatingEvent(int id, String title, String description, Hour startingTime, int duration, LocalDate date) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.title = title;
@@ -30,6 +30,15 @@ public class NonRepeatingEvent extends Event{
 		this.startingTime = startingTime;
 	    this.duration = duration;
 		this.date = date;
+		this.id = id;
+	}
+	
+	public int getId() {
+		return this.id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
