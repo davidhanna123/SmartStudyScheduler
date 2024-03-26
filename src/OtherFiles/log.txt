@@ -96,4 +96,14 @@ log 19 - 3/10/24 - Yadon
 		UI and database integration of reminders
 		UI and database integration of time related classes and events
 	
+log 20 - 2/25/2024 - Yadon 
+	New changes and finalized features over the last 10 days:
+		- Added a new exception to handle events that surpass the days that they are on. This new exception will be used in the addEvent method in the Day class. 
+		- Database was fully integrated and is fully functional on all devices.
+		- Database operation methods fully completed.	
+		- More integration test cases added for the day and event class.
+		- Tests were separated to unit tests and integration tests. More will be added in the days to come and cuztomer tests have been reported.
+		- 3 Major refactorings have been done so far in the HomeController class. One major refactor was done in the business logic related to the creation of Year, Month, and Day objects.
+		- UI interactions for automatic scheduling were simoplified by using a new class that is comprised of GUI components.
 		
+
