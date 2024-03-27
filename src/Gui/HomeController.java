@@ -1043,9 +1043,21 @@ public class HomeController implements GuiControllerHelper{
     	    			if(!(calendar.contains(yearNum))){
     	    				calendar.addYear(yearNum);
     	    			}
+//check if there is a conflicting repeating event
     	    			
+    	    			boolean sequenceIsAddable = true;
+    	                for (int i = 0; i <= repeatData; i++) {
+    	                    LocalDate currentDate = dateData.plusWeeks(i);
+    	                    eventToBeAdded.SetDate(currentDate);
+    
+    	                    if (!calendar.findDay(currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth()).checkEventAddable(eventToBeAdded)) {
+    	                        sequenceIsAddable = false;
+    	                        break; // Break the loop if any conflict is found
+    	                    }
+    	                }
+
     	    			//checking if the event can be added to that day and adding if it can
-    	    			if(calendar.findDay(yearNum, monthNum, dayNum).checkEventAddable(eventToBeAdded)) {
+    	    			if(sequenceIsAddable) {
     	    				//adding the event to the database
     		            	DBops.addNREventDB(titleData, descriptionData, startingTimeData, durationData, dateData, repeatData);
     		            	//displaying message indicating successful adding
@@ -1055,7 +1067,12 @@ public class HomeController implements GuiControllerHelper{
     		            	resultMessage.setText("Event Added");
     		            	//fetching the day object that corresponds to the selected date and adding an event to the calendar since the GUI's calendar has not been updated yet
     		    			try {
-    							calendar.findDay(yearNum, monthNum, dayNum).addEvent(eventToBeAdded);
+    		    				Hour eventStartingHour1 = new Hour(startingTimeData, 0);//initializing event starting hour
+    	    	    			NonRepeatingEvent eventToBeAdded1 = new NonRepeatingEvent(repeatData, titleData, descriptionData, eventStartingHour1, durationData, dateData);//creating event object
+    	    	    			
+    		    				LocalDate currentDate = dateData;
+    		    				calendar.findDay(currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth()).addEvent(eventToBeAdded1);
+
     						} catch (EventSurpassesDayException e) {
     							// TODO Auto-generated catch block
     							e.printStackTrace();

@@ -6,6 +6,7 @@ package BusinessLogic;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.IntToDoubleFunction;
 
 import Database.Database;
 /**
@@ -88,7 +89,9 @@ public class Day implements Comparable<Day>{
 		if((event.getStartingTime().getTime() + event.getDuration()) > 24) {
 			throw new EventSurpassesDayException("The event time surpasses the length of the day.");
 		}
+		
 		events.add(event);
+		
 		return true;
 	}
 	/**
