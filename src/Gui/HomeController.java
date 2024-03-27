@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -1267,6 +1269,9 @@ public class HomeController implements GuiControllerHelper{
 
         TextField offsetField = new TextField();
         offsetField.setPromptText("Offset in minutes");
+        
+        TextField eventTitleField = new TextField();
+        eventTitleField.setPromptText("Enter event title");
 
         Button saveButton = new Button("Save Reminder");
         
@@ -1282,15 +1287,20 @@ public class HomeController implements GuiControllerHelper{
 				LocalDate reminderDate = datePicker.getValue();
 				int eventTime = timeSpinner.getValue();
 				int offsetMinutes = Integer.parseInt(offsetField.getText());
-	
-				
+				String eventTitle = eventTitleField.getText(); 
 				int id = DBops.addRemindersDB(title,reminderDate, eventTime, offsetMinutes, message);
-				
+			
 				if (id != -1) {
-					Reminders newReminder = new Reminders(id, message, title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate);
+					Reminders newReminder = new Reminders(id, message, title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate, eventTitle);
 					remindersList.add(newReminder);
+					
+					ReminderNotificationService notificationService = new ReminderNotificationService(newReminder);
+					notificationService.start();
+	
+					displayReminders();
+					
 				}
-				displayReminders();
+				//displayReminders();
 				window.close();			
 	            
 			} catch (NumberFormatException e1) {
@@ -1312,14 +1322,14 @@ public class HomeController implements GuiControllerHelper{
             new Label("Title"), titleField,
             new Label("Date"), datePicker,
             new Label("Time"), timeSpinner,
-            new Label("Notify Me..."), offsetField, saveButton
+            new Label("Notify Me..."), offsetField, 
+            new Label("Event Title"), eventTitleField, saveButton
         );
 
         Scene scene = new Scene(layout, 470, 400);
         window.setScene(scene);
         window.showAndWait();  
     }
-    
     
     private void displayReminders() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
     	detailPane.getChildren().clear(); 
@@ -1428,9 +1438,7 @@ public class HomeController implements GuiControllerHelper{
         window.setScene(scene);
         window.showAndWait();
     }
-    
-    
-    
+    	
     
     public void initialize() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
         seeReminders.setOnAction(event -> { 

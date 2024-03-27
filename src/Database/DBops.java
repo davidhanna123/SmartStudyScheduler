@@ -149,6 +149,7 @@ public interface DBops {
 	        statement.setTime(3, java.sql.Time.valueOf(LocalTime.of(eventTime, 0))); 
 	        statement.setInt(4, offsetMinutes);
 	        statement.setString(5, message);
+	   
 	        int addedRows = statement.executeUpdate();
 	        
 	        if (addedRows > 0) {
@@ -181,8 +182,9 @@ public interface DBops {
 	            LocalTime reminderTime = rs.getTime("reminder_time").toLocalTime();
 	            int offsetMinutes = rs.getInt("offset_minutes");
 	            String message = rs.getString("message");
+	           
 	            
-	            Reminders reminder = new Reminders(id, message, title, reminderTime.getHour(), Duration.ofMinutes(offsetMinutes), reminderDate);
+	            Reminders reminder = new Reminders(id, message, title, reminderTime.getHour(), Duration.ofMinutes(offsetMinutes), reminderDate, "EventTitle");
 	        
 	            reminder.setMessage(message); 
 	            reminderList.add(reminder);	             

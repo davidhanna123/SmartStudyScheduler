@@ -19,6 +19,7 @@ public class Reminders {
 	private LocalTime currentTime; // storing the current time
 	private Day reminderDay;
 	private LocalDate reminderDate;
+	private String eventTitle;
 	
 	
 	
@@ -33,7 +34,7 @@ public class Reminders {
 	 * @throws InvalidEventTimeException
 	 * @throws negativeReminderOffsetException
 	 */
-	public Reminders(int id, String message, String title, int eventTime, Duration offset, LocalDate reminderDate) throws InvalidEventTimeException, negativeReminderOffsetException {
+	public Reminders(int id, String message, String title, int eventTime, Duration offset, LocalDate reminderDate, String eventTitle) throws InvalidEventTimeException, negativeReminderOffsetException {
 		if (eventTime < 0 || eventTime > 23) {
 			throw new InvalidEventTimeException("Event time must be between 0 and 23");
 		}
@@ -48,6 +49,7 @@ public class Reminders {
 		//this.currentTime = LocalTime.now();
 		this.reminderDate = reminderDate;
 		this.id = id;
+		this.eventTitle = eventTitle;
 	}
 	
 	/**
@@ -68,6 +70,10 @@ public class Reminders {
         this.reminderDay = reminderDay;
     }
 	
+	
+	public String getEventTitle() {
+		return eventTitle;
+	}
 	
 	/**
 	 * 

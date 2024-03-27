@@ -46,7 +46,7 @@ public class ReminderController {
             int eventTime = time.getHour();
             int reminderId = DBops.addRemindersDB(title, date, eventTime, offsetMinutes, message);
             // creating a reminder with the localDate
-            Reminders newReminder = new Reminders(reminderId, message, title, eventTime, offset, date);
+            Reminders newReminder = new Reminders(reminderId, message, title, eventTime, offset, date, "EventTitle");
             
             // adding a new reminder to a stub database
             GuiHelper.addReminder(newReminder);

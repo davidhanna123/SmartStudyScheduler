@@ -75,8 +75,9 @@ class RemindersTest {
 	    Duration offset = Duration.ofMinutes(23);
 	    int eventTime = 12;  
 	    int id = DBops.addRemindersDB("Test Message", date, eventTime, (int) offset.toMinutes(), "Test");
+	    String eventTitle = "Test";
 
-	    Reminders reminder = new Reminders(id, "Test Message", "Test", eventTime, offset, date);
+	    Reminders reminder = new Reminders(id, "Test Message", "Test", eventTime, offset, date, eventTitle);
 	    assertTrue(DBops.reminderExistsDB(id));
 	}
 	
@@ -84,7 +85,7 @@ class RemindersTest {
 	void testInvalidEventTime() throws InvalidEventTimeException, negativeReminderOffsetException{
 		// added localdate 
 		LocalDate date = LocalDate.of(2023, Month.AUGUST, 12);
-		Reminders reminder = new Reminders(1, "Test Message", "Test", 12, Duration.ofMinutes(30), date);
+		Reminders reminder = new Reminders(1, "Test Message", "Test", 12, Duration.ofMinutes(30), date, "Test");
 	}
 	
 	@AfterEach
@@ -100,14 +101,14 @@ class RemindersTest {
 	void testNegativeOffset() {
         assertThrows(negativeReminderOffsetException.class, () -> {
         	LocalDate date = LocalDate.of(2023, Month.AUGUST, 21);
-            Reminders reminder = new Reminders(2,"Test Message", "Test2", 23, Duration.ofMinutes(-30),date);
+            Reminders reminder = new Reminders(2,"Test Message", "Test2", 23, Duration.ofMinutes(-30),date, "Test");
         });
     }
 	
 	@Test
 	void testGetReminderTime() throws InvalidEventTimeException, negativeReminderOffsetException{
 		LocalDate date = LocalDate.of(2023, Month.MARCH, 15);
-		Reminders reminder = new Reminders(3, "Test Message", "Test3", 10, Duration.ofMinutes(30), date);
+		Reminders reminder = new Reminders(3, "Test Message", "Test3", 10, Duration.ofMinutes(30), date, "Test");
 		assertEquals(9, reminder.getReminderTime());
 		assertEquals(date, reminder.getReminderDate());
 	}
@@ -115,7 +116,7 @@ class RemindersTest {
 	@Test
 	void isTimeForReminder() throws InvalidEventTimeException, negativeReminderOffsetException{
 		LocalDate date = LocalDate.of(2022, Month.APRIL, 23);
-		Reminders reminder = new Reminders(4, "Test Message", "Test4", 9, Duration.ofMinutes(30), date);
+		Reminders reminder = new Reminders(4, "Test Message", "Test4", 9, Duration.ofMinutes(30), date, "Test");
 		
 		// Change the event time to 10 AM
         reminder.setEventTime(10);
