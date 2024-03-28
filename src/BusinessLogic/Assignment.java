@@ -31,20 +31,6 @@ public class Assignment extends Homework {
 	}
 
 	/**
-	 * Constructor with LocalDate parameters
-	 * @param work
-	 * @param course
-	 * @param duration
-	 * @param year
-	 * @param month
-	 * @param dayOfMonth
-	 */
-	public Assignment(String work, String course, int duration, int year, int month, int dayOfMonth) {
-		super(work, course, duration);
-		this.setDue(year, month, dayOfMonth);
-	}
-
-	/**
 	 * 
 	 * @return due date
 	 */
@@ -58,16 +44,6 @@ public class Assignment extends Homework {
 	 */
 	public void setDue(LocalDate date) {
 		this.dueDate = date; 
-	}
-	
-	/**
-	 * Set due date using LocalDate fields
-	 * @param year
-	 * @param month
-	 * @param dayOfMonth
-	 */
-	public void setDue(int year, int month, int dayOfMonth) {
-		this.dueDate = LocalDate.of(year, month, dayOfMonth);
 	}
 
 	/**
