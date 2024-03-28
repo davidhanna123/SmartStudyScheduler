@@ -262,7 +262,14 @@ public class Add_Homework {
 	private static boolean isInt(TextField input) { 
 		try { 
 			int x = Integer.valueOf((input.getText()));
-			return true;
+			if(x <= 0 || x > 31) {
+				errorMsg.setText("Error: int values in fields Completion TIme or Date are out of bounds");
+				errorMsg.setTextFill(Color.RED);
+				return false;
+			}
+			else { 
+				return true;
+			}
 		}catch(NumberFormatException e) { 
 			errorMsg.setText("Error: Expected value of int in field Completion Time or Date");
 			errorMsg.setTextFill(Color.RED);
