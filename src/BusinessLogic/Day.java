@@ -137,6 +137,34 @@ public class Day implements Comparable<Day>{
 	}
 	
 	/**
+	 * Checks if an event can be modified to a day or not. It does not actually edit the event, it just returns a boolean indicating whether or not it can be edited.
+	 * a slight modification to event addable but we just check to make sure we arent comparing with old event
+	 * @param event
+	 * @return boolean: true is returned if the event can be modified, false if it can not (example: there is an event overlap at the specified event time)
+	 */
+	public boolean checkEventEditable(Event event, Event eventOld){
+		if(!(this.events.isEmpty())) {
+			for(Event e: events) {
+				if(event.startingTime.getTime() >= e.startingTime.getTime() && event.startingTime.getTime() < (e.startingTime.getTime() + e.duration) ) {
+					if(!(eventOld.getId() == e.getId())) {
+						return false;
+					}
+					
+				}
+				if(e.startingTime.getTime() >= event.startingTime.getTime() && e.startingTime.getTime() < (event.startingTime.getTime() + event.duration)) {
+					if(!(eventOld.getId() == e.getId())) {
+						return false;
+					}
+				}
+			}
+		}
+		if((event.getStartingTime().getTime() + event.getDuration()) > 24) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
 	 * Removes event from the Day object's events TreeSet
 	 * @param event
 	 * @return removed event
@@ -145,7 +173,11 @@ public class Day implements Comparable<Day>{
 		return events.remove(event);
 	}
 	
-	
+	/**
+	 * updates event from the Day object's events TreeSet
+	 * @param event
+	 * @return updated event
+	 */
 	public boolean UpdateEvent(Event event,int newStartTime,int newDuration,LocalDate newDate) {
 		for (Event e : events) {
 	        if (e.equals(event)) {

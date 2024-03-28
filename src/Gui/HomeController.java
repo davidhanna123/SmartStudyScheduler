@@ -991,7 +991,7 @@ public class HomeController implements GuiControllerHelper{
     	});
     	detailPane.getChildren().add(deleteEventButton);
     	
-    	 Button editOrRescheduleButton = new Button("Edit/Reschedule Event");
+    	 Button editOrRescheduleButton = new Button("Reschedule Event");
     	    editOrRescheduleButton.setLayoutX(0);
     	    editOrRescheduleButton.setLayoutY(395);
     	    editOrRescheduleButton.setOnAction(e -> {
@@ -1007,7 +1007,16 @@ public class HomeController implements GuiControllerHelper{
     	    });
     	    detailPane.getChildren().add(editOrRescheduleButton);
     	
-    	
+    	    Button ViewEventButton = new Button("View Events");
+    	    ViewEventButton.setLayoutX(0);
+    	    ViewEventButton.setLayoutY(425);
+    	    ViewEventButton.setOnAction(e -> {
+    	    	
+    	        // Implement logic to edit or reschedule event here
+    	        // You can create a new method for handling both editing and rescheduling events
+    	        
+    	    });
+    	    detailPane.getChildren().add(ViewEventButton);
         //adding the event to database when the finish button is clicked
         EventHandler<ActionEvent> eventAddHandler = new EventHandler<ActionEvent>() {
             @Override
@@ -1530,7 +1539,8 @@ public class HomeController implements GuiControllerHelper{
                     Hour eventStartingHour = new Hour(newStartTime, 0);
                     selectedEvent.setStartingTime(eventStartingHour);
                     selectedEvent.SetDate(newDate);
-                    if (calendar.findDay(newDate.getYear(), newDate.getMonthValue(), newDate.getDayOfMonth()).checkEventAddable(selectedEvent)) {
+                    NonRepeatingEvent oldEvent = (NonRepeatingEvent) eventComboBox.getSelectionModel().getSelectedItem();
+                    if (calendar.findDay(newDate.getYear(), newDate.getMonthValue(), newDate.getDayOfMonth()).checkEventEditable(selectedEvent,oldEvent)) {
                     	
                     	boolean isUpdated = DBops.updateEvent(selectedEvent.getId(), newStartTime, newDuration, newDate);
                         if (isUpdated) {
