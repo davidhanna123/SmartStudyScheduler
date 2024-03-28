@@ -103,7 +103,41 @@ public interface DBops {
         connection.close();
         return event;
 	}
-        
+	
+	public static TreeSet<Event> getEventsByDate(LocalDate eventDate) throws SQLException {
+		databaseConnection dbConnect = new databaseConnection();
+		Connection connection = dbConnect.getConnection();
+		NonRepeatingEvent event = null;
+		String sql = "SELECT * FROM main.events WHERE eventDate = ?";
+		TreeSet<Event> eventSet = new TreeSet<>();
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        	 statement.setObject(1, eventDate);
+            try (ResultSet resultSet = statement.executeQuery()) {
+            	
+                while (resultSet.next()) {
+                	
+                	int id = resultSet.getInt("id");
+                    String retrievedTitle = resultSet.getString("title");
+                    String description = resultSet.getString("description");
+                    int startingTime = resultSet.getInt("startingTime");
+                    int duration = resultSet.getInt("duration");
+                    Date retrievedEventDate = resultSet.getDate("eventDate");
+
+                    Hour eventHour = new Hour(startingTime, 0);
+                    event = new NonRepeatingEvent(id, retrievedTitle, description, eventHour, duration, retrievedEventDate.toLocalDate());
+                    eventSet.add(event);
+                }
+            }
+        }catch(SQLException e) {
+        	System.out.println("SQL Exception" + e.getMessage());
+        	e.printStackTrace();
+        }
+
+        connection.close();
+        return eventSet;
+	}
+    
 	public static TreeSet<Event> getAllEventDB() throws SQLException {
 		databaseConnection dbConnect = new databaseConnection();
 		Connection connection = dbConnect.getConnection();

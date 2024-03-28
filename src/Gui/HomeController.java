@@ -33,12 +33,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -1001,19 +1003,23 @@ public class HomeController implements GuiControllerHelper{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-    	        // Implement logic to edit or reschedule event here
-    	        // You can create a new method for handling both editing and rescheduling events
+    	        
     	        
     	    });
     	    detailPane.getChildren().add(editOrRescheduleButton);
     	
+    	    
     	    Button ViewEventButton = new Button("View Events");
     	    ViewEventButton.setLayoutX(0);
     	    ViewEventButton.setLayoutY(425);
     	    ViewEventButton.setOnAction(e -> {
-    	    	
-    	        // Implement logic to edit or reschedule event here
-    	        // You can create a new method for handling both editing and rescheduling events
+    	    	try {
+					ViewEventsWindow();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    	        
     	        
     	    });
     	    detailPane.getChildren().add(ViewEventButton);
@@ -1530,9 +1536,7 @@ public class HomeController implements GuiControllerHelper{
                     newDate = selectedEvent.getDate();
                 }
                 
-                //if (calendar.findDay(newDate.getYear(), newDate.getMonthValue(), newDate.getDayOfMonth()).checkEventAddable(selectedEvent)) {
-                   
-               // }
+                
                 try {
                     // Update the event in the database
                 	selectedEvent.setDuration(newDuration);
@@ -1586,7 +1590,47 @@ public class HomeController implements GuiControllerHelper{
         window.showAndWait();
     }
 
+    public void ViewEventsWindow() throws SQLException {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("View Events");
 
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(10));
+
+        DatePicker datePicker = new DatePicker();
+        datePicker.setPromptText("Select a date");
+
+        GridPane scheduleGrid = new GridPane();
+
+       
+
+        Button viewEventsButton = new Button("View Events");
+        viewEventsButton.setOnAction(event -> {
+            LocalDate selectedDate = datePicker.getValue();
+            if (selectedDate != null) {
+                try {
+                	
+                    TreeSet<Event> events = DBops.getEventsByDate(selectedDate);
+                    
+                    
+                    TimeScheduleView timeScheduleView = new TimeScheduleView(scheduleGrid);
+                    timeScheduleView.updateSchedule(events); 
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            
+        });
+
+        layout.getChildren().addAll(datePicker, viewEventsButton,scheduleGrid); 
+
+        Scene scene = new Scene(layout, 300, 300);
+        window.setScene(scene);
+        window.showAndWait();
+    }
+
+    
 
 
 
