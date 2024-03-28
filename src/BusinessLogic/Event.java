@@ -106,12 +106,16 @@ public abstract class Event implements Comparable<Event>{
 	 * 
 	 * @return event starting Hour object
 	 */
-	protected abstract Hour getStartingTime();
+	public Hour getStartingTime() {
+		return startingTime;
+	}
 	/**
 	 * 
 	 * @return event Duration(integer)
 	 */
-	protected abstract int getDuration();
+	public int getDuration() {
+		return duration;
+	}
 	/**
 	 * Sets event title
 	 * @param title
@@ -185,6 +189,7 @@ public abstract class Event implements Comparable<Event>{
 
 	@Override 
 	public int hashCode() {
-		return Objects.hash(title, startingTime);
+		return Objects.hash(title, startingTime,description,duration,date);
+		//return Objects.hash(title, startingTime);
 	}
 }

@@ -308,5 +308,38 @@ public interface DBops {
 		}
 		return result;
 	}
+	public static boolean updateEvent(int id, int newStartTime, int newDuration, LocalDate newDate) throws SQLException {
+	    boolean result = false;
+	    databaseConnection dbConnect = new databaseConnection();
+	    Connection connection = dbConnect.getConnection();
+
+	    String SQL = "UPDATE main.events SET eventDate = ?, duration = ?, startingTime = ? WHERE id = ?";
+	    try (PreparedStatement statement = connection.prepareStatement(SQL)) {
+	        
+	        statement.setDate(1, java.sql.Date.valueOf(newDate));
+	        statement.setInt(2, newDuration);
+	        statement.setInt(3, newStartTime);
+	        statement.setInt(4, id);
+
+	        
+	        int rowsUpdated = statement.executeUpdate();
+	        if (rowsUpdated > 0) {
+	            result = true;
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("SQLException: " + e.getMessage());
+	        e.printStackTrace();
+	    } finally {
+	        if (connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	    }
+	    return result;
+	}
+
 
 }

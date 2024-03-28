@@ -990,7 +990,22 @@ public class HomeController implements GuiControllerHelper{
 			}
     	});
     	detailPane.getChildren().add(deleteEventButton);
-
+    	
+    	 Button editOrRescheduleButton = new Button("Edit/Reschedule Event");
+    	    editOrRescheduleButton.setLayoutX(0);
+    	    editOrRescheduleButton.setLayoutY(395);
+    	    editOrRescheduleButton.setOnAction(e -> {
+    	    	try {
+					openEditOrRescheduleEventWindow();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    	        // Implement logic to edit or reschedule event here
+    	        // You can create a new method for handling both editing and rescheduling events
+    	        
+    	    });
+    	    detailPane.getChildren().add(editOrRescheduleButton);
     	
     	
         //adding the event to database when the finish button is clicked
@@ -1455,7 +1470,116 @@ public class HomeController implements GuiControllerHelper{
         window.setScene(scene);
         window.showAndWait();
     }
-    	
+    
+    public void openEditOrRescheduleEventWindow() throws SQLException{
+        Stage window = new Stage();
+        
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("Edit/Reschedule Event");
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(10));
+
+        Label label = new Label("Select an event to edit/reschedule:");
+        ComboBox<Event> eventComboBox = new ComboBox<>();
+        eventComboBox.setItems(FXCollections.observableArrayList(DBops.getAllEventDB()));
+		
+
+        
+        Label startTimeLabel = new Label("New Start Time:");
+        Label endTimeLabel = new Label("New Duration:");
+        Label dateLabel = new Label("New Date:");
+
+        
+        Spinner<Integer> startTimeSpinner = new Spinner<>(0, 23, 0, 1);
+        startTimeSpinner.setPromptText("New Start Time");
+        Spinner<Integer> durationSpinner = new Spinner<>(0, 23, 0, 1);
+        durationSpinner.setPromptText("New Duration");
+       
+
+        
+        DatePicker datePicker = new DatePicker();
+        datePicker.setPromptText("New Date");
+
+        Button submitButton = new Button("Submit");
+
+        submitButton.setOnAction(e -> {
+            NonRepeatingEvent selectedEvent = (NonRepeatingEvent) eventComboBox.getSelectionModel().getSelectedItem();
+            if (selectedEvent != null) {
+                // Get data from the input fields
+                int newStartTime = startTimeSpinner.getValue();
+                int newDuration = durationSpinner.getValue();
+                LocalDate newDate = datePicker.getValue();
+
+                if (newStartTime == 0) {
+                    newStartTime = selectedEvent.getStartingTime().getTime();
+                }
+                if (newDuration == 0) {
+                    newDuration = selectedEvent.getDuration();
+                }
+                if (newDate == null) {
+                    newDate = selectedEvent.getDate();
+                }
+                
+                //if (calendar.findDay(newDate.getYear(), newDate.getMonthValue(), newDate.getDayOfMonth()).checkEventAddable(selectedEvent)) {
+                   
+               // }
+                try {
+                    // Update the event in the database
+                	selectedEvent.setDuration(newDuration);
+                    Hour eventStartingHour = new Hour(newStartTime, 0);
+                    selectedEvent.setStartingTime(eventStartingHour);
+                    selectedEvent.SetDate(newDate);
+                    if (calendar.findDay(newDate.getYear(), newDate.getMonthValue(), newDate.getDayOfMonth()).checkEventAddable(selectedEvent)) {
+                    	
+                    	boolean isUpdated = DBops.updateEvent(selectedEvent.getId(), newStartTime, newDuration, newDate);
+                        if (isUpdated) {
+                            // If the event is successfully updated, print a success message
+                            System.out.println("Event updated: " + selectedEvent);
+                            // Optionally, you can refresh the UI or perform any other necessary actions here
+                        } else {
+                            // If the update fails, print an error message
+                            System.out.println("Failed to update event: " + selectedEvent);
+                        }
+                        NonRepeatingEvent actualevent = (NonRepeatingEvent) eventComboBox.getSelectionModel().getSelectedItem();
+                        calendar.findDay(newDate.getYear(), newDate.getMonthValue(), newDate.getDayOfMonth()).UpdateEvent(actualevent, newStartTime, newDuration, newDate);
+                    }
+                    else {
+                    	System.out.println("Failed to update event: " + selectedEvent);
+                    	//still need to add error message
+						
+					}
+                    
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    System.out.println("Error updating event: " + ex.getMessage());
+                } catch (DayNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (MonthNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (CalendarException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }
+        });
+
+
+
+        // Add components to the layout
+        layout.getChildren().addAll(label, eventComboBox, startTimeLabel, startTimeSpinner, endTimeLabel, durationSpinner, dateLabel, datePicker, submitButton);
+
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+    }
+
+
+
+
+
     
     public void initialize() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
         seeReminders.setOnAction(event -> { 

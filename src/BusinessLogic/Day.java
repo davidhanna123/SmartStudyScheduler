@@ -145,6 +145,21 @@ public class Day implements Comparable<Day>{
 		return events.remove(event);
 	}
 	
+	
+	public boolean UpdateEvent(Event event,int newStartTime,int newDuration,LocalDate newDate) {
+		for (Event e : events) {
+	        if (e.equals(event)) {
+	            
+	            e.setStartingTime(new Hour(newStartTime, 0.0)); 
+	            e.setDuration(newDuration);
+	            e.SetDate(newDate);
+	            return true; 
+	        }
+	    }
+	    return false; 
+		
+		
+	}
 //	/**
 //	 * Removes all occurences of a certain event in 
 //	 * @param event
