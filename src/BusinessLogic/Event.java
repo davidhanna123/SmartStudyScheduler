@@ -112,12 +112,14 @@ public abstract class Event implements Comparable<Event>{
 	 * 
 	 * @return event starting Hour object
 	 */
-	protected abstract Hour getStartingTime();
-	/**
-	 * 
-	 * @return event Duration(integer)
-	 */
-	protected abstract int getDuration();
+	public Hour getStartingTime() {
+		// TODO Auto-generated method stub
+		return this.startingTime;
+	}
+	public int getDuration() {
+		// TODO Auto-generated method stub
+		return this.duration;
+	}
 	/**
 	 * Sets event title
 	 * @param title

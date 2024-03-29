@@ -6,6 +6,7 @@ import javafx.scene.layout.GridPane;
 import java.util.TreeSet;
 
 import BusinessLogic.Event;
+import BusinessLogic.NonRepeatingEvent;
 public class TimeScheduleView {
     private GridPane scheduleGrid;
 
