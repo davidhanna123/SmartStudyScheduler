@@ -107,3 +107,4 @@ log 20 - 2/25/2024 - Yadon
 		- UI interactions for automatic scheduling were simoplified by using a new class that is comprised of GUI components.
 		
 
+log 21
