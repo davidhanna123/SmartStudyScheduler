@@ -92,17 +92,22 @@ public abstract class Event implements Comparable<Event>{
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 	/**
 	 * 
 	 * @return Event title
 	 */
-	protected abstract String getTitle();
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return this.title;
+	}
 	/**
 	 * 
 	 * @return Event Description
 	 */
-	protected abstract String getDescription();
+	public String getDescription() {
+
+		return this.description;
+	}
 	/**
 	 * 
 	 * @return event starting Hour object
