@@ -3,6 +3,7 @@ package BusinessLogic;
 import java.time.LocalDate;
 import java.util.Objects;
 
+
 /**
  * 1Abstract class that other different kinds of event will extend. Parent abstract class of ExternalEvent, NonRepeatingEvent, Extracurricular, and NonRepeatingEvent
  */
@@ -96,32 +97,22 @@ public abstract class Event implements Comparable<Event>{
 	 * 
 	 * @return Event title
 	 */
-	public String getTitle() {
-		// TODO Auto-generated method stub
-		return this.title;
-	}
+	protected abstract String getTitle();
 	/**
 	 * 
 	 * @return Event Description
 	 */
-	public String getDescription() {
-		
-		return this.description;
-	}
+	protected abstract String getDescription();
 	/**
 	 * 
 	 * @return event starting Hour object
 	 */
-	public Hour getStartingTime() {
-		return startingTime;
-	}
+	protected abstract Hour getStartingTime();
 	/**
 	 * 
 	 * @return event Duration(integer)
 	 */
-	public int getDuration() {
-		return duration;
-	}
+	protected abstract int getDuration();
 	/**
 	 * Sets event title
 	 * @param title
@@ -150,14 +141,11 @@ public abstract class Event implements Comparable<Event>{
 	public LocalDate getDate() {
 		return date;
 	}
-	
 	/**
 	 * Compares events based on their starting time. See the compareTo method of the Hour class for more details.
 	 */
-	
 	@Override
 	public int compareTo(Event o) {
-	    // Compare starting times
 	    if (this.startingTime == null || o.startingTime == null) {
 	        if (this.startingTime == null && o.startingTime == null) {
 	            // Both starting times are null then comparing titles 
@@ -167,35 +155,43 @@ public abstract class Event implements Comparable<Event>{
 	            return 1; 
 	        }
 	    } else {
+	        // Compare non null starting times
 	        int compared = this.startingTime.compareTo(o.startingTime);
 	        if (compared != 0) {
 	            return compared;
 	        }
 	    }
 
-	    // Compare titles
+	    // If starting times are the same or both are null then compare by title
 	    if (this.title == null || o.title == null) {
 	        if (this.title == null && o.title == null) {
-	            // Both titles are null, consider equal
+	            return 0; // Both titles are null, consider equal
 	        } else if (this.title == null) {
 	            return -1; 
 	        } else {
 	            return 1; 
 	        }
-	    } else {
-	        int titleComparison = this.title.compareTo(o.title);
-	        if (titleComparison != 0) {
-	            return titleComparison;
-	        }
 	    }
-
-	    // Compare dates if all else is equal
-	    return this.date.toString().compareTo(o.date.toString());
+	    // Compare non null titles
+	    return this.title.compareTo(o.title);
 	}
-
+	
 	@Override 
 	public int hashCode() {
-		return Objects.hash(title, startingTime,description,duration,date);
-		//return Objects.hash(title, startingTime);
+		return Objects.hash(title, startingTime);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Event other = (Event) obj;
+		return Objects.equals(date, other.date)
+				&& Objects.equals(description, other.description) && duration == other.duration
+				&& id == other.id
+				&& Objects.equals(startingTime.getTime(), other.startingTime.getTime()) && Objects.equals(title, other.title);
 	}
 }

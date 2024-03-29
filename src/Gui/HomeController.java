@@ -938,7 +938,7 @@ public class HomeController implements GuiControllerHelper{
         Label resultMessage = new Label();
 		resultMessage.setTextFill(Color.LIGHTGREEN);
 		resultMessage.setLayoutX(-10);
-	    resultMessage.setLayoutY(405);
+	    resultMessage.setLayoutY(413);
     	
     	// Kamil's Reminders functionality implementation 
     	Button addReminderButton = new Button("Add Reminder");
@@ -970,7 +970,7 @@ public class HomeController implements GuiControllerHelper{
     	// Automatic scheduling feature
     	//Button to trigger auto scheduling feature 
     	Button autoAddButton = new Button("Automatically Schedule");
-    	autoAddButton.setLayoutX(0);
+    	autoAddButton.setLayoutX(-8);
     	autoAddButton.setLayoutY(325);
     	
     	// action handler to open the new dialog for automatic event scheduling 
@@ -979,8 +979,8 @@ public class HomeController implements GuiControllerHelper{
     	});
     	
     	Button deleteEventButton = new Button("Delete Event");
-    	deleteEventButton.setLayoutX(0);
-    	deleteEventButton.setLayoutY(360); 
+    	deleteEventButton.setLayoutX(-8);
+    	deleteEventButton.setLayoutY(355); 
     	
     	deleteEventButton.setOnAction(e -> {
     		try {
@@ -994,8 +994,8 @@ public class HomeController implements GuiControllerHelper{
     	detailPane.getChildren().add(deleteEventButton);
     	
     	 Button editOrRescheduleButton = new Button("Reschedule Event");
-    	    editOrRescheduleButton.setLayoutX(0);
-    	    editOrRescheduleButton.setLayoutY(395);
+    	    editOrRescheduleButton.setLayoutX(-8);
+    	    editOrRescheduleButton.setLayoutY(384);
     	    editOrRescheduleButton.setOnAction(e -> {
     	    	try {
 					openEditOrRescheduleEventWindow();
@@ -1010,8 +1010,8 @@ public class HomeController implements GuiControllerHelper{
     	
     	    
     	    Button ViewEventButton = new Button("View Events");
-    	    ViewEventButton.setLayoutX(0);
-    	    ViewEventButton.setLayoutY(425);
+    	    ViewEventButton.setLayoutX(75);
+    	    ViewEventButton.setLayoutY(355);
     	    ViewEventButton.setOnAction(e -> {
     	    	try {
 					ViewEventsWindow();
@@ -1073,7 +1073,7 @@ public class HomeController implements GuiControllerHelper{
     	    			if(!(calendar.contains(yearNum))){
     	    				calendar.addYear(yearNum);
     	    			}
-//check if there is a conflicting repeating event
+    	    			//check if there is a conflicting repeating event
     	    			
     	    			boolean sequenceIsAddable = true;
     	                for (int i = 0; i <= repeatData; i++) {
@@ -1089,7 +1089,7 @@ public class HomeController implements GuiControllerHelper{
     	    			//checking if the event can be added to that day and adding if it can
     	    			if(sequenceIsAddable) {
     	    				//adding the event to the database
-    		            	DBops.addNREventDB(titleData, descriptionData, startingTimeData, durationData, dateData, repeatData);
+    		            	DBops.addNREventDB(eventToBeAdded, repeatData);
     		            	//displaying message indicating successful adding
     		            	resultMessage.setTextFill(Color.GREEN);
     		            	resultMessage.setLayoutX(35);

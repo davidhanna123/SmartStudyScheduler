@@ -1,6 +1,7 @@
 package BusinessLogic;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * A non-repeating event that is a subclass of the Event abstract class.
@@ -149,5 +150,15 @@ public class NonRepeatingEvent extends Event{
 	 */
 	public String toString() {
 		return title + " on " + date + " from " + String.valueOf(startingTime.getTime()) + " until " + String.valueOf(startingTime.getTime() + duration) + " | Description: " + description;
+	}
+	/**
+	 * Generates a hashcode for the NonRepeatingEvent object
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(id);
+		return result;
 	}
 }

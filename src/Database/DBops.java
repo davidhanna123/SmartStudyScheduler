@@ -26,7 +26,13 @@ import java.sql.PreparedStatement;
 
 public interface DBops {
 	
-	public static boolean addNREventDB(String title, String description, int startingTime, int duration, LocalDate eventDate, int repeat) throws SQLException {
+	public static boolean addNREventDB(NonRepeatingEvent event, int repeat) throws SQLException {
+		String title = event.getTitle(); 
+		String description = event.getDescription();
+		int startingTime = event.getStartingTime().getTime();
+		int duration = event.getDuration();
+		LocalDate eventDate = event.getDate();
+		
 		databaseConnection dbConnect = new databaseConnection();
 		Connection connection = dbConnect.getConnection();
 		

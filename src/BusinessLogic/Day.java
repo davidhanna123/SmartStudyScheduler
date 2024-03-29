@@ -300,6 +300,27 @@ public class Day implements Comparable<Day>{
 	public String toString() {
 		return dayOfWeek + ", " + date; 
 	}
-	
+	/**
+	 * Generates a hashcode for the Day object
+	 */
+	@Override
+	public int hashCode() {
+		return Objects.hash(date, dayOfWeek, events, hours, month, year);
+	}
+	/**
+	 * Determines equality using all attributes of a day object
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Day other = (Day) obj;
+		return date == other.date && Objects.equals(dayOfWeek, other.dayOfWeek) && Objects.equals(events, other.events)
+				&& Objects.equals(hours, other.hours) && month == other.month && year == other.year;
+	}
 	
 }

@@ -5,6 +5,7 @@ package BusinessLogic;
 
 
 import java.util.*;
+
 /**
  * Hour class that has an integer called time which represents the time of day from 0 to 24 and a minute modifier that represents the minute of that hour
  */
@@ -117,6 +118,29 @@ public class Hour implements Comparable<Hour> {
 	public String toString() {
 		return time + ":" + minuteModifier;
 	}
+	/**
+	 * Generates a hashcode for the hour object
+	 */
+	@Override
+	public int hashCode() {
+		return Objects.hash(day, minuteModifier, month, time, year);
+	}
+	/**
+	 * Establishes equality based on hour and minute of the hour object
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Hour other = (Hour) obj;
+		return Double.doubleToLongBits(minuteModifier) == Double.doubleToLongBits(other.minuteModifier)
+				&& time == other.time;
+	}
+	
     
     
 }
