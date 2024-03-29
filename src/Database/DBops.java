@@ -305,13 +305,14 @@ public interface DBops {
 		databaseConnection dbConnect = new databaseConnection(); 
 		Connection connection = dbConnect.getConnection();
 		
-		String sql = "INSERT INTO main.assignments (title, course, duration, eventDate) VALUES(?,?,?,?)";
+		String sql = "INSERT INTO main.homework (title, course, duration, eventDate) VALUES(?,?,?,?)";
 		
 		try (PreparedStatement stmt = connection.prepareStatement(sql)){ 
+			Date sqlDate = Date.valueOf(due);
 			stmt.setString(1, title);
 			stmt.setString(2, course);
 			stmt.setInt(3, duration);
-			stmt.setObject(4, due);
+			stmt.setDate(4, sqlDate);
 			stmt.executeUpdate();
 			connection.close();
 		} catch (SQLException e) { 
