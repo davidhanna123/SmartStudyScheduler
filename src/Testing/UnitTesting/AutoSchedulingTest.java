@@ -28,7 +28,7 @@ class AutoSchedulingTest {
 	public void init() {
 		calendar = new CalendarApp();
 	}
-	
+	//
 	// had  to create this method which is a copy of the openAutomaticSchedulingWindow in  order to work  with jUnits, because openAutomaticSchedulingWindow is inside the UI 
 	// so  i had  to create a method without UI implementation
 	private boolean autoScheduling(LocalDate minDate, LocalDate maxDate, int minStartHour, int maxStartHour, int duration) {    

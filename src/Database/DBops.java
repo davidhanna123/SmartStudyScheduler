@@ -24,7 +24,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 
-public interface DBops {
+public interface DBops {//
 	
 	public static boolean addNREventDB(NonRepeatingEvent event, int repeat) throws SQLException {
 		String title = event.getTitle(); 

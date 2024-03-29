@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.function.IntToDoubleFunction;
 
-import Database.Database;
 /**
  * Day class that represents a day of the month. Events are contained by this class.
  */

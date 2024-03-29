@@ -3,7 +3,7 @@ package BusinessLogic;
 import java.time.LocalDate;
 import java.util.Objects;
 
-
+//
 /**
  * 1Abstract class that other different kinds of event will extend. Parent abstract class of ExternalEvent, NonRepeatingEvent, Extracurricular, and NonRepeatingEvent
  */

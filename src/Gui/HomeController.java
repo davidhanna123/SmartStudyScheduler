@@ -17,7 +17,6 @@ import BusinessLogic.*;
 import BusinessLogic.Event;
 import Database.*;
 import Database.DBops;
-import Database.Database;
 import Gui.resources.GuiControllerHelper;
 import Gui.resources.GuiHelper;
 import Gui.resources.ScheduleInputComponents;
@@ -206,7 +205,7 @@ public class HomeController implements GuiControllerHelper{
     @FXML
     private Button seeReminders;
     
-    
+   
     List<Reminders> remindersList = new ArrayList<>();
     public static CalendarApp calendar;
     

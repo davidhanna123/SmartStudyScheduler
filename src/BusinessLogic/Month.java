@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.*;
 import BusinessLogic.Day;
 
-import Database.Database;
 /**
  * Month class that contains Day objects in a limited tree set. Each Year object should have 12 months.
  */

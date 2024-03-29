@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import java.util.*;
 
-import Database.Database;
 /**
  * Represents a year with its associated months.
  * Implements the Comparable interface to enable comparison between years.
