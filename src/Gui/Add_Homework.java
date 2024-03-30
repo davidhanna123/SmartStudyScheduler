@@ -222,13 +222,13 @@ public class Add_Homework {
 			date = Integer.valueOf(dateInput.getText());
 			LocalDate due = LocalDate.of(year, month, date);
 			hw = new Assignment(task, course, duration, due);
-			DBops.addAssignment(task, course, duration, due);
+			DBops.addAssignment((Assignment) hw);
 			
 		}
 		
 		else { 
 			hw = new Homework(task, course, duration);
-			DBops.addHomework(task, course, duration);
+			DBops.addHomework(hw);
 		}
 		
 		window.close();

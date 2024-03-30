@@ -14,7 +14,9 @@ import java.time.LocalDate;
 import BusinessLogic.InvalidEventTimeException;
 import BusinessLogic.Reminders;
 import BusinessLogic.negativeReminderOffsetException;
+import BusinessLogic.Assignment;
 import BusinessLogic.Event;
+import BusinessLogic.Homework;
 import BusinessLogic.Hour;
 import BusinessLogic.Month;
 import BusinessLogic.NonRepeatingEvent;
@@ -273,16 +275,16 @@ public interface DBops {//
 		return exists;
 	}
 	
-	public static void addHomework(String title, String course, int duration)throws SQLException { 
+	public static void addHomework(Homework hw)throws SQLException { 
 		databaseConnection dbConnect = new databaseConnection(); 
 		Connection connection = dbConnect.getConnection();
 		
 		String sql = "INSERT INTO main.homework (title, course, duration) VALUES(?,?,?)";
 		
 		try (PreparedStatement stmt = connection.prepareStatement(sql)){ 
-			stmt.setString(1, title);
-			stmt.setString(2, course);
-			stmt.setInt(3, duration);
+			stmt.setString(1, hw.getWork());
+			stmt.setString(2, hw.getCourse());
+			stmt.setInt(3, hw.getCompletionTime());
 			stmt.executeUpdate();
 			connection.close();
 		} catch (SQLException e) { 
@@ -291,17 +293,17 @@ public interface DBops {//
 		}
 	}
 	
-	public static void addAssignment(String title, String course, int duration, LocalDate due)throws SQLException { 
+	public static void addAssignment(Assignment asign)throws SQLException { 
 		databaseConnection dbConnect = new databaseConnection(); 
 		Connection connection = dbConnect.getConnection();
 		
 		String sql = "INSERT INTO main.homework (title, course, duration, eventDate) VALUES(?,?,?,?)";
 		
 		try (PreparedStatement stmt = connection.prepareStatement(sql)){ 
-			Date sqlDate = Date.valueOf(due);
-			stmt.setString(1, title);
-			stmt.setString(2, course);
-			stmt.setInt(3, duration);
+			Date sqlDate = Date.valueOf(asign.getDue());
+			stmt.setString(1, asign.getWork());
+			stmt.setString(2, asign.getCourse());
+			stmt.setInt(3, asign.getCompletionTime());
 			stmt.setDate(4, sqlDate);
 			stmt.executeUpdate();
 			connection.close();
