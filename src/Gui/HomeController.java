@@ -1520,6 +1520,8 @@ public class HomeController implements GuiControllerHelper{
 
         Button submitButton = new Button("Submit");
 
+        Label messageLabel = new Label();
+        
         submitButton.setOnAction(e -> {
             NonRepeatingEvent selectedEvent = (NonRepeatingEvent) eventComboBox.getSelectionModel().getSelectedItem();
             if (selectedEvent != null) {
@@ -1551,18 +1553,24 @@ public class HomeController implements GuiControllerHelper{
                     	boolean isUpdated = DBops.updateEvent(selectedEvent.getId(), newStartTime, newDuration, newDate);
                         if (isUpdated) {
                             // If the event is successfully updated, print a success message
+                        	messageLabel.setTextFill(Color.GREEN);
+                        	messageLabel.setText("Event updated successfully.");
                             System.out.println("Event updated: " + selectedEvent);
-                            // Optionally, you can refresh the UI or perform any other necessary actions here
+                            
                         } else {
                             // If the update fails, print an error message
+                        	messageLabel.setTextFill(Color.RED);
+                        	messageLabel.setText("Event cannot be updated.");
                             System.out.println("Failed to update event: " + selectedEvent);
                         }
                         NonRepeatingEvent actualevent = (NonRepeatingEvent) eventComboBox.getSelectionModel().getSelectedItem();
                         calendar.findDay(newDate.getYear(), newDate.getMonthValue(), newDate.getDayOfMonth()).UpdateEvent(actualevent, newStartTime, newDuration, newDate);
                     }
                     else {
+                    	messageLabel.setTextFill(Color.RED);
+                    	messageLabel.setText("Event cannot be updated.");
                     	System.out.println("Failed to update event: " + selectedEvent);
-                    	//still need to add error message
+                    	
 						
 					}
                     
@@ -1584,8 +1592,8 @@ public class HomeController implements GuiControllerHelper{
 
 
 
-        // Add components to the layout
-        layout.getChildren().addAll(label, eventComboBox, startTimeLabel, startTimeSpinner, endTimeLabel, durationSpinner, dateLabel, datePicker, submitButton);
+        
+        layout.getChildren().addAll(label, eventComboBox, startTimeLabel, startTimeSpinner, endTimeLabel, durationSpinner, dateLabel, datePicker, submitButton,messageLabel);
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
@@ -1605,7 +1613,8 @@ public class HomeController implements GuiControllerHelper{
 
         GridPane scheduleGrid = new GridPane();
 
-       
+        Label errorText = new Label("");
+        errorText.setTextFill(Color.RED);
 
         Button viewEventsButton = new Button("View Events");
         viewEventsButton.setOnAction(event -> {
@@ -1615,9 +1624,17 @@ public class HomeController implements GuiControllerHelper{
                 	
                     TreeSet<Event> events = DBops.getEventsByDate(selectedDate);
                     
-                    
-                    TimeScheduleView timeScheduleView = new TimeScheduleView(scheduleGrid);
-                    timeScheduleView.updateSchedule(events); 
+                    if (events.isEmpty()) {
+                        
+                        errorText.setText("There are no events on this day.");
+                        scheduleGrid.getChildren().clear();
+                    } else {
+                        
+                        errorText.setText("");
+                        
+                        TimeScheduleView timeScheduleView = new TimeScheduleView(scheduleGrid);
+                        timeScheduleView.updateSchedule(events); 
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -1625,7 +1642,7 @@ public class HomeController implements GuiControllerHelper{
             
         });
 
-        layout.getChildren().addAll(datePicker, viewEventsButton,scheduleGrid); 
+        layout.getChildren().addAll(datePicker, viewEventsButton,scheduleGrid,errorText); 
 
         Scene scene = new Scene(layout, 300, 300);
         window.setScene(scene);
