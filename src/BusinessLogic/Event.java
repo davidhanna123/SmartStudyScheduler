@@ -50,7 +50,6 @@ public abstract class Event implements Comparable<Event>{
 		this.title = this.homework.getWork();
 		this.description = this.homework.getCourse();
 		this.duration = this.homework.getCompletionTime();
-		
 	}
 	/**
 	 * Sets up event using fields of Assignment object
@@ -144,7 +143,7 @@ public abstract class Event implements Comparable<Event>{
 	public void SetDate(LocalDate date) {
 		this.date =date;
 	}
-	//@Override
+	//@Override 
 	public LocalDate getDate() {
 		return date;
 	}

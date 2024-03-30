@@ -107,4 +107,9 @@ log 20 - 2/25/2024 - Yadon
 		- UI interactions for automatic scheduling were simoplified by using a new class that is comprised of GUI components.
 		
 
-log 21
+log 21 - 3/29/2024 - Yadon
+	Meeting from 7:30PM - 8:00PM
+		Assigned Responsibilities:
+			- Preparing Customer Tests: David
+			- Dependency Injection for Real Database and Stub Database: Yadon
+			- Final customer interview: Dursen
