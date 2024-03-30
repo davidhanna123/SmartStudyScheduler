@@ -38,14 +38,9 @@ public interface DBops {//
 		databaseConnection dbConnect = new databaseConnection();
 		Connection connection = dbConnect.getConnection();
 		
-		String setSchema = "SET search_path TO main";
-		try(PreparedStatement stmt = connection.prepareStatement(setSchema)){
-			stmt.execute();
-		}catch(SQLException e) {
-			System.out.println("SQLException: " + e.getMessage());
-		}
 		
-		String sql = "INSERT INTO events (title, description, startingTime, duration, eventDate) VALUES (?, ?, ?, ?, ?)";
+		
+		String sql = "INSERT INTO main.events (title, description, startingTime, duration, eventDate) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             // Set parameters for the PreparedStatement
         	int rowsInserted = 0;

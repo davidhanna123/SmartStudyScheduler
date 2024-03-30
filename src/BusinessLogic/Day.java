@@ -78,9 +78,11 @@ public class Day implements Comparable<Day>{
 		if(!(this.events.isEmpty())) {
 			for(Event e: events) {
 				if(event.startingTime.getTime() >= e.startingTime.getTime() && event.startingTime.getTime() < (e.startingTime.getTime() + e.duration)) {
+					
 					throw new EventOverlapException("Event overlaps with another");
 				}
 				if(e.startingTime.getTime() >= event.startingTime.getTime() && e.startingTime.getTime() < (event.startingTime.getTime() + event.duration)) {
+					
 					throw new EventOverlapException("Event overlaps with another");
 				}
 			}

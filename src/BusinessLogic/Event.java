@@ -152,6 +152,7 @@ public abstract class Event implements Comparable<Event>{
 	 */
 	@Override
 	public int compareTo(Event o) {
+	    // Compare starting times
 	    if (this.startingTime == null || o.startingTime == null) {
 	        if (this.startingTime == null && o.startingTime == null) {
 	            // Both starting times are null then comparing titles 
@@ -161,26 +162,30 @@ public abstract class Event implements Comparable<Event>{
 	            return 1; 
 	        }
 	    } else {
-	        // Compare non null starting times
 	        int compared = this.startingTime.compareTo(o.startingTime);
 	        if (compared != 0) {
 	            return compared;
 	        }
 	    }
-
-	    // If starting times are the same or both are null then compare by title
+	    // Compare titles
 	    if (this.title == null || o.title == null) {
 	        if (this.title == null && o.title == null) {
-	            return 0; // Both titles are null, consider equal
+	            // Both titles are null, consider equal
 	        } else if (this.title == null) {
 	            return -1; 
 	        } else {
 	            return 1; 
 	        }
+	    } else {
+	        int titleComparison = this.title.compareTo(o.title);
+	        if (titleComparison != 0) {
+	            return titleComparison;
+	        }
 	    }
-	    // Compare non null titles
-	    return this.title.compareTo(o.title);
+	    // Compare dates if all else is equal
+	    return this.date.toString().compareTo(o.date.toString());
 	}
+
 	
 	@Override 
 	public int hashCode() {
