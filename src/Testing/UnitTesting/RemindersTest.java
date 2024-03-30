@@ -31,16 +31,19 @@ class RemindersTest {
 		int offsetMinutes = 30;
 		
 		String message = "Test Message";
-		
+		String eventTitle = "Event title";
 		// adding reminder to db
-		DBops.addRemindersDB(title, reminderDate, eventTime, offsetMinutes, message);
+		Reminders newReminder = new Reminders(0, message,  title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate, eventTitle);
+		int reminderId = DBops.addRemindersDB(newReminder);
+		assertTrue(reminderId > 0, "added successfully and returns a valid id");
 		
 		// fetching a newly  added reminder
 		List<Reminders> reminders = DBops.getAllRemindersDB();
 		
 		assertFalse(reminders.isEmpty(), "The reminders list should not be empty.");
-        Reminders addedReminder = reminders.get(reminders.size() - 1); 
-        assertEquals(title, ( addedReminder).getTitle(), "The reminder title should match.");
+        //Reminders addedReminder = reminders.get(reminders.size() - 1); 
+		Reminders addedReminder = reminders.stream().filter(r ->  r.getId() == reminderId).findFirst().orElseThrow(() -> new AssertionError("Newly added reminder  not found"));
+        assertEquals(title, addedReminder.getTitle(), "The reminder title should match.");
         assertEquals(reminderDate, addedReminder.getReminderDate(), "The reminder date should match.");
         assertEquals(eventTime, addedReminder.getEventTime(), "The reminder event time should match.");
         assertEquals(Duration.ofMinutes(offsetMinutes), addedReminder.getOffset(), "The reminder offset should match.");
@@ -55,30 +58,34 @@ class RemindersTest {
 	}
 	
 	@Test
-	void deleteReminder() throws SQLException {
+	void deleteReminder() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
 		LocalDate date = LocalDate.of(2023, Month.APRIL, 12);
 	    int eventTime = 12; 
 	    int offsetMinutes = 30;
 	    String title = "Test Reminder";
 	    String message = "Test Message";
+	    String eventTitle = "Event Title";
 
-	    int id = DBops.addRemindersDB(title, date, eventTime, offsetMinutes, message);
-
-		assertTrue(DBops.reminderExistsDB(id));
-		DBops.deleteReminderDB(id);
-		assertFalse(DBops.reminderExistsDB(id));
+		Reminders newReminder = new Reminders(0, title,  message, eventTime, Duration.ofMinutes(offsetMinutes), date, eventTitle);
+	    int reminderId = DBops.addRemindersDB(newReminder);
+	    assertTrue(DBops.reminderExistsDB(reminderId), "The reminder should exist in the database after being added");
+		DBops.deleteReminderDB(reminderId);
+		assertFalse(DBops.reminderExistsDB(reminderId));
 	}
 	
 	@Test
 	void testReminderCreation() throws SQLException, InvalidEventTimeException, negativeReminderOffsetException {
 		LocalDate date = LocalDate.of(2023, Month.APRIL, 12);
 	    Duration offset = Duration.ofMinutes(23);
+	    String title = "Test Reminder";
+	    String message = "Test Message";
+	    String eventTitle = "Event Title";
 	    int eventTime = 12;  
-	    int id = DBops.addRemindersDB("Test Message", date, eventTime, (int) offset.toMinutes(), "Test");
-	    String eventTitle = "Test";
+	    Reminders newReminder = new Reminders(0, title, message, eventTime, offset, date, eventTitle);
+	    int reminderId = DBops.addRemindersDB(newReminder);
 
-	    Reminders reminder = new Reminders(id, "Test Message", "Test", eventTime, offset, date, eventTitle);
-	    assertTrue(DBops.reminderExistsDB(id));
+	   // Reminders reminder = new Reminders(id, "Test Message", "Test", eventTime, offset, date, eventTitle);
+	    assertTrue(DBops.reminderExistsDB(reminderId));
 	}
 	
 	@Test

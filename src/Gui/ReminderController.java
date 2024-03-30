@@ -44,12 +44,17 @@ public class ReminderController {
 
             Duration offset = Duration.ofMinutes(offsetMinutes);
             int eventTime = time.getHour();
-            int reminderId = DBops.addRemindersDB(title, date, eventTime, offsetMinutes, message);
+            //int reminderId = DBops.addRemindersDB(title, date, eventTime, offsetMinutes, message);
             // creating a reminder with the localDate
-            Reminders newReminder = new Reminders(reminderId, message, title, eventTime, offset, date, "EventTitle");
+            Reminders newReminder = new Reminders(0, message, title, eventTime, offset, date, "EventTitle");
+            int reminderId = DBops.addRemindersDB(newReminder);
             
-            // adding a new reminder to a stub database
-            GuiHelper.addReminder(newReminder);
+            if (reminderId != -1) {
+            	newReminder.setId(reminderId);
+            	// adding a new reminder to a stub database
+                GuiHelper.addReminder(newReminder);
+            }
+            
   
             titleTextField.clear();
             datePicker.clear();

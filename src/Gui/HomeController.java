@@ -1334,12 +1334,15 @@ public class HomeController implements GuiControllerHelper{
 				int eventTime = timeSpinner.getValue();
 				int offsetMinutes = Integer.parseInt(offsetField.getText());
 				String eventTitle = eventTitleField.getText(); 
-				int id = DBops.addRemindersDB(title,reminderDate, eventTime, offsetMinutes, message);
-			
+		
+				Reminders newReminder = new Reminders(0, message, title, eventTime,Duration.ofMinutes(offsetMinutes), reminderDate, eventTitle);
+				int id = DBops.addRemindersDB(newReminder);
+				
 				if (id != -1) {
-					Reminders newReminder = new Reminders(id, message, title, eventTime, Duration.ofMinutes(offsetMinutes), reminderDate, eventTitle);
+					newReminder.setId(id);
 					remindersList.add(newReminder);
 					
+					// starting the notificication  service here
 					ReminderNotificationService notificationService = new ReminderNotificationService(newReminder);
 					notificationService.start();
 	

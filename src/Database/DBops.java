@@ -166,7 +166,7 @@ public interface DBops {//
         return eventSet;
 	}
 
-	public static int addRemindersDB(String title, LocalDate  reminderDate, int eventTime, int offsetMinutes, String message) throws SQLException {
+	public static int addRemindersDB(Reminders reminder) throws SQLException {
 		// we have to get an ID of each reminder that was added
 		int id = -1; 
 		databaseConnection dbConnect = new databaseConnection();
@@ -174,11 +174,11 @@ public interface DBops {//
 		
 		String SQL = "INSERT INTO main.reminders(title, reminder_date, reminder_time, offset_minutes, message) VALUES(?, ?, ?, ?, ?) RETURNING id";
 		try(PreparedStatement statement = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)){
-			statement.setString(1, title);
-	        statement.setDate(2, java.sql.Date.valueOf(reminderDate)); 
-	        statement.setTime(3, java.sql.Time.valueOf(LocalTime.of(eventTime, 0))); 
-	        statement.setInt(4, offsetMinutes);
-	        statement.setString(5, message);
+			statement.setString(1, reminder.getTitle());
+	        statement.setDate(2, java.sql.Date.valueOf(reminder.getReminderDate())); 
+	        statement.setTime(3, java.sql.Time.valueOf(LocalTime.of(reminder.getEventTime(), 0))); 
+	        statement.setInt(4, (int) reminder.getOffset().toMinutes());
+	        statement.setString(5, reminder.getMessage());
 	   
 	        int addedRows = statement.executeUpdate();
 	        
