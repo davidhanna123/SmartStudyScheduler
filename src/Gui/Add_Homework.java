@@ -47,12 +47,8 @@ public class Add_Homework {
 	static TextField ccInput = new TextField();
 	static TextField timeInput = new TextField(); 
 	
-	static Label yearLabel;
-	static Label monthLabel;
-	static Label dueDate;  
-	static TextField yearInput = new TextField(); 
-	static TextField monthInput = new TextField();
-	static TextField dateInput = new TextField(); 
+	static Label datePickLabel; 
+	static DatePicker eventDate = new DatePicker();
 	static Boolean assignCheck = false;
 	
 	static Button enter = new Button();
@@ -158,21 +154,12 @@ public class Add_Homework {
 	public static void yesCheck() { 
 		assignCheck = true;
 		
-		yearLabel = new Label("Year due: ");
-		GridPane.setConstraints(yearLabel, 0, 6, 2, 1);
-		yearInput.setPromptText("ex. 2024");
-		yearInput.setMaxWidth(75);
-		GridPane.setConstraints(yearInput, 1, 6, 3, 1);
+		datePickLabel = new Label("Choose due date");
+		GridPane.setConstraints(datePickLabel, 0, 6, 2, 1);
+		GridPane.setConstraints(eventDate, 0, 7, 3, 1);
+		eventDate.setPromptText("ex. 01/01/2024");
 		
-		monthLabel = new Label("Month due: ");
-		GridPane.setConstraints(monthLabel, 0, 7, 2, 1);
-		GridPane.setConstraints(monthInput, 1, 7);
-		
-		dueDate = new Label("Day of Month due: "); 
-		GridPane.setConstraints(dueDate, 0, 8, 2, 1);
-		GridPane.setConstraints(dateInput, 1, 8);
-		
-		grid.getChildren().addAll(yearLabel, yearInput, monthLabel, monthInput, dueDate, dateInput);
+		grid.getChildren().addAll(datePickLabel, eventDate);
 	}
 	
 	/**
@@ -180,7 +167,7 @@ public class Add_Homework {
 	 */
 	public static void noCheck() { 
 		assignCheck = false;
-		grid.getChildren().removeAll(yearLabel, yearInput, monthLabel, monthInput, dueDate, dateInput);
+		grid.getChildren().removeAll(datePickLabel, eventDate);
 	}
 	
 	/**
@@ -190,10 +177,10 @@ public class Add_Homework {
 	public static void handleEnter() throws SQLException { 
 		if(checkEmpty(taskInput) == false && checkEmpty(ccInput) == false && checkEmpty(timeInput) == false) {
 			if (assignCheck.booleanValue() == true) {
-				if(checkEmpty(yearInput) == false && checkEmpty(monthInput) == false && checkEmpty(dateInput) == false)  {
+				if(checkEmpty(eventDate.getEditor()) == false)  {
 					
 					//Creates Assignment if all data is entered correctly
-					if (isInt(timeInput) == true && isInt(yearInput) == true && isInt(monthInput) == true && isInt(dateInput) == true) { 
+					if (isInt(timeInput) == true && isLocalDate(eventDate) == true) { 
 						System.out.println(createHw());
 					}
 				}
@@ -217,10 +204,7 @@ public class Add_Homework {
 		
 		//Creates and Assignment object if due date is given
 		if(assignCheck.booleanValue() == true) { 
-			year = Integer.valueOf(yearInput.getText());
-			month = Integer.valueOf(monthInput.getText());
-			date = Integer.valueOf(dateInput.getText());
-			LocalDate due = LocalDate.of(year, month, date);
+			LocalDate due = eventDate.getValue();
 			hw = new Assignment(task, course, duration, due);
 			DBops.addAssignment((Assignment) hw);
 			
@@ -262,7 +246,7 @@ public class Add_Homework {
 	private static boolean isInt(TextField input) { 
 		try { 
 			int x = Integer.valueOf((input.getText()));
-			if(x <= 0 || x > 31) {
+			if(x <= 0 || x > 24) {
 				errorMsg.setText("Error: int values in fields Completion TIme or Date are out of bounds");
 				errorMsg.setTextFill(Color.RED);
 				return false;
@@ -272,6 +256,22 @@ public class Add_Homework {
 			}
 		}catch(NumberFormatException e) { 
 			errorMsg.setText("Error: Expected value of int in field Completion Time or Date");
+			errorMsg.setTextFill(Color.RED);
+			return false;
+		}
+	}
+	
+	/**
+	 * Checks to make sure date picker input is a valid date
+	 * @param input
+	 * @return
+	 */
+	private static boolean isLocalDate(DatePicker input) { 
+		try { 
+			LocalDate x = input.getValue();
+			return true;
+		}catch(NumberFormatException e) { 
+			errorMsg.setText("Error: Please enter date value correctly, or select date on the date picker");
 			errorMsg.setTextFill(Color.RED);
 			return false;
 		}
