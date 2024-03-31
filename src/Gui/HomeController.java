@@ -1328,20 +1328,39 @@ public class HomeController implements GuiControllerHelper{
 
         Button saveButton = new Button("Save Reminder");
         
-        
+        Label errorMessageLabel = new Label();
+        errorMessageLabel.setTextFill(Color.RED);
+        errorMessageLabel.setVisible(false);
         
         saveButton.setOnAction(e -> {
-            //  after clicking on save button probably database implementation will be here
-        	//  by  creating a new reminders objects 
-        	try {
+            errorMessageLabel.setText("");
+            errorMessageLabel.setVisible(false);
+            
+        	
         		//String message = titleField.getText();
-				String title = titleField.getText();
-				String message = title;
-				LocalDate reminderDate = datePicker.getValue();
-				int eventTime = timeSpinner.getValue();
-				int offsetMinutes = Integer.parseInt(offsetField.getText());
-				String eventTitle = eventTitleField.getText(); 
+			String title = titleField.getText();
+			String message = title;
+			LocalDate reminderDate = datePicker.getValue();
+			Integer eventTime = timeSpinner.getValue();
+			
+			String eventTitle = eventTitleField.getText(); 
 		
+				
+			if (title.isEmpty() || reminderDate == null || offsetField.getText().isEmpty() || eventTitle.isEmpty()) {
+				errorMessageLabel.setText("Please fill out all the fields.");
+				errorMessageLabel.setVisible(true);
+			return; 
+			}
+			Integer offsetMinutes = null;
+			try {
+				offsetMinutes = Integer.parseInt(offsetField.getText());
+			}catch(NumberFormatException ex) {
+				errorMessageLabel.setText("Offset must be a number");
+				errorMessageLabel.setVisible(true);
+				return;
+			}
+				
+			try {	
 				Reminders newReminder = new Reminders(0, message, title, eventTime,Duration.ofMinutes(offsetMinutes), reminderDate, eventTitle);
 				int id = DBops.addRemindersDB(newReminder);
 				
@@ -1359,15 +1378,13 @@ public class HomeController implements GuiControllerHelper{
 				//displayReminders();
 				window.close();			
 	            
-			} catch (NumberFormatException e1) {
-				e1.printStackTrace();
-			} catch (InvalidEventTimeException e1) {
-				e1.printStackTrace();
-			} catch (negativeReminderOffsetException e1) {
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+			} catch (NumberFormatException | InvalidEventTimeException | negativeReminderOffsetException | SQLException ex) {		
+
+				errorMessageLabel.setText("An error has occured. Please try again.");
+				errorMessageLabel.setVisible(true);
+				ex.printStackTrace();
 			}
+			
         });
 
         layout.getChildren().addAll(
@@ -1375,7 +1392,7 @@ public class HomeController implements GuiControllerHelper{
             new Label("Date"), datePicker,
             new Label("Time"), timeSpinner,
             new Label("Notify Me..."), offsetField, 
-            new Label("Event Title"), eventTitleField, saveButton
+            new Label("Event Title"), eventTitleField, saveButton, errorMessageLabel
         );
 
         Scene scene = new Scene(layout, 470, 400);
