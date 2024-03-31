@@ -1028,23 +1028,23 @@ public class HomeController implements GuiControllerHelper{
             public void handle(ActionEvent event) {
             	if(title.getText() == "") {
             		resultMessage.setTextFill(Color.RED);
-    				resultMessage.setLayoutX(10);
-	        	    resultMessage.setLayoutY(405);
+    				resultMessage.setLayoutX(7);
+	        	    resultMessage.setLayoutY(415);
     				resultMessage.setText("Error: The event does not\nhave a title");
             	}else if(description.getText() == "") {
             		resultMessage.setTextFill(Color.RED);
-    				resultMessage.setLayoutX(10);
-	        	    resultMessage.setLayoutY(405);
+    				resultMessage.setLayoutX(7);
+	        	    resultMessage.setLayoutY(415);
     				resultMessage.setText("Error: The event does not\nhave a description");
             	}else if(eventDate.getValue() == null) {
             		resultMessage.setTextFill(Color.RED);
-    				resultMessage.setLayoutX(10);
-	        	    resultMessage.setLayoutY(405);
+    				resultMessage.setLayoutX(7);
+	        	    resultMessage.setLayoutY(415);
     				resultMessage.setText("Error: An event date\nwas not chosen.");
             	}else if(startTime.getValue() >= endTime.getValue()) {
             		resultMessage.setTextFill(Color.RED);
     				resultMessage.setLayoutX(-8);
-	        	    resultMessage.setLayoutY(405);
+	        	    resultMessage.setLayoutY(408);
     				resultMessage.setText("Error: The event's starting time\ncannot be greater than or\nequal to it's ending time.");
             	}else {
             		//capturing event title and description
@@ -1123,9 +1123,9 @@ public class HomeController implements GuiControllerHelper{
         	    			repeat.getValueFactory().setValue(0);
     	    			}else {
     	    				resultMessage.setTextFill(Color.RED);
-    	    				resultMessage.setLayoutX(-10);
-    		        	    resultMessage.setLayoutY(405);
-    	    				resultMessage.setText("Error: Event Overlaps with\nanother or it can't be finished\non the starting day");
+    	    				resultMessage.setLayoutX(-5);
+    		        	    resultMessage.setLayoutY(418);
+    	    				resultMessage.setText("Error: This Event or events\n in series overlap with\n one or more events");
     	    			}
     	    			
     	    					
@@ -1360,16 +1360,12 @@ public class HomeController implements GuiControllerHelper{
 				window.close();			
 	            
 			} catch (NumberFormatException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (InvalidEventTimeException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (negativeReminderOffsetException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
         });
@@ -1474,13 +1470,10 @@ public class HomeController implements GuiControllerHelper{
                     ex.printStackTrace();
                     System.out.println("Error");
                 } catch (DayNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (MonthNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (CalendarException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
@@ -1497,6 +1490,10 @@ public class HomeController implements GuiControllerHelper{
     
     public void openEditOrRescheduleEventWindow() throws SQLException{
         Stage window = new Stage();
+        
+        //setting the window icon
+        Image icon = new Image("logo5.jpg");
+		window.getIcons().add(icon);
         
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Edit/Reschedule Event");
@@ -1563,7 +1560,7 @@ public class HomeController implements GuiControllerHelper{
                         	messageLabel.setTextFill(Color.GREEN);
                         	messageLabel.setText("Event updated successfully.");
                             System.out.println("Event updated: " + selectedEvent);
-                            
+                            window.close();//closing the window if successfully rescheduled
                         } else {
                             // If the update fails, print an error message
                         	messageLabel.setTextFill(Color.RED);
@@ -1585,13 +1582,10 @@ public class HomeController implements GuiControllerHelper{
                     ex.printStackTrace();
                     System.out.println("Error updating event: " + ex.getMessage());
                 } catch (DayNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (MonthNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (CalendarException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
@@ -1609,6 +1603,10 @@ public class HomeController implements GuiControllerHelper{
 
     public void ViewEventsWindow() throws SQLException {
         Stage window = new Stage();
+        //setting the window icon
+        Image icon = new Image("logo5.jpg");
+		window.getIcons().add(icon);
+		
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("View Events");
 
@@ -1666,13 +1664,10 @@ public class HomeController implements GuiControllerHelper{
 			try {
 				displayReminders();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InvalidEventTimeException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (negativeReminderOffsetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
