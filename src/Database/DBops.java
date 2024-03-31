@@ -270,7 +270,7 @@ public interface DBops {//
 		return exists;
 	}
 	
-	public static void addHomework(Homework hw)throws SQLException { 
+	public static boolean addHomework(Homework hw)throws SQLException { 
 		databaseConnection dbConnect = new databaseConnection(); 
 		Connection connection = dbConnect.getConnection();
 		
@@ -282,13 +282,15 @@ public interface DBops {//
 			stmt.setInt(3, hw.getCompletionTime());
 			stmt.executeUpdate();
 			connection.close();
+			return true;
 		} catch (SQLException e) { 
 			System.out.println("SQLException: " + e.getMessage()); 
 			connection.close();
+			return false;
 		}
 	}
 	
-	public static void addAssignment(Assignment asign)throws SQLException { 
+	public static boolean addAssignment(Assignment asign)throws SQLException { 
 		databaseConnection dbConnect = new databaseConnection(); 
 		Connection connection = dbConnect.getConnection();
 		
@@ -302,9 +304,11 @@ public interface DBops {//
 			stmt.setDate(4, sqlDate);
 			stmt.executeUpdate();
 			connection.close();
+			return true;
 		} catch (SQLException e) { 
 			System.out.println("SQLException: " + e.getMessage()); 
 			connection.close();
+			return false;
 		}
 	}
 	
