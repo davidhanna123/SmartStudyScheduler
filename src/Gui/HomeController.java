@@ -994,7 +994,7 @@ public class HomeController implements GuiControllerHelper{
     	});
     	detailPane.getChildren().add(deleteEventButton);
     	
-    	 Button editOrRescheduleButton = new Button("Reschedule Event");
+    	 Button editOrRescheduleButton = new Button("Edit Event");
     	    editOrRescheduleButton.setLayoutX(-8);
     	    editOrRescheduleButton.setLayoutY(384);
     	    editOrRescheduleButton.setOnAction(e -> {
@@ -1024,6 +1024,20 @@ public class HomeController implements GuiControllerHelper{
     	        
     	    });
     	    detailPane.getChildren().add(ViewEventButton);
+    	    
+    	    Button viewHomeworkButton = new Button("View HW");
+    	    viewHomeworkButton.setLayoutX(75); 
+    	    viewHomeworkButton.setLayoutY(384);
+    	    viewHomeworkButton.setOnAction(e -> { 
+    	    	try {
+					viewHomeworkWindow();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    	    });
+    	    detailPane.getChildren().add(viewHomeworkButton);
+    	    
         //adding the event to database when the finish button is clicked
         EventHandler<ActionEvent> eventAddHandler = new EventHandler<ActionEvent>() {
             @Override
