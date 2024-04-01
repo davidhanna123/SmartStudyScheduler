@@ -32,7 +32,7 @@ step 6: Right CLick on the project in Eclipse and go to
       Copy this: --module-path "PATH_TO_lib" --add-modules javafx.controls,javafx.fxml
 
       Paste it into The Section VM arguments and replace PATH_TO_lib with the actual path to the lib folder in the SDK that you extracted previously. 
-      ![image](https://github.com/davidhanna123/SmartStudyScheduler/assets/127888836/8b19dde5-c677-43d8-9a55-d22a680d059c)
+![image](https://github.com/davidhanna123/SmartStudyScheduler/assets/127888836/8b19dde5-c677-43d8-9a55-d22a680d059c)
 
       Click on Run.
 
@@ -62,7 +62,8 @@ step 6: Right CLick on the project in Eclipse and go to
       Copy this: --module-path PATH_TO_lib --add-modules javafx.controls,javafx.fxml
 
       Paste it into The Section VM arguments and replace PATH_TO_lib with the actual path to the lib folder in the SDK that you extracted previously. 
-     ![image](https://github.com/davidhanna123/SmartStudyScheduler/assets/127888836/e6a41b8e-9e89-41c2-8035-845e499d2bb0)
+    
+![image](https://github.com/davidhanna123/SmartStudyScheduler/assets/127888836/e6a41b8e-9e89-41c2-8035-845e499d2bb0)
 
 
       Click on Run.
