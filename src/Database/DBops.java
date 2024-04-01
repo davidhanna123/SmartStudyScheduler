@@ -317,34 +317,31 @@ public interface DBops {//
 		Homework hw = new Homework();
 		
 		databaseConnection  dbConnect = new databaseConnection();
-	    try (Connection connection = dbConnect.getConnection();
-	         Statement statement = connection.createStatement();
-	         ResultSet rs = statement.executeQuery("SELECT * FROM main.reminders")) {
-	    	
-	    	while(rs.next()) {
-	    		String title = rs.getString("title");
-	    		String course = rs.getString("course"); 
-	    		int duration = rs.getInt("duration"); 
-	    		Date dueDate = rs.getDate("eventDate"); 
+	    Connection connection = dbConnect.getConnection();
+	    Statement statement = connection.createStatement();
+	    ResultSet rs = statement.executeQuery("SELECT * FROM main.homework");
+	    
+	    while(rs.next()) {
+	    	String title = rs.getString("title");
+	    	String course = rs.getString("course"); 
+	    	int duration = rs.getInt("duration"); 
+	    	Date dueDate = rs.getDate("eventDate"); 
 	    		
-	    		//Homework object if date is null
-	    		if (dueDate == null) { 
-	    			hw = new Homework(title, course, duration);
-	    		} 
+	    	//Homework object if date is null
+	    	if (dueDate == null) { 
+	    		hw = new Homework(title, course, duration);
+	    	} 
 	    		
-	    		//Assignment Object if it has a date
-	    		else { 
-	    			LocalDate due = dueDate.toLocalDate();
-	    			hw = new Assignment(title, course, duration, due);
-	    			
-	    		}
+	    	//Assignment Object if it has a date
+	    	else { 
+	    		LocalDate due = dueDate.toLocalDate();
+	    		hw = new Assignment(title, course, duration, due);
 	    		
-	    		hwList.add(hw);
 	    	}
+	    		
+	    	hwList.add(hw);
 	    } 
-		return hwList ; 
-		
-		
+	return hwList ; 
 	}
 	
 	public static List<Homework> getJustHomeworkDB() throws SQLException{
@@ -352,24 +349,23 @@ public interface DBops {//
 		Homework hw = new Homework();
 		
 		databaseConnection  dbConnect = new databaseConnection();
-	    try (Connection connection = dbConnect.getConnection();
-	         Statement statement = connection.createStatement();
-	         ResultSet rs = statement.executeQuery("SELECT * FROM main.reminders")) {
+	    Connection connection = dbConnect.getConnection();
+	    Statement statement = connection.createStatement();
+	    ResultSet rs = statement.executeQuery("SELECT * FROM main.homework"); 
 	    	
-	    	while(rs.next()) {
-	    		String title = rs.getString("title");
-	    		String course = rs.getString("course"); 
-	    		int duration = rs.getInt("duration"); 
-	    		Date dueDate = rs.getDate("eventDate"); 
+	    while(rs.next()) {
+	    	String title = rs.getString("title");
+	    	String course = rs.getString("course"); 
+	    	int duration = rs.getInt("duration"); 
+	    	Date dueDate = rs.getDate("eventDate"); 
 	    		
-	    		//Homework object if date is null
-	    		if (dueDate == null) { 
-	    			hw = new Homework(title, course, duration);
-	    			hwList.add(hw);
-	    		} 
-	    	}
-	    } 
-		return hwList ; 	
+	    	//Homework object if date is null
+	    	if (dueDate == null) { 
+	    		hw = new Homework(title, course, duration);
+	    		hwList.add(hw);
+	    	} 
+	    }
+	return hwList ; 	
 	}
 	
 	public static List<Homework> getJustAssignmentDB() throws SQLException{
@@ -377,25 +373,24 @@ public interface DBops {//
 		Homework hw = new Homework();
 		
 		databaseConnection  dbConnect = new databaseConnection();
-	    try (Connection connection = dbConnect.getConnection();
-	         Statement statement = connection.createStatement();
-	         ResultSet rs = statement.executeQuery("SELECT * FROM main.reminders")) {
+		Connection connection = dbConnect.getConnection();
+	    Statement statement = connection.createStatement();
+	    ResultSet rs = statement.executeQuery("SELECT * FROM main.homework"); 
 	    	
-	    	while(rs.next()) {
-	    		String title = rs.getString("title");
-	    		String course = rs.getString("course"); 
-	    		int duration = rs.getInt("duration"); 
-	    		Date dueDate = rs.getDate("eventDate"); 
+	    while(rs.next()) {
+	    	String title = rs.getString("title");
+	    	String course = rs.getString("course"); 
+	    	int duration = rs.getInt("duration"); 
+	    	Date dueDate = rs.getDate("eventDate"); 
 	    		
-	    		//Homework object if date is null
-	    		if (dueDate != null) { 
-	    			LocalDate due = dueDate.toLocalDate();
-	    			hw = new Assignment(title, course, duration, due);
-	    			hwList.add(hw);
-	    		} 
-	    	}
+	    	//Assignment object if date exists
+	    	if (dueDate != null) { 
+	    		LocalDate due = dueDate.toLocalDate();
+	    		hw = new Assignment(title, course, duration, due);
+	    		hwList.add(hw);
+	    	} 
 	    } 
-		return hwList ; 	
+	return hwList ; 	
 	}
 	
 	// method to delete the event from database
